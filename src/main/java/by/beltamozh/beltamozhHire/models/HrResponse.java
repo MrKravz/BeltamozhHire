@@ -10,8 +10,8 @@ import org.hibernate.annotations.Cascade;
 import java.util.List;
 
 @Entity
-@Table(name = "skill_levels")
-public class SkillLevel {
+@Table(name = "hr_responses")
+public class HrResponse {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,18 +19,18 @@ public class SkillLevel {
     @Setter(AccessLevel.PUBLIC)
     private int id;
 
-    @Column(name = "name_of_skill_level")
+    @Column(name = "name_of_response")
     @Size(min = 2, max = 50, message = "Имя не правильного размера")
     @Getter(AccessLevel.PUBLIC)
     @Setter(AccessLevel.PUBLIC)
     private String name;
 
-    @OneToMany(mappedBy = "skillLevel")
+    @OneToMany(mappedBy = "hrResponse")
     @Cascade(org.hibernate.annotations.CascadeType.ALL)
     @Getter(AccessLevel.PUBLIC)
     @Setter(AccessLevel.PUBLIC)
     private List<Resume> resumes;
 
-    public SkillLevel() {
+    public HrResponse() {
     }
 }

@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
 import lombok.*;
 
+import java.util.List;
+
 @Entity
 @Table(name = "users")
 public class User {
@@ -38,6 +40,9 @@ public class User {
     @Getter(AccessLevel.PUBLIC)
     @Setter(AccessLevel.PUBLIC)
     private boolean is_deleted;
+
+    @OneToMany(mappedBy = "owner")
+    private List<Resume> resumes;
 
     public User() {
     }
