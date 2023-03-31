@@ -25,7 +25,7 @@ public class Technology {
     private String name;
 
     @ManyToMany
-    @Lazy()
+    @Lazy
     @JoinTable(
             name = "resumes_technologies",
             joinColumns = @JoinColumn(name = "resume_id"),

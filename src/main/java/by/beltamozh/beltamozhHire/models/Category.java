@@ -1,9 +1,9 @@
 package by.beltamozh.beltamozhHire.models;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Size;
 import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.annotations.Cascade;
 import org.springframework.context.annotation.Lazy;
 
@@ -19,7 +19,14 @@ public class Category {
     @Setter(AccessLevel.PUBLIC)
     private int id;
 
+    @Column(name = "name_of_category")
+    @Size(min = 2, max = 50, message = "Имя не правильного размера")
+    @Getter(AccessLevel.PUBLIC)
+    @Setter(AccessLevel.PUBLIC)
+    private String name;
+
     @OneToMany(mappedBy = "category")
+    @Lazy
     @Cascade(org.hibernate.annotations.CascadeType.ALL)
     @Getter(AccessLevel.PUBLIC)
     @Setter(AccessLevel.PUBLIC)

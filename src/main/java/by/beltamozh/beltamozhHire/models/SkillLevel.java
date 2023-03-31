@@ -3,9 +3,9 @@ package by.beltamozh.beltamozhHire.models;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
 import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.annotations.Cascade;
+import org.springframework.context.annotation.Lazy;
 
 import java.util.List;
 
@@ -26,6 +26,7 @@ public class SkillLevel {
     private String name;
 
     @OneToMany(mappedBy = "skillLevel")
+    @Lazy
     @Cascade(org.hibernate.annotations.CascadeType.ALL)
     @Getter(AccessLevel.PUBLIC)
     @Setter(AccessLevel.PUBLIC)

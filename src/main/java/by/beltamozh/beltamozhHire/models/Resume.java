@@ -1,9 +1,7 @@
 package by.beltamozh.beltamozhHire.models;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Max;
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
 import lombok.AccessLevel;
 import lombok.*;
 import org.springframework.context.annotation.Lazy;
@@ -42,6 +40,7 @@ public class Resume {
     private String desiredPosition;
 
     @ManyToMany(mappedBy = "resumes")
+    @Lazy
     @Getter(AccessLevel.PUBLIC)
     @Setter(AccessLevel.PUBLIC)
     private List<Technology> technologies;

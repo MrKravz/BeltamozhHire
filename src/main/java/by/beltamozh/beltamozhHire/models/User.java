@@ -3,6 +3,7 @@ package by.beltamozh.beltamozhHire.models;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
 import lombok.*;
+import org.springframework.context.annotation.Lazy;
 
 import java.util.List;
 
@@ -42,6 +43,9 @@ public class User {
     private boolean is_deleted;
 
     @OneToMany(mappedBy = "owner")
+    @Lazy
+    @Getter(AccessLevel.PUBLIC)
+    @Setter(AccessLevel.PUBLIC)
     private List<Resume> resumes;
 
     public User() {
