@@ -10,12 +10,11 @@ import java.util.List;
 
 @Entity
 @Table(name = "resumes")
+@Data
 public class Resume {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Getter(AccessLevel.PUBLIC)
-    @Setter(AccessLevel.PUBLIC)
     private int id;
 
     @ManyToOne()
@@ -23,48 +22,34 @@ public class Resume {
             name = "user_id",
             referencedColumnName =  "id"
     )
-    @Getter(AccessLevel.PUBLIC)
-    @Setter(AccessLevel.PUBLIC)
     private User owner;
 
     @Column(name = "name")
     @Size(min = 2, max = 50, message = "Имя не правильного размера")
-    @Getter(AccessLevel.PUBLIC)
-    @Setter(AccessLevel.PUBLIC)
     private String name;
 
     @Column(name = "desired_position")
     @Size(min = 2, max = 50, message = "Имя не правильного размера")
-    @Getter(AccessLevel.PUBLIC)
-    @Setter(AccessLevel.PUBLIC)
     private String desiredPosition;
 
     @ManyToMany(mappedBy = "resumes")
     @Lazy
-    @Getter(AccessLevel.PUBLIC)
-    @Setter(AccessLevel.PUBLIC)
     private List<Technology> technologies;
 
-    @ManyToOne()
+    @ManyToOne
     @JoinColumn(
             name = "skill_level_id",
             referencedColumnName =  "id"
     )
-    @Getter(AccessLevel.PUBLIC)
-    @Setter(AccessLevel.PUBLIC)
     private SkillLevel skillLevel;
 
     @Column(name = "desired_salary")
     @Min(value = 1)
     @Max(value = 1000000)
-    @Getter(AccessLevel.PUBLIC)
-    @Setter(AccessLevel.PUBLIC)
     private float desiredSalary;
 
     @Column(name = "about")
     @Size(max = 100, message = "Имя не правильного размера")
-    @Getter(AccessLevel.PUBLIC)
-    @Setter(AccessLevel.PUBLIC)
     private String about;
 
     @ManyToOne()
@@ -72,8 +57,6 @@ public class Resume {
             name = "category_id",
             referencedColumnName =  "id"
     )
-    @Getter(AccessLevel.PUBLIC)
-    @Setter(AccessLevel.PUBLIC)
     private Category category;
 
     @ManyToOne()
@@ -81,15 +64,5 @@ public class Resume {
             name = "hr_response_id",
             referencedColumnName =  "id"
     )
-    @Getter(AccessLevel.PUBLIC)
-    @Setter(AccessLevel.PUBLIC)
     private HrResponse hrResponse;
-
-    @Column(name = "is_deleted")
-    @Getter(AccessLevel.PUBLIC)
-    @Setter(AccessLevel.PUBLIC)
-    private boolean is_deleted;
-
-    public Resume() {
-    }
 }

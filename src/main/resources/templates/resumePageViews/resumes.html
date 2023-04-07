@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="icon" href="data:,">
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+    <body>
+        <div th:each="resume : ${resumes}">
+            <a th:href="@{/{user_id}/resumes/resume_details/{resume_id} (resume_id=${resume.getId()}, user_id=${resume.getOwner().getId()})}"
+            th:text="${resume.getName()}">user</a>
+        </div>
+    </body>
+</html>

@@ -1,5 +1,6 @@
 package by.beltamozh.beltamozhHire.services;
 
+import by.beltamozh.beltamozhHire.models.Resume;
 import by.beltamozh.beltamozhHire.models.User;
 import by.beltamozh.beltamozhHire.repositories.UserRepository;
 import org.springframework.stereotype.Service;

@@ -35,6 +35,6 @@ public class MainPageController {
     @GetMapping("/login")
     public String login()
     {
-        return "redirect:admin"; // TODO develop login logic
+        return "redirect:/admin"; // TODO develop login logic
     }
 }

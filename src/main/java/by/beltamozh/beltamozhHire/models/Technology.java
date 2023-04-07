@@ -10,18 +10,15 @@ import java.util.List;
 
 @Entity
 @Table(name = "technologies")
+@Data
 public class Technology {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Getter(AccessLevel.PUBLIC)
-    @Setter(AccessLevel.PUBLIC)
     private int id;
 
     @Column(name = "name_of_technology")
     @Size(min = 2, max = 50, message = "Имя не правильного размера")
-    @Getter(AccessLevel.PUBLIC)
-    @Setter(AccessLevel.PUBLIC)
     private String name;
 
     @ManyToMany
@@ -32,10 +29,5 @@ public class Technology {
             inverseJoinColumns = @JoinColumn(name = "technology_id")
     )
     @Cascade(org.hibernate.annotations.CascadeType.ALL)
-    @Getter(AccessLevel.PUBLIC)
-    @Setter(AccessLevel.PUBLIC)
     private List<Resume> resumes;
-
-    public Technology() {
-    }
 }
