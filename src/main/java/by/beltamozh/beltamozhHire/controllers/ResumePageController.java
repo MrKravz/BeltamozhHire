@@ -1,6 +1,8 @@
 package by.beltamozh.beltamozhHire.controllers;
 
 import by.beltamozh.beltamozhHire.models.Resume;
+import by.beltamozh.beltamozhHire.models.SkillLevel;
+import by.beltamozh.beltamozhHire.models.Technology;
 import by.beltamozh.beltamozhHire.models.User;
 import by.beltamozh.beltamozhHire.services.ResumeService;
 import by.beltamozh.beltamozhHire.services.UserService;
@@ -36,33 +38,38 @@ public class ResumePageController {
     private String details(@PathVariable int resume_id, Model model)
     {
         Optional<Resume> resume = resumeService.getResumeById(resume_id);
-        if (!resume.isPresent())
+        if (resume.isEmpty())
         {
             return "";
         }
         model.addAttribute("resume", resume.get());
         return "resumePageViews/resume_details";
     }
-    @PatchMapping("/resume_details/{resume_id}/edit")
+    @GetMapping("/resume_details/{resume_id}/edit")
     private String edit(@PathVariable int resume_id, Model model)
     {
         Optional<Resume> resume = resumeService.getResumeById(resume_id);
+        List<SkillLevel> skillLevels = resumeService.getAllSkillLevels();
+        List<Technology> technologies = resumeService.getAllTechnologies();
         if (!resume.isPresent())
         {
             return "";
         }
         model.addAttribute("resume", resume.get());
-        return "resumePageViews/resume_details";
+        model.addAttribute("skillLevels", skillLevels);
+        model.addAttribute("technologies", technologies);
+        return "resumePageViews/edit_resume";
+    }
+    @PatchMapping("/resume_details/{resume_id}/edit")
+    private String change(@ModelAttribute("user") Resume resume, @PathVariable int resume_id)
+    {
+        resumeService.save(resume);
+        return "redirect:/{id}/resumes";
     }
     @DeleteMapping ("/resume_details/{resume_id}/delete")
-    private String delete(@PathVariable int resume_id, Model model)
+    private String delete(@PathVariable int resume_id)
     {
-        Optional<Resume> resume = resumeService.getResumeById(resume_id);
-        if (!resume.isPresent())
-        {
-            return "";
-        }
-        model.addAttribute("resume", resume.get());
-        return "resumePageViews/resume_details";
+        resumeService.deleteResumeById(resume_id);
+        return "redirect:/{id}/resumes";
     }
 }

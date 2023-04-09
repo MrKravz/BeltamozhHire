@@ -29,5 +29,6 @@ public class Technology {
             inverseJoinColumns = @JoinColumn(name = "technology_id")
     )
     @Cascade(org.hibernate.annotations.CascadeType.ALL)
+    @ToString.Exclude
     private List<Resume> resumes;
 }

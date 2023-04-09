@@ -1,11 +1,20 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://thymeleaf.org">
 <head>
     <link rel="icon" href="data:,">
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
 <body>
-
+    <h1 th:text="${resume.getName()}">Name</h1>
+    <p th:text="${resume.getDesiredPosition()}"></p>
+    <p th:text="${resume.getSkillLevel().getName()}"></p>
+    <p th:text="${resume.getDesiredSalary()}"></p>
+    <p th:text="${resume.getAbout()}"></p>
+    <div th:each="technology : ${resume.getTechnologies()}">
+        <p th:text="${technology.getName()}">user</p>
+    </div>
+    <a th:href="@{/{id}/resumes (id=${resume.getOwner().getId()})}">Back</a>
+    <a th:href="@{/{user_id}/resumes/resume_details/{resume_id}/edit (resume_id=${resume.getId()}, user_id=${resume.getOwner().getId()})}">Edit</a>
 </body>
 </html>

@@ -32,5 +32,6 @@ public class User {
 
     @OneToMany(mappedBy = "owner")
     @Lazy
+    @ToString.Exclude
     private List<Resume> resumes;
 }

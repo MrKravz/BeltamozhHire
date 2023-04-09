@@ -25,5 +25,6 @@ public class SkillLevel {
     @OneToMany(mappedBy = "skillLevel")
     @Lazy
     @Cascade(org.hibernate.annotations.CascadeType.ALL)
+    @ToString.Exclude
     private List<Resume> resumes;
 }

@@ -25,5 +25,6 @@ public class HrResponse {
     @OneToMany(mappedBy = "hrResponse")
     @Lazy
     @Cascade(org.hibernate.annotations.CascadeType.ALL)
+    @ToString.Exclude
     private List<Resume> resumes;
 }
