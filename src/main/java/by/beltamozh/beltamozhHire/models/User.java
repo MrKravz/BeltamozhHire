@@ -3,6 +3,7 @@ package by.beltamozh.beltamozhHire.models;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
 import lombok.*;
+import org.hibernate.annotations.Cascade;
 import org.springframework.context.annotation.Lazy;
 
 import java.util.List;
@@ -32,6 +33,7 @@ public class User {
 
     @OneToMany(mappedBy = "owner")
     @Lazy
+    @Cascade(org.hibernate.annotations.CascadeType.ALL)
     @ToString.Exclude
     private List<Resume> resumes;
 }

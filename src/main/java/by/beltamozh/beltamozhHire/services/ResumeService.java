@@ -47,6 +47,11 @@ public class ResumeService {
         resumeRepository.save(resume);
     }
     @Transactional
+    public void update(Resume resume, int id){
+        resume.setId(id);
+        resumeRepository.save(resume);
+    }
+    @Transactional
     public void deleteResumeById(int id)
     {
         resumeRepository.deleteResumeById(id);

@@ -6,6 +6,29 @@
     <title>Title</title>
 </head>
 <body>
-
+<form th:method="POST" th:action="@{/resume_details/{resume_id}/submit_changes}" th:object="${resume}">
+    <label for="name">Enter name: </label>
+    <input type="text" th:field="*{name}" id="name"/>
+    <br>
+    <label for="desiredPosition">Enter login: </label>
+    <input type="text" th:field="*{desiredPosition}" id="desiredPosition"/>
+    <br>
+    <select th:field="*{skillLevel}">
+        <option th:each="skillLevel : ${skillLevels}" th:value="${skillLevel.getId()}" th:text="${skillLevel.getName()}"></option>
+    </select>
+    <br>
+    <label for="desiredSalary">Enter password: </label>
+    <input type="number" th:field="*{desiredSalary}" id="desiredSalary"/>
+    <br>
+    <label for="about">Enter password: </label>
+    <input type="about" th:field="*{about}" id="about"/>
+    <br>
+    <div th:each="technology :${technologies}">
+        <input type="checkbox" th:field="*{technologies}" th:value="${technology.id}"/>
+        <label th:for="${technology.getId()}" th:text="${technology.getName()}">Enter password: </label>
+        <br>
+    </div>
+    <input type="submit" value="register">
+</form>
 </body>
 </html>

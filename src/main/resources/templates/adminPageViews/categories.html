@@ -1,11 +1,25 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://thymeleaf.org">
 <head>
     <link rel="icon" href="data:,">
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
 <body>
-
+    <table>
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="category : ${categories}">
+            <td th:text="${category.getId()}"></td>
+            <td th:text="${category.getName()}"></td>
+            <td><a th:href="@{/categories/category_details/{id} (id=${category.getId()})}">Edit</a></td>
+        </tr>
+        </tbody>
+    </table>
 </body>
 </html>

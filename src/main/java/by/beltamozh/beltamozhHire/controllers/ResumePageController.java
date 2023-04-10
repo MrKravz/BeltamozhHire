@@ -1,11 +1,7 @@
 package by.beltamozh.beltamozhHire.controllers;
 
-import by.beltamozh.beltamozhHire.models.Resume;
-import by.beltamozh.beltamozhHire.models.SkillLevel;
-import by.beltamozh.beltamozhHire.models.Technology;
-import by.beltamozh.beltamozhHire.models.User;
+import by.beltamozh.beltamozhHire.models.*;
 import by.beltamozh.beltamozhHire.services.ResumeService;
-import by.beltamozh.beltamozhHire.services.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -26,7 +22,7 @@ public class ResumePageController {
     private String index(@PathVariable int id, Model model)
     {
         Optional<List<Resume>> resumes = resumeService.getResumesOfUserById(id);
-        if (!resumes.isPresent())
+        if (resumes.isEmpty())
         {
             return "";
         }
@@ -51,7 +47,7 @@ public class ResumePageController {
         Optional<Resume> resume = resumeService.getResumeById(resume_id);
         List<SkillLevel> skillLevels = resumeService.getAllSkillLevels();
         List<Technology> technologies = resumeService.getAllTechnologies();
-        if (!resume.isPresent())
+        if (resume.isEmpty())
         {
             return "";
         }
@@ -60,16 +56,17 @@ public class ResumePageController {
         model.addAttribute("technologies", technologies);
         return "resumePageViews/edit_resume";
     }
-    @PatchMapping("/resume_details/{resume_id}/edit")
-    private String change(@ModelAttribute("user") Resume resume, @PathVariable int resume_id)
+    @PatchMapping("/resume_details/{resume_id}")
+    private String change(@ModelAttribute("user") Resume resume, @PathVariable int user_id,
+                          @PathVariable int resume_id)
     {
-        resumeService.save(resume);
-        return "redirect:/{id}/resumes";
+        resumeService.update(resume, resume_id);
+        return "redirect:/" + user_id + "/resumes";
     }
     @DeleteMapping ("/resume_details/{resume_id}/delete")
-    private String delete(@PathVariable int resume_id)
+    private String delete(@PathVariable int resume_id, @PathVariable int id)
     {
         resumeService.deleteResumeById(resume_id);
-        return "redirect:/{id}/resumes";
+        return "redirect:/" + id + "/resumes";
     }
 }

@@ -6,7 +6,8 @@
   <title>Title</title>
 </head>
 <body>
-<form th:method="POST" th:action="@{/resume_details/{resume_id}/edit}" th:object="${resume}">
+<form th:method="PATCH" th:action="@{/{user_id}/resumes/resume_details/{resume_id} (resume_id=${resume.getId()}, user_id=${resume.getOwner().getId()})}"
+      th:object="${resume}">
   <label for="name">Enter name: </label>
   <input type="text" th:field="*{name}" id="name"/>
   <br>
@@ -21,10 +22,10 @@
   <input type="number" th:field="*{desiredSalary}" id="desiredSalary"/>
   <br>
   <label for="about">Enter password: </label>
-  <input type="about" th:field="*{about}" id="about"/>
+  <input type="text" th:field="*{about}" id="about"/>
   <br>
   <div th:each="technology :${technologies}">
-    <input type="checkbox" th:field="*{technologies}" th:value="${technology.id}"/>
+    <input type="checkbox" th:field="*{technologies}" th:value="${technology.getId()}" th:checked="${resume.technologies.contains(technology)}"/>
     <label th:for="${technology.getId()}" th:text="${technology.getName()}">Enter password: </label>
     <br>
   </div>

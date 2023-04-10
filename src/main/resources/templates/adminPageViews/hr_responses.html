@@ -1,11 +1,26 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://thymeleaf.org">
 <head>
     <link rel="icon" href="data:,">
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
 <body>
-
+    <table>
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Edit</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="response : ${responses}">
+            <td th:text="${response.getId()}"></td>
+            <td th:text="${response.getName()}"></td>
+            <td><a th:href="@{/responses/response_details/{id} (id=${response.getId()})}">Edit</a></td>
+        </tr>
+        </tbody>
+    </table>
 </body>
 </html>

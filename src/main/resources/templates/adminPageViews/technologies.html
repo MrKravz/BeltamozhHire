@@ -1,11 +1,26 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://thymeleaf.org">
 <head>
     <link rel="icon" href="data:,">
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
 <body>
-
+<table>
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Edit</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="technology : ${technologies}">
+        <td th:text="${technology.getId()}"></td>
+        <td th:text="${technology.getName()}"></td>
+        <td><a th:href="@{/technologies/technology_details/{id} (id=${technology.getId()})}">Edit</a></td>
+    </tr>
+    </tbody>
+</table>
 </body>
 </html>
