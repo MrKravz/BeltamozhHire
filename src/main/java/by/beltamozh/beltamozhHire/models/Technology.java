@@ -21,13 +21,8 @@ public class Technology {
     @Size(min = 2, max = 50, message = "Имя не правильного размера")
     private String name;
 
-    @ManyToMany
+    @ManyToMany(mappedBy = "technologies")
     @Lazy
-    @JoinTable(
-            name = "resumes_technologies",
-            joinColumns = @JoinColumn(name = "resume_id"),
-            inverseJoinColumns = @JoinColumn(name = "technology_id")
-    )
     @Cascade(org.hibernate.annotations.CascadeType.ALL)
     @ToString.Exclude
     private List<Resume> resumes;

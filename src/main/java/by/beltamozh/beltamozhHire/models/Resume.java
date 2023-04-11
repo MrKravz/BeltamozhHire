@@ -2,13 +2,14 @@ package by.beltamozh.beltamozhHire.models;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
-import lombok.AccessLevel;
 import lombok.*;
+import org.hibernate.annotations.DynamicUpdate;
 import org.springframework.context.annotation.Lazy;
 
 import java.util.List;
 
 @Entity
+@DynamicUpdate
 @Table(name = "resumes")
 @Data
 public class Resume {
@@ -32,7 +33,12 @@ public class Resume {
     @Size(min = 2, max = 50, message = "Имя не правильного размера")
     private String desiredPosition;
 
-    @ManyToMany(mappedBy = "resumes")
+    @ManyToMany
+    @JoinTable(
+            name = "resumes_technologies",
+            joinColumns = @JoinColumn(name = "resume_id"),
+            inverseJoinColumns = @JoinColumn(name = "technology_id")
+    )
     @Lazy
     private List<Technology> technologies;
 

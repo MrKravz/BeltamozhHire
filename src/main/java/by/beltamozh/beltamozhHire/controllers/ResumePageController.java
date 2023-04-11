@@ -51,15 +51,25 @@ public class ResumePageController {
         {
             return "";
         }
-        model.addAttribute("resume", resume.get());
+            model.addAttribute("resume", resume.get());
         model.addAttribute("skillLevels", skillLevels);
         model.addAttribute("technologies", technologies);
         return "resumePageViews/edit_resume";
     }
-    @PatchMapping("/resume_details/{resume_id}")
-    private String change(@ModelAttribute("user") Resume resume, @PathVariable int user_id,
+    @PatchMapping ("/resume_details/{resume_id}")
+    private String change(@ModelAttribute("resume") Resume resume,
+                          @ModelAttribute("technologies") List<Technology> technologies,
+                          @PathVariable("id") int user_id,
                           @PathVariable int resume_id)
     {
+        if (resume.getOwner() == null)
+        {
+            if (resumeService.getOwnerByResumeId(resume_id).isEmpty())
+            {
+                return "";
+            }
+            resume.setOwner(resumeService.getOwnerByResumeId(resume_id).get());
+        }
         resumeService.update(resume, resume_id);
         return "redirect:/" + user_id + "/resumes";
     }

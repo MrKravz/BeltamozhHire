@@ -3,6 +3,7 @@ package by.beltamozh.beltamozhHire.services;
 import by.beltamozh.beltamozhHire.models.Resume;
 import by.beltamozh.beltamozhHire.models.SkillLevel;
 import by.beltamozh.beltamozhHire.models.Technology;
+import by.beltamozh.beltamozhHire.models.User;
 import by.beltamozh.beltamozhHire.repositories.ResumeRepository;
 import by.beltamozh.beltamozhHire.repositories.SkillLevelRepository;
 import by.beltamozh.beltamozhHire.repositories.TechnologyRepository;
@@ -33,6 +34,10 @@ public class ResumeService {
     {
         return Optional.of(resumeRepository.getResumeById(id));
     }
+    public Optional<User> getOwnerByResumeId(int id)
+    {
+        return Optional.of(getResumeById(id).get().getOwner());
+    }
 
     public List<SkillLevel> getAllSkillLevels()
     {
@@ -48,8 +53,17 @@ public class ResumeService {
     }
     @Transactional
     public void update(Resume resume, int id){
-        resume.setId(id);
-        resumeRepository.save(resume);
+        Resume resumeToUpdate = resumeRepository.findById(id).get();
+        resumeToUpdate.setOwner(resume.getOwner());
+        resumeToUpdate.setName(resume.getName());
+        resumeToUpdate.setDesiredPosition(resume.getDesiredPosition());
+        resumeToUpdate.setSkillLevel(resume.getSkillLevel());
+        resumeToUpdate.setDesiredSalary(resume.getDesiredSalary());
+        resumeToUpdate.setAbout(resume.getAbout());
+        resumeToUpdate.setTechnologies(resume.getTechnologies());
+        resumeToUpdate.setCategory(resume.getCategory());
+        resumeToUpdate.setHrResponse(resume.getHrResponse());
+        resumeRepository.save(resumeToUpdate);
     }
     @Transactional
     public void deleteResumeById(int id)
