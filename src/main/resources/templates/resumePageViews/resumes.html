@@ -7,8 +7,10 @@
 </head>
     <body>
         <div th:each="resume : ${resumes}">
-            <a th:href="@{/{user_id}/resumes/resume_details/{resume_id} (resume_id=${resume.getId()}, user_id=${resume.getOwner().getId()})}"
+            <a th:href="@{/user/{user_id}/resumes/resume_details/{resume_id}
+             (resume_id=${resume.getId()}, user_id=${resume.getOwner().getId()})}"
             th:text="${resume.getName()}">user</a>
         </div>
+        <a th:href="@{resumes/new}">New</a>
     </body>
 </html>

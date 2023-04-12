@@ -6,7 +6,8 @@
   <title>Title</title>
 </head>
 <body>
-<form th:method="PATCH" th:action="@{/{user_id}/resumes/resume_details/{resume_id} (resume_id=${resume.getId()}, user_id=${resume.getOwner().getId()})}"
+<form th:method="PATCH" th:action="@{/user/{user_id}/resumes/resume_details/{resume_id}
+(resume_id=${resume.getId()},user_id=${resume.getOwner().getId()})}"
       th:object="${resume}">
   <label for="name">Enter name: </label>
   <input type="text" th:field="*{name}" id="name"/>

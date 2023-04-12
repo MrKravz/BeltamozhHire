@@ -17,11 +17,13 @@ import java.util.Optional;
 @Transactional(readOnly = true)
 public class ResumeService {
 
+    private final UserService userService;
     private final ResumeRepository resumeRepository;
     private final SkillLevelRepository skillLevelRepository;
     private final TechnologyRepository technologyRepository;
 
-    public ResumeService(ResumeRepository repository, SkillLevelRepository skillLevelRepository, TechnologyRepository technologyRepository) {
+    public ResumeService(UserService userService, ResumeRepository repository, SkillLevelRepository skillLevelRepository, TechnologyRepository technologyRepository) {
+        this.userService = userService;
         this.resumeRepository = repository;
         this.skillLevelRepository = skillLevelRepository;
         this.technologyRepository = technologyRepository;
@@ -33,6 +35,10 @@ public class ResumeService {
     public Optional<Resume> getResumeById(int id)
     {
         return Optional.of(resumeRepository.getResumeById(id));
+    }
+    public Optional<User> getUserById(int id)
+    {
+        return userService.getUserById(id);
     }
     public Optional<User> getOwnerByResumeId(int id)
     {

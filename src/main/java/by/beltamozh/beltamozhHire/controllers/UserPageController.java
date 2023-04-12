@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Optional;
 
 @Controller
-@RequestMapping("/{id}")
+@RequestMapping("/user/{id}")
 public class UserPageController {
     private final UserService userService;
 
@@ -45,12 +45,12 @@ public class UserPageController {
     public String edit(@ModelAttribute("user") User user, @PathVariable int id) // TODO edit user info
     {
         userService.save(user);
-        return "redirect:/{id}";
+        return "redirect:/user/{id}";
     }
 
     @GetMapping("/show")
     public String resumes(@PathVariable String id)
     {
-        return "redirect:/{id}/resumes";
+        return "redirect:/user/{id}/resumes";
     }
 }

@@ -3,14 +3,13 @@ package by.beltamozh.beltamozhHire.models;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import lombok.*;
-import org.hibernate.annotations.DynamicUpdate;
 import org.springframework.context.annotation.Lazy;
 
 import java.util.List;
 
 @Entity
-@DynamicUpdate
 @Table(name = "resumes")
+@Lazy
 @Data
 public class Resume {
     @Id
@@ -39,7 +38,6 @@ public class Resume {
             joinColumns = @JoinColumn(name = "resume_id"),
             inverseJoinColumns = @JoinColumn(name = "technology_id")
     )
-    @Lazy
     private List<Technology> technologies;
 
     @ManyToOne
