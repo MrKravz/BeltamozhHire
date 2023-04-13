@@ -1,12 +1,7 @@
 package by.beltamozh.beltamozhHire.services;
 
 import by.beltamozh.beltamozhHire.models.Resume;
-import by.beltamozh.beltamozhHire.models.SkillLevel;
-import by.beltamozh.beltamozhHire.models.Technology;
-import by.beltamozh.beltamozhHire.models.User;
 import by.beltamozh.beltamozhHire.repositories.ResumeRepository;
-import by.beltamozh.beltamozhHire.repositories.SkillLevelRepository;
-import by.beltamozh.beltamozhHire.repositories.TechnologyRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,50 +10,38 @@ import java.util.Optional;
 
 @Service
 @Transactional(readOnly = true)
-public class ResumeService {
-
-    private final UserService userService;
+public class ResumeService implements CrudService<Resume> {
     private final ResumeRepository resumeRepository;
-    private final SkillLevelRepository skillLevelRepository;
-    private final TechnologyRepository technologyRepository;
 
-    public ResumeService(UserService userService, ResumeRepository repository, SkillLevelRepository skillLevelRepository, TechnologyRepository technologyRepository) {
-        this.userService = userService;
+    public ResumeService(ResumeRepository repository) {
         this.resumeRepository = repository;
-        this.skillLevelRepository = skillLevelRepository;
-        this.technologyRepository = technologyRepository;
     }
-    public Optional<List<Resume>> getResumesOfUserById(int id)
+
+    @Override
+    public Optional<List<Resume>> findAll()
     {
-        return Optional.of(resumeRepository.getResumeByOwnerId(id));
+        return Optional.of(resumeRepository.findAll());
     }
-    public Optional<Resume> getResumeById(int id)
+
+    @Override
+    public Optional<Resume> findById(int id)
     {
         return Optional.of(resumeRepository.getResumeById(id));
     }
-    public Optional<User> getUserById(int id)
-    {
-        return userService.getUserById(id);
-    }
-    public Optional<User> getOwnerByResumeId(int id)
-    {
-        return Optional.of(getResumeById(id).get().getOwner());
-    }
 
-    public List<SkillLevel> getAllSkillLevels()
-    {
-        return (List<SkillLevel>) skillLevelRepository.findAll();
-    }
-    public List<Technology> getAllTechnologies()
-    {
-        return (List<Technology>) technologyRepository.findAll();
-    }
+    @Override
     @Transactional
     public void save(Resume resume){
         resumeRepository.save(resume);
     }
+
+    @Override
     @Transactional
     public void update(Resume resume, int id){
+        if (resumeRepository.findById(id).isEmpty())
+        {
+            return;
+        }
         Resume resumeToUpdate = resumeRepository.findById(id).get();
         resumeToUpdate.setOwner(resume.getOwner());
         resumeToUpdate.setName(resume.getName());
@@ -71,8 +54,10 @@ public class ResumeService {
         resumeToUpdate.setHrResponse(resume.getHrResponse());
         resumeRepository.save(resumeToUpdate);
     }
+
+    @Override
     @Transactional
-    public void deleteResumeById(int id)
+    public void delete(int id)
     {
         resumeRepository.deleteResumeById(id);
     }

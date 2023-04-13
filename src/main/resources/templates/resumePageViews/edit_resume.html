@@ -12,25 +12,27 @@
   <label for="name">Enter name: </label>
   <input type="text" th:field="*{name}" id="name"/>
   <br>
-  <label for="desiredPosition">Enter login: </label>
+  <label for="desiredPosition">Enter desired position: </label>
   <input type="text" th:field="*{desiredPosition}" id="desiredPosition"/>
   <br>
+  <label>Choose your skill level: </label>
   <select th:field="*{skillLevel}">
     <option th:each="skillLevel : ${skillLevels}" th:value="${skillLevel.getId()}" th:text="${skillLevel.getName()}"></option>
   </select>
   <br>
-  <label for="desiredSalary">Enter password: </label>
+  <label for="desiredSalary">Enter desired salary: </label>
   <input type="number" th:field="*{desiredSalary}" id="desiredSalary"/>
   <br>
-  <label for="about">Enter password: </label>
+  <label for="about">Enter about: </label>
   <input type="text" th:field="*{about}" id="about"/>
   <br>
+  <label>Choose technologies you know: </label>
   <div th:each="technology :${technologies}">
     <input type="checkbox" th:field="*{technologies}" th:value="${technology.getId()}" th:checked="${resume.technologies.contains(technology)}"/>
     <label th:for="${technology.getId()}" th:text="${technology.getName()}">Enter password: </label>
     <br>
   </div>
-  <input type="submit" value="register">
+  <input type="submit" value="Edit">
 </form>
 </body>
 </html>

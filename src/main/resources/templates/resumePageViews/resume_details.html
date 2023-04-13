@@ -18,7 +18,7 @@
     <a th:href="@{/user/{user_id}/resumes/resume_details/{resume_id}/edit (resume_id=${resume.getId()}, user_id=${resume.getOwner().getId()})}">Edit</a>
     <form th:method="DELETE" th:action="@{/user/{user_id}/resumes/resume_details/{resume_id}/delete
      (resume_id=${resume.getId()}, user_id=${resume.getOwner().getId()})}">
-        <input type="submit" value="delete"/>
+        <input type="submit" value="Delete"/>
     </form>
 </body>
 </html>

@@ -7,5 +7,7 @@
 </head>
 <body>
     <h1> Приветствую, <b th:utext="${user.getName()}">user</b></h1>
+    <a th:href="@{/user/{id}/info(id=${user.getId()})}">Info</a>
+    <a th:href="@{/user/{id}/show(id=${user.getId()})}">Resumes</a>
 </body>
 </html>

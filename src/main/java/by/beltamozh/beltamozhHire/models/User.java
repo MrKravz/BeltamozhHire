@@ -11,6 +11,7 @@ import java.util.List;
 @Entity
 @Table(name = "users")
 @Data
+@Lazy
 public class User {
 
     @Id
@@ -32,7 +33,6 @@ public class User {
     private String password;
 
     @OneToMany(mappedBy = "owner")
-    @Lazy
     @Cascade(org.hibernate.annotations.CascadeType.ALL)
     @ToString.Exclude
     private List<Resume> resumes;

@@ -2,7 +2,6 @@ package by.beltamozh.beltamozhHire.models;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
-import lombok.AccessLevel;
 import lombok.*;
 import org.hibernate.annotations.Cascade;
 import org.springframework.context.annotation.Lazy;

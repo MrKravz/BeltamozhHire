@@ -1,6 +1,7 @@
 package by.beltamozh.beltamozhHire.controllers;
 
 import by.beltamozh.beltamozhHire.models.User;
+import by.beltamozh.beltamozhHire.services.CrudService;
 import by.beltamozh.beltamozhHire.services.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,7 +12,7 @@ import java.util.Optional;
 @Controller
 @RequestMapping("/user/{id}")
 public class UserPageController {
-    private final UserService userService;
+    private final CrudService<User> userService;
 
     public UserPageController(UserService userService) {
         this.userService = userService;
@@ -20,7 +21,7 @@ public class UserPageController {
     @GetMapping()
     public String index(@PathVariable int id, Model model)
     {
-        Optional<User> user = userService.getUserById(id);
+        Optional<User> user = userService.findById(id);
         if (user.isEmpty())
         {
             return "";
@@ -29,10 +30,16 @@ public class UserPageController {
         return "userPageViews/index";
     }
 
+    @GetMapping("/show")
+    public String resumes(@PathVariable String id)
+    {
+        return "redirect:/user/{id}/resumes";
+    }
+
     @GetMapping("/info")
     public String info(@PathVariable int id, Model model)
     {
-        Optional<User> user = userService.getUserById(id);
+        Optional<User> user = userService.findById(id);
         if (user.isEmpty())
         {
             return "";
@@ -44,13 +51,9 @@ public class UserPageController {
     @PatchMapping("/edit")
     public String edit(@ModelAttribute("user") User user, @PathVariable int id) // TODO edit user info
     {
-        userService.save(user);
+        userService.update(user, id);
         return "redirect:/user/{id}";
     }
 
-    @GetMapping("/show")
-    public String resumes(@PathVariable String id)
-    {
-        return "redirect:/user/{id}/resumes";
-    }
+
 }

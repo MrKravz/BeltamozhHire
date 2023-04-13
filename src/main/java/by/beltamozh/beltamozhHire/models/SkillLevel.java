@@ -2,7 +2,6 @@ package by.beltamozh.beltamozhHire.models;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
-import lombok.AccessLevel;
 import lombok.*;
 import org.hibernate.annotations.Cascade;
 import org.springframework.context.annotation.Lazy;
@@ -12,6 +11,7 @@ import java.util.List;
 @Entity
 @Table(name = "skill_levels")
 @Data
+@Lazy
 public class SkillLevel {
     @Id
     @Column(name = "id")
@@ -23,8 +23,12 @@ public class SkillLevel {
     private String name;
 
     @OneToMany(mappedBy = "skillLevel")
-    @Lazy
     @Cascade(org.hibernate.annotations.CascadeType.ALL)
     @ToString.Exclude
     private List<Resume> resumes;
+
+    @OneToMany(mappedBy = "requiredSkillLevel")
+    @Cascade(org.hibernate.annotations.CascadeType.ALL)
+    @ToString.Exclude
+    private List<Vacancy> vacancies;
 }

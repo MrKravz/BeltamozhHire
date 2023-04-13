@@ -1,7 +1,7 @@
 package by.beltamozh.beltamozhHire.controllers;
 
 import by.beltamozh.beltamozhHire.models.*;
-import by.beltamozh.beltamozhHire.services.ResumeService;
+import by.beltamozh.beltamozhHire.services.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -13,16 +13,26 @@ import java.util.Optional;
 @Controller
 @RequestMapping("user/{id}/resumes")
 public class ResumePageController {
-    private final ResumeService resumeService;
+    private final CrudService<Resume> resumeService;
+    private final CrudService<User> userService;
+    private final CrudService<SkillLevel> skillLevelService;
+    private final CrudService<Technology> technologyService;
 
-    public ResumePageController(ResumeService resumeService) {
+    public ResumePageController(ResumeService resumeService, UserService userService, SkillLevelService skillLevelService, TechnologyService technologyService) {
         this.resumeService = resumeService;
+        this.userService = userService;
+        this.skillLevelService = skillLevelService;
+        this.technologyService = technologyService;
     }
     //region info
     @GetMapping()
     private String index(@PathVariable int id, Model model)
     {
-        Optional<List<Resume>> resumes = resumeService.getResumesOfUserById(id);
+        Optional<List<Resume>> resumes = Optional.of(resumeService.findAll()
+                .get()
+                .stream()
+                .filter(x -> x.getOwner().getId() == id)
+                .toList());
         if (resumes.isEmpty())
         {
             return "";
@@ -41,7 +51,7 @@ public class ResumePageController {
     @GetMapping("/resume_details/{resume_id}")
     private String details(@PathVariable int resume_id, Model model)
     {
-        Optional<Resume> resume = resumeService.getResumeById(resume_id);
+        Optional<Resume> resume = resumeService.findById(resume_id);
         if (resume.isEmpty())
         {
             return "";
@@ -54,10 +64,10 @@ public class ResumePageController {
     @GetMapping("/new")
     private String newResume(@PathVariable("id") int id, @ModelAttribute("resume") Resume resume, Model model)
     {
-        User user = resumeService.getUserById(id).get();
+        User user = userService.findById(id).get();
         resume.setOwner(user);
-        List<SkillLevel> skillLevels = resumeService.getAllSkillLevels();
-        List<Technology> technologies = resumeService.getAllTechnologies();
+        List<SkillLevel> skillLevels = skillLevelService.findAll().get();
+        List<Technology> technologies = technologyService.findAll().get();
         model.addAttribute("skillLevels", skillLevels);
         model.addAttribute("technologies", technologies);
         return "resumePageViews/create_resume";
@@ -65,7 +75,7 @@ public class ResumePageController {
     @PostMapping("/create")
     private String create(@PathVariable("id") int id, @ModelAttribute("resume") Resume resume)
     {
-        User user = resumeService.getUserById(id).get();
+        User user = userService.findById(id).get();
         resume.setOwner(user);
         resumeService.save(resume);
         return "redirect:/user/" + id + "/resumes";
@@ -75,9 +85,9 @@ public class ResumePageController {
     @GetMapping("/resume_details/{resume_id}/edit")
     private String edit(@PathVariable int resume_id, Model model)
     {
-        Optional<Resume> resume = resumeService.getResumeById(resume_id);
-        List<SkillLevel> skillLevels = resumeService.getAllSkillLevels();
-        List<Technology> technologies = resumeService.getAllTechnologies();
+        Optional<Resume> resume = resumeService.findById(resume_id);
+        List<SkillLevel> skillLevels = skillLevelService.findAll().get();
+        List<Technology> technologies = technologyService.findAll().get();
         if (resume.isEmpty())
         {
             return "";
@@ -95,11 +105,11 @@ public class ResumePageController {
     {
         if (resume.getOwner() == null)
         {
-            if (resumeService.getOwnerByResumeId(resume_id).isEmpty())
+            if (resumeService.findById(resume_id).isEmpty())
             {
                 return "";
             }
-            resume.setOwner(resumeService.getOwnerByResumeId(resume_id).get());
+            resume.setOwner(resumeService.findById(resume_id).get().getOwner());
         }
         resumeService.update(resume, resume_id);
         return "redirect:/user/" + user_id + "/resumes";
@@ -108,7 +118,7 @@ public class ResumePageController {
     @DeleteMapping ("/resume_details/{resume_id}/delete")
     private String delete(@PathVariable int resume_id, @PathVariable int id)
     {
-        resumeService.deleteResumeById(resume_id);
+        resumeService.delete(resume_id);
         return "redirect:/user/" + id + "/resumes";
     }
 }
