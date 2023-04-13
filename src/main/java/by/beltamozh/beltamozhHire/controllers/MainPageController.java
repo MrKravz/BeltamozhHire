@@ -1,6 +1,7 @@
 package by.beltamozh.beltamozhHire.controllers;
 
 import by.beltamozh.beltamozhHire.models.User;
+import by.beltamozh.beltamozhHire.services.CrudService;
 import by.beltamozh.beltamozhHire.services.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -8,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 @Controller
 @RequestMapping("/")
 public class MainPageController {
-    private final UserService userService;
+    private final CrudService<User> userService;
 
     public MainPageController(UserService userService) {
         this.userService = userService;
