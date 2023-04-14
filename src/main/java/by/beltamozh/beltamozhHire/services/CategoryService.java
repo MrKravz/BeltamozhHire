@@ -19,29 +19,35 @@ public class CategoryService implements CrudService<Category>{
 
     @Override
     public Optional<List<Category>> findAll() {
-        return Optional.empty();
+        return Optional.of(repository.findAll());
     }
 
     @Override
     public Optional<Category> findById(int id) {
-        return Optional.empty();
+        return repository.findById(id);
     }
 
     @Override
     @Transactional
-    public void save(Category value) {
-
+    public void save(Category entity) {
+        repository.save(entity);
     }
 
     @Override
     @Transactional
-    public void update(Category value, int id) {
-
+    public void update(Category entity, int id) {
+        if (repository.findById(id).isEmpty()) {
+            return;
+        }
+        Category categoryToUpdate = repository.findById(id).get();
+        categoryToUpdate.setName(entity.getName());
+        categoryToUpdate.setResumes(entity.getResumes());
+        repository.save(entity);
     }
 
     @Override
     @Transactional
     public void delete(int id) {
-
+        repository.deleteById(id);
     }
 }

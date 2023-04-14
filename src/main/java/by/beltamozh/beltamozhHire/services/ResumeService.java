@@ -31,27 +31,27 @@ public class ResumeService implements CrudService<Resume> {
 
     @Override
     @Transactional
-    public void save(Resume resume){
-        resumeRepository.save(resume);
+    public void save(Resume entity){
+        resumeRepository.save(entity);
     }
 
     @Override
     @Transactional
-    public void update(Resume resume, int id){
+    public void update(Resume entity, int id){
         if (resumeRepository.findById(id).isEmpty())
         {
             return;
         }
         Resume resumeToUpdate = resumeRepository.findById(id).get();
-        resumeToUpdate.setOwner(resume.getOwner());
-        resumeToUpdate.setName(resume.getName());
-        resumeToUpdate.setDesiredPosition(resume.getDesiredPosition());
-        resumeToUpdate.setSkillLevel(resume.getSkillLevel());
-        resumeToUpdate.setDesiredSalary(resume.getDesiredSalary());
-        resumeToUpdate.setAbout(resume.getAbout());
-        resumeToUpdate.setTechnologies(resume.getTechnologies());
-        resumeToUpdate.setCategory(resume.getCategory());
-        resumeToUpdate.setHrResponse(resume.getHrResponse());
+        resumeToUpdate.setOwner(entity.getOwner());
+        resumeToUpdate.setName(entity.getName());
+        resumeToUpdate.setDesiredPosition(entity.getDesiredPosition());
+        resumeToUpdate.setSkillLevel(entity.getSkillLevel());
+        resumeToUpdate.setDesiredSalary(entity.getDesiredSalary());
+        resumeToUpdate.setAbout(entity.getAbout());
+        resumeToUpdate.setTechnologies(entity.getTechnologies());
+        resumeToUpdate.setCategory(entity.getCategory());
+        resumeToUpdate.setHrResponse(entity.getHrResponse());
         resumeRepository.save(resumeToUpdate);
     }
 

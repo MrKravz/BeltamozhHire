@@ -26,22 +26,23 @@ public class UserService implements CrudService<User> {
     @Override
     public Optional<User> findById(int id)
     {
-        return Optional.of(repository.getUserById(id));
+        return repository.findById(id);
     }
 
     @Override
     @Transactional
-    public void save(User user){
-        repository.save(user);
+    public void save(User entity){
+        repository.save(entity);
     }
 
     @Override
     @Transactional
-    public void update(User user, int id){
+    public void update(User entity, int id){
         User userToUpdate = repository.getUserById(id);
-        userToUpdate.setName(user.getName());
-        userToUpdate.setLogin(user.getLogin());
-        userToUpdate.setPassword(user.getPassword());
+        userToUpdate.setName(entity.getName());
+        userToUpdate.setLogin(entity.getLogin());
+        userToUpdate.setPassword(entity.getPassword());
+        userToUpdate.setResumes(entity.getResumes());
         repository.save(userToUpdate);
     }
 

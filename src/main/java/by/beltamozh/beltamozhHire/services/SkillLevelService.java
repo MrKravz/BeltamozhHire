@@ -20,29 +20,36 @@ public class SkillLevelService implements CrudService<SkillLevel>{
 
     @Override
     public Optional<List<SkillLevel>> findAll() {
-        return Optional.empty();
+        return Optional.of(repository.findAll());
     }
 
     @Override
     public Optional<SkillLevel> findById(int id) {
-        return Optional.empty();
+        return repository.findById(id);
     }
 
     @Override
     @Transactional
-    public void save(SkillLevel value) {
-
+    public void save(SkillLevel entity) {
+        repository.save(entity);
     }
 
     @Override
     @Transactional
-    public void update(SkillLevel value, int id) {
-
+    public void update(SkillLevel entity, int id) {
+        if (repository.findById(id).isEmpty()) {
+            return;
+        }
+        SkillLevel skillLevelToUpdate = repository.findById(id).get();
+        skillLevelToUpdate.setName(entity.getName());
+        skillLevelToUpdate.setResumes(entity.getResumes());
+        skillLevelToUpdate.setVacancies(entity.getVacancies());
+        repository.save(entity);
     }
 
     @Override
     @Transactional
     public void delete(int id) {
-
+        repository.deleteById(id);
     }
 }

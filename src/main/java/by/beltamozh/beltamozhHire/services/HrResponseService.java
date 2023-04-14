@@ -20,26 +20,32 @@ public class HrResponseService implements CrudService<HrResponse> {
 
     @Override
     public Optional<List<HrResponse>> findAll() {
-        return Optional.empty();
+        return Optional.of(repository.findAll());
     }
 
     @Override
     public Optional<HrResponse> findById(int id) {
-        return Optional.empty();
+        return repository.findById(id);
     }
     @Transactional
     @Override
-    public void save(HrResponse value) {
-
+    public void save(HrResponse entity) {
+        repository.save(entity);
     }
     @Transactional
     @Override
-    public void update(HrResponse value, int id) {
-
+    public void update(HrResponse entity, int id) {
+        if (repository.findById(id).isEmpty()) {
+            return;
+        }
+        HrResponse hrResponseToUpdate = repository.findById(id).get();
+        hrResponseToUpdate.setName(entity.getName());
+        hrResponseToUpdate.setResumes(entity.getResumes());
+        repository.save(entity);
     }
     @Transactional
     @Override
     public void delete(int id) {
-
+        repository.deleteById(id);
     }
 }
