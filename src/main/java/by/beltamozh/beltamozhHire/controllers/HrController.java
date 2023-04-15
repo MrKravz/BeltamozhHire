@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/hr")
-public class HrPageController {
+public class HrController {
 
     @GetMapping()
     public String index()

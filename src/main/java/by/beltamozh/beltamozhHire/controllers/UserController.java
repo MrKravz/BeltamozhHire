@@ -11,10 +11,10 @@ import java.util.Optional;
 
 @Controller
 @RequestMapping("/user/{id}")
-public class UserPageController {
+public class UserController {
     private final CrudService<User> userService;
 
-    public UserPageController(UserService userService) {
+    public UserController(UserService userService) {
         this.userService = userService;
     }
 

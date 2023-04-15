@@ -12,13 +12,13 @@ import java.util.Optional;
 
 @Controller
 @RequestMapping("user/{id}/resumes")
-public class ResumePageController {
+public class ResumeController {
     private final CrudService<Resume> resumeService;
     private final CrudService<User> userService;
     private final CrudService<SkillLevel> skillLevelService;
     private final CrudService<Technology> technologyService;
 
-    public ResumePageController(ResumeService resumeService, UserService userService, SkillLevelService skillLevelService, TechnologyService technologyService) {
+    public ResumeController(ResumeService resumeService, UserService userService, SkillLevelService skillLevelService, TechnologyService technologyService) {
         this.resumeService = resumeService;
         this.userService = userService;
         this.skillLevelService = skillLevelService;
