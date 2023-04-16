@@ -1,5 +1,6 @@
 package by.beltamozh.beltamozhHire.controllers;
 
+import by.beltamozh.beltamozhHire.mappers.*;
 import by.beltamozh.beltamozhHire.models.*;
 import by.beltamozh.beltamozhHire.services.*;
 import org.springframework.stereotype.Controller;
@@ -19,12 +20,26 @@ public class AdminController {
     private final CrudService<SkillLevel> skillLevelService;
     private final CrudService<Technology> technologyService;
 
-    public AdminController(UserService userService, CategoryService categoryService, HrResponseService hrResponseService, SkillLevelService skillLevelService, TechnologyService technologyService) {
+    private final UserDtoMapper userMapper;
+    private final CategoryDtoMapper categoryMapper;
+    private final HrResponseDtoMapper hrResponseMapper;
+    private final SkillLevelDtoMapper skillLevelMapper;
+    private final TechnologyDtoMapper technologyMapper;
+
+    public AdminController(UserService userService, UserDtoMapper userMapper, CategoryService categoryService,
+                           HrResponseService hrResponseService, SkillLevelService skillLevelService, TechnologyService technologyService,
+                           CategoryDtoMapper categoryMapper, HrResponseDtoMapper hrResponseMapper, SkillLevelDtoMapper skillLevelMapper,
+                           TechnologyDtoMapper technologyMapper) {
         this.userService = userService;
+        this.userMapper = userMapper;
         this.categoryService = categoryService;
         this.hrResponseService = hrResponseService;
         this.skillLevelService = skillLevelService;
         this.technologyService = technologyService;
+        this.categoryMapper = categoryMapper;
+        this.hrResponseMapper = hrResponseMapper;
+        this.skillLevelMapper = skillLevelMapper;
+        this.technologyMapper = technologyMapper;
     }
 
     //region info tables
@@ -39,7 +54,7 @@ public class AdminController {
         if (users.isEmpty()) {
             return "adminPageViews/index";
         }
-        model.addAttribute("users", users.get());
+        model.addAttribute("users", users.get().stream().map(userMapper).toList());
         return "adminPageViews/users";
     }
 
@@ -49,7 +64,7 @@ public class AdminController {
         if (categories.isEmpty()) {
             return "adminPageViews/index";
         }
-        model.addAttribute("categories", categories.get());
+        model.addAttribute("categories", categories.get().stream().map(categoryMapper).toList());
         return "adminPageViews/categories";
     }
 
@@ -59,7 +74,7 @@ public class AdminController {
         if (hrResponses.isEmpty()) {
             return "adminPageViews/index";
         }
-        model.addAttribute("hrResponses", hrResponses.get());
+        model.addAttribute("hrResponses", hrResponses.get().stream().map(hrResponseMapper).toList());
         return "adminPageViews/hr_responses";
     }
 
@@ -69,7 +84,7 @@ public class AdminController {
         if (skillLevels.isEmpty()) {
             return "adminPageViews/index";
         }
-        model.addAttribute("skillLevels", skillLevels.get());
+        model.addAttribute("skillLevels", skillLevels.get().stream().map(skillLevelMapper).toList());
         return "adminPageViews/skill_levels";
     }
 
@@ -79,7 +94,7 @@ public class AdminController {
         if (technologies.isEmpty()) {
             return "adminPageViews/index";
         }
-        model.addAttribute("technologies", technologies.get());
+        model.addAttribute("technologies", technologies.get().stream().map(technologyMapper).toList());
         return "adminPageViews/technologies";
     }
     //endregion

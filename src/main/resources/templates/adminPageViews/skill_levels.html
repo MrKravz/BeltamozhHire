@@ -16,9 +16,9 @@
     </thead>
     <tbody>
     <tr th:each="skillLevel : ${skillLevels}">
-        <td th:text="${skillLevel.getId()}"></td>
-        <td th:text="${skillLevel.getName()}"></td>
-        <td><a th:href="@{/skillLevels/skillLevel_details/{id} (id=${skillLevel.getId()})}">Edit</a></td>
+        <td th:text="${skillLevel.id}"></td>
+        <td th:text="${skillLevel.name}"></td>
+        <td><a th:href="@{skill_levels/{id}/edit (id=${skillLevel.id})}">Edit</a></td>
     </tr>
     </tbody>
 </table>

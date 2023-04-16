@@ -15,10 +15,10 @@
         </tr>
         </thead>
         <tbody>
-        <tr th:each="response : ${responses}">
-            <td th:text="${response.getId()}"></td>
-            <td th:text="${response.getName()}"></td>
-            <td><a th:href="@{/responses/response_details/{id} (id=${response.getId()})}">Edit</a></td>
+        <tr th:each="hrResponse : ${hrResponses}">
+            <td th:text="${hrResponse.id}"></td>
+            <td th:text="${hrResponse.name}"></td>
+            <td><a th:href="@{hr_responses/{id}/edit (id=${hrResponse.id})}">Edit</a></td>
         </tr>
         </tbody>
     </table>

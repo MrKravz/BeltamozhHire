@@ -6,6 +6,15 @@
   <title>Title</title>
 </head>
 <body>
-
+  <form th:method="PATCH" th:action="@{/hr_responses/{id} (id=${hrResponse.getId()})}" th:object="${hrResponse}">
+    <label for="name">Enter name: </label>
+    <input type="text" th:field="*{name}" id="name"/>
+    <br>
+    <input type="submit" value="Edit">
+    <input type="button" value="Back" onclick="window.history.back()">
+  </form>
+  <form th:method="DELETE" th:action="@{/hr_responses/{id}/delete (id=${hrResponse.getId()})}">
+    <input type="submit" value="Delete"/>
+  </form>
 </body>
 </html>

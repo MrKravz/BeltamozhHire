@@ -16,9 +16,9 @@
     </thead>
     <tbody>
     <tr th:each="technology : ${technologies}">
-        <td th:text="${technology.getId()}"></td>
-        <td th:text="${technology.getName()}"></td>
-        <td><a th:href="@{/technologies/technology_details/{id} (id=${technology.getId()})}">Edit</a></td>
+        <td th:text="${technology.id}"></td>
+        <td th:text="${technology.name}"></td>
+        <td><a th:href="@{technologies/{id}/edit (id=${technology.id})}">Edit</a></td>
     </tr>
     </tbody>
 </table>
