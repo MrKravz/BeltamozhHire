@@ -16,9 +16,9 @@
         </thead>
         <tbody>
         <tr th:each="hrResponse : ${hrResponses}">
-            <td th:text="${hrResponse.id}"></td>
-            <td th:text="${hrResponse.name}"></td>
-            <td><a th:href="@{hr_responses/{id}/edit (id=${hrResponse.id})}">Edit</a></td>
+            <td th:text="${hrResponse.id()}"></td>
+            <td th:text="${hrResponse.name()}"></td>
+            <td><a th:href="@{hr_responses/{id}/edit (id=${hrResponse.id()})}">Edit</a></td>
         </tr>
         </tbody>
     </table>

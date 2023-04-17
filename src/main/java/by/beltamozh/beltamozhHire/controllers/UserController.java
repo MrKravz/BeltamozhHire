@@ -1,5 +1,6 @@
 package by.beltamozh.beltamozhHire.controllers;
 
+import by.beltamozh.beltamozhHire.dto.UserDto;
 import by.beltamozh.beltamozhHire.models.User;
 import by.beltamozh.beltamozhHire.services.CrudService;
 import by.beltamozh.beltamozhHire.services.UserService;
@@ -12,7 +13,7 @@ import java.util.Optional;
 @Controller
 @RequestMapping("/user/{id}")
 public class UserController {
-    private final CrudService<User> userService;
+    private final UserService userService;
 
     public UserController(UserService userService) {
         this.userService = userService;
@@ -21,7 +22,7 @@ public class UserController {
     @GetMapping()
     public String index(@PathVariable int id, Model model)
     {
-        Optional<User> user = userService.findById(id);
+        Optional<UserDto> user = userService.findDtoById(id);
         if (user.isEmpty())
         {
             return "";
@@ -31,7 +32,7 @@ public class UserController {
     }
 
     @GetMapping("/show")
-    public String resumes(@PathVariable String id)
+    public String resumes(@PathVariable int id)
     {
         return "redirect:/user/{id}/resumes";
     }
@@ -39,7 +40,7 @@ public class UserController {
     @GetMapping("/info")
     public String info(@PathVariable int id, Model model)
     {
-        Optional<User> user = userService.findById(id);
+        Optional<UserDto> user = userService.findDtoById(id);
         if (user.isEmpty())
         {
             return "";
@@ -49,9 +50,9 @@ public class UserController {
     }
 
     @PatchMapping("/edit")
-    public String edit(@ModelAttribute("user") User user, @PathVariable int id) // TODO edit user info
+    public String edit(@ModelAttribute("user") UserDto user, @PathVariable int id) // TODO edit user info
     {
-        userService.update(user, id);
+        userService.updateDto(user, id);
         return "redirect:/user/{id}";
     }
 

@@ -1,5 +1,7 @@
 package by.beltamozh.beltamozhHire.services;
 
+import by.beltamozh.beltamozhHire.dto.SkillLevelDto;
+import by.beltamozh.beltamozhHire.mappers.SkillLevelMapper;
 import by.beltamozh.beltamozhHire.models.SkillLevel;
 import by.beltamozh.beltamozhHire.repositories.SkillLevelRepository;
 import org.springframework.stereotype.Service;
@@ -10,12 +12,14 @@ import java.util.Optional;
 
 @Service
 @Transactional(readOnly = true)
-public class SkillLevelService implements CrudService<SkillLevel>{
+public class SkillLevelService implements CrudService<SkillLevel>, DtoProviderService<SkillLevelDto> {
 
     private final SkillLevelRepository repository;
+    private final SkillLevelMapper mapper;
 
-    public SkillLevelService(SkillLevelRepository repository) {
+    public SkillLevelService(SkillLevelRepository repository, SkillLevelMapper mapper) {
         this.repository = repository;
+        this.mapper = mapper;
     }
 
     @Override
@@ -51,5 +55,33 @@ public class SkillLevelService implements CrudService<SkillLevel>{
     @Transactional
     public void delete(int id) {
         repository.deleteById(id);
+    }
+
+    @Override
+    public Optional<List<SkillLevelDto>> findAllDto() {
+        var skillLevels = findAll();
+        if (skillLevels.isEmpty()) {
+            return Optional.empty();
+        }
+        return Optional.of((List<SkillLevelDto>) mapper.toIterableDto(skillLevels.get()));
+    }
+
+    @Override
+    public Optional<SkillLevelDto> findDtoById(int id) {
+        var skillLevel = findById(id);
+        if (skillLevel.isEmpty()) {
+            return Optional.empty();
+        }
+        return Optional.of(mapper.toDto(skillLevel.get()));
+    }
+
+    @Override
+    public void saveDto(SkillLevelDto dto) {
+        save(mapper.toEntity(dto));
+    }
+
+    @Override
+    public void updateDto(SkillLevelDto dto, int id) {
+        update(mapper.toEntity(dto), id);
     }
 }

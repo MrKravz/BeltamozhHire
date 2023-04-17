@@ -9,7 +9,7 @@ public record VacancyDto(int id,
                          String name,
                          String about,
                          float estimatedSalary,
-                         SkillLevel requiredSkillLevel,
+                         SkillLevelDto requiredSkillLevel,
                          int requiredWorkingExperience,
-                         List<Technology> technologies) {
+                         List<TechnologyDto> technologies) {
 }

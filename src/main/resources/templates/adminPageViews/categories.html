@@ -15,9 +15,9 @@
         </thead>
         <tbody>
         <tr th:each="category : ${categories}">
-            <td th:text="${category.id}"></td>
-            <td th:text="${category.name}"></td>
-            <td><a th:href="@{categories/{id}/edit (id=${category.id})}">Edit</a></td>
+            <td th:text="${category.id()}"></td>
+            <td th:text="${category.name()}"></td>
+            <td><a th:href="@{categories/{id}/edit (id=${category.id()})}">Edit</a></td>
         </tr>
         </tbody>
     </table>

@@ -10,7 +10,7 @@ import java.util.Optional;
 
 @Service
 @Transactional(readOnly = true)
-public class BadReputationUserService implements CrudService<BadReputationUser>{
+public class BadReputationUserService implements CrudService<BadReputationUser> {
 
     private final BadReputationUserRepository repository;
 

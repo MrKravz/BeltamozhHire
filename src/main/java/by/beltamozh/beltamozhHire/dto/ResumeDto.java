@@ -9,9 +9,11 @@ import java.util.List;
 public record ResumeDto(int id,
                         List<Company> companies,
                         String name,
+
+                        UserDto owner,
                         String desiredPosition,
-                        List<Technology> technologies,
-                        SkillLevel skillLevel,
+                        List<TechnologyDto> technologies,
+                        SkillLevelDto skillLevel,
                         float desiredSalary,
                         String about) {
 }

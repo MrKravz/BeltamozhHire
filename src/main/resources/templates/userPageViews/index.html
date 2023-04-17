@@ -6,8 +6,8 @@
     <title>Title</title>
 </head>
 <body>
-    <h1> Приветствую, <b th:utext="${user.getName()}">user</b></h1>
-    <a th:href="@{/user/{id}/info(id=${user.getId()})}">Info</a>
-    <a th:href="@{/user/{id}/show(id=${user.getId()})}">Resumes</a>
+    <h1> Приветствую, <b th:utext="${user.name()}">user</b></h1>
+    <a th:href="@{/user/{id}/info(id=${user.id()})}">Info</a>
+    <a th:href="@{/user/{id}/show(id=${user.id()})}">Resumes</a>
 </body>
 </html>
