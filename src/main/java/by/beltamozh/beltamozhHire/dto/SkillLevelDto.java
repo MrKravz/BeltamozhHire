@@ -1,4 +1,13 @@
 package by.beltamozh.beltamozhHire.dto;
 
-public record SkillLevelDto(int id, String name) {
+import lombok.*;
+
+import java.util.List;
+
+@Data
+public class SkillLevelDto{
+    int id;
+    String name;
+    @ToString.Exclude
+    List<ResumeDto> skillLevelsResumes;
 }

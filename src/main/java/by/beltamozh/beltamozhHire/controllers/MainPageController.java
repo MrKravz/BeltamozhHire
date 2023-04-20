@@ -2,9 +2,13 @@ package by.beltamozh.beltamozhHire.controllers;
 
 import by.beltamozh.beltamozhHire.models.User;
 import by.beltamozh.beltamozhHire.services.CrudService;
+import by.beltamozh.beltamozhHire.services.SecurityService;
 import by.beltamozh.beltamozhHire.services.UserService;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("/")
@@ -35,6 +39,12 @@ public class MainPageController {
 
     @GetMapping("/login")
     public String login()
+    {
+        return "redirect:/admin"; // TODO develop login logic
+    }
+
+    @PostMapping("/login")
+    public String login(@ModelAttribute User user)
     {
         return "redirect:/admin"; // TODO develop login logic
     }

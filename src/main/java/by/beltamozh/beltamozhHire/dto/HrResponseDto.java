@@ -1,5 +1,9 @@
 package by.beltamozh.beltamozhHire.dto;
 
-public record HrResponseDto(int id,
-                            String name) {
+import lombok.*;
+
+@Data
+public class HrResponseDto{
+    int id;
+    String name;
 }

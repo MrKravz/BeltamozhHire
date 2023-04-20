@@ -1,17 +1,16 @@
 package by.beltamozh.beltamozhHire.models;
 
-import jakarta.persistence.*;
-import jakarta.validation.constraints.Size;
-import lombok.*;
+import lombok.Data;
+import lombok.ToString;
 import org.hibernate.annotations.Cascade;
-import org.springframework.context.annotation.Lazy;
 
+import javax.persistence.*;
+import javax.validation.constraints.Size;
 import java.util.List;
 
 @Entity
 @Table(name = "skill_levels")
 @Data
-@Lazy
 public class SkillLevel {
     @Id
     @Column(name = "id")
@@ -27,7 +26,7 @@ public class SkillLevel {
     @ToString.Exclude
     private List<Resume> resumes;
 
-    @OneToMany(mappedBy = "requiredSkillLevel")
+    @OneToMany(mappedBy = "requiredSkillLevel", fetch = FetchType.LAZY)
     @Cascade(org.hibernate.annotations.CascadeType.ALL)
     @ToString.Exclude
     private List<Vacancy> vacancies;

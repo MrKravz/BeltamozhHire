@@ -6,18 +6,18 @@
     <title>Title</title>
 </head>
 <body>
-    <h1 th:text="${resume.name()}">Name</h1>
-    <p th:text="${resume.desiredPosition()}"></p>
-    <p th:text="${resume.skillLevel().name()}"></p>
-    <p th:text="${resume.desiredSalary()}"></p>
-    <p th:text="${resume.about()}"></p>
-    <div th:each="technology : ${resume.technologies()}">
-        <p th:text="${technology.name()}">user</p>
+    <h1 th:text="${resume.getName()}">Name</h1>
+    <p th:text="${resume.getDesiredPosition()}"></p>
+    <p th:text="${resume.getSkillLevel().getName()}"></p>
+    <p th:text="${resume.getDesiredSalary()}"></p>
+    <p th:text="${resume.getAbout()}"></p>
+    <div th:each="technology : ${resume.getTechnologies()}">
+        <p th:text="${technology.getName()}">user</p>
     </div>
     <input type="button" value="Back" onclick="window.history.back()">
-    <a th:href="@{/user/{user_id}/resumes/resume_details/{resume_id}/edit (resume_id=${resume.id()}, user_id=${resume.owner().id()})}">Edit</a>
+    <a th:href="@{/user/{user_id}/resumes/resume_details/{resume_id}/edit (resume_id=${resume.getId()}, user_id=${resume.getOwner().getId()})}">Edit</a>
     <form th:method="DELETE" th:action="@{/user/{user_id}/resumes/resume_details/{resume_id}/delete
-     (resume_id=${resume.id()}, user_id=${resume.owner().id()})}">
+     (resume_id=${resume.getId()}, user_id=${resume.getOwner().getId()})}">
         <input type="submit" value="Delete"/>
     </form>
 </body>

@@ -14,10 +14,12 @@ import java.util.Optional;
 @Transactional(readOnly = true)
 public class ResumeService implements CrudService<Resume>, DtoProviderService<ResumeDto> {
     private final ResumeRepository repository;
+    private final TechnologyService service;
     private final ResumeMapper mapper;
 
-    public ResumeService(ResumeRepository repository, ResumeMapper mapper) {
+    public ResumeService(ResumeRepository repository, TechnologyService service, ResumeMapper mapper) {
         this.repository = repository;
+        this.service = service;
         this.mapper = mapper;
     }
 
@@ -40,20 +42,23 @@ public class ResumeService implements CrudService<Resume>, DtoProviderService<Re
     @Override
     @Transactional
     public void update(Resume entity, int id) {
-        if (repository.findById(id).isEmpty()) {
+        var resumeToUpdate = repository.findById(id);
+        if (resumeToUpdate.isEmpty()) {
             return;
         }
-        Resume resumeToUpdate = repository.findById(id).get();
-        resumeToUpdate.setOwner(entity.getOwner());
-        resumeToUpdate.setName(entity.getName());
-        resumeToUpdate.setDesiredPosition(entity.getDesiredPosition());
-        resumeToUpdate.setSkillLevel(entity.getSkillLevel());
-        resumeToUpdate.setDesiredSalary(entity.getDesiredSalary());
-        resumeToUpdate.setAbout(entity.getAbout());
-        resumeToUpdate.setTechnologies(entity.getTechnologies());
-        resumeToUpdate.setCategory(entity.getCategory());
-        resumeToUpdate.setHrResponse(entity.getHrResponse());
-        repository.save(resumeToUpdate);
+        var resume = resumeToUpdate.get();
+        resume.setName(entity.getName());
+        resume.setDesiredPosition(entity.getDesiredPosition());
+        resume.setSkillLevel(entity.getSkillLevel());
+        resume.setDesiredSalary(entity.getDesiredSalary());
+        resume.setAbout(entity.getAbout());
+        resume.setTechnologies(entity.getTechnologies());
+        for (var item : resume.getTechnologies()) {
+            if (!item.getResumes().contains(entity)) {
+                item.getResumes().add(resume);
+            }
+        }
+        repository.save(resume);
     }
 
     @Override
@@ -90,16 +95,13 @@ public class ResumeService implements CrudService<Resume>, DtoProviderService<Re
         update(mapper.toEntity(dto), id);
     }
 
-    public Optional<List<Resume>> findAllByOwnerId(int id)
-    {
+    public Optional<List<Resume>> findAllByOwnerId(int id) {
         return repository.findAllByOwnerId(id);
     }
 
-    public Optional<List<ResumeDto>> findAllDtoByOwnerId(int id)
-    {
+    public Optional<List<ResumeDto>> findAllDtoByOwnerId(int id) {
         var resumes = findAllByOwnerId(id);
-        if (resumes.isEmpty())
-        {
+        if (resumes.isEmpty()) {
             return Optional.empty();
         }
         return Optional.of((List<ResumeDto>) mapper.toIterableDto(resumes.get()));

@@ -1,27 +1,26 @@
 package by.beltamozh.beltamozhHire.models;
 
-import lombok.*;
+import lombok.Data;
+import lombok.ToString;
 import org.hibernate.annotations.Cascade;
-import org.springframework.context.annotation.Lazy;
 
 import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name = "companies")
+@Table(name = "roles")
 @Data
-public class Company {
+public class Role {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(name = "name_of_company")
+    @Column(name = "name")
     private String name;
 
-    @ManyToMany(mappedBy = "companies", fetch = FetchType.LAZY)
-    @Lazy
+    @ManyToMany(mappedBy = "roles", fetch = FetchType.LAZY)
     @Cascade(org.hibernate.annotations.CascadeType.ALL)
     @ToString.Exclude
-    private List<Resume> resumes;
+    private List<User> users;
 }

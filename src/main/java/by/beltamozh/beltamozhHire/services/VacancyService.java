@@ -1,6 +1,7 @@
 package by.beltamozh.beltamozhHire.services;
 
 import by.beltamozh.beltamozhHire.dto.CategoryDto;
+import by.beltamozh.beltamozhHire.dto.ResumeDto;
 import by.beltamozh.beltamozhHire.dto.VacancyDto;
 import by.beltamozh.beltamozhHire.mappers.VacancyMapper;
 import by.beltamozh.beltamozhHire.models.Vacancy;
@@ -87,4 +88,5 @@ public class VacancyService implements CrudService<Vacancy>, DtoProviderService<
     public void updateDto(VacancyDto dto, int id) {
         update(mapper.toEntity(dto), id);
     }
+
 }

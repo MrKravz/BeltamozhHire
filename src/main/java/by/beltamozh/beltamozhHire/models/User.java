@@ -1,18 +1,17 @@
 package by.beltamozh.beltamozhHire.models;
 
-import jakarta.persistence.*;
-import jakarta.validation.constraints.Size;
+
 import lombok.*;
 import org.hibernate.annotations.Cascade;
-import org.springframework.context.annotation.Lazy;
 
+import javax.persistence.*;
+import javax.validation.constraints.Size;
 import java.util.List;
 
 @Entity
 @Table(name = "users")
 @Data
-@Lazy
-public class User {
+public class User{
 
     @Id
     @Column(name = "id")
@@ -32,8 +31,22 @@ public class User {
             "больше 50 символов и меньше 5")
     private String password;
 
-    @OneToMany(mappedBy = "owner")
+    @OneToMany(mappedBy = "owner", fetch = FetchType.LAZY)
     @Cascade(org.hibernate.annotations.CascadeType.ALL)
     @ToString.Exclude
     private List<Resume> resumes;
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "users_roles",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id")
+    )
+    @Cascade(org.hibernate.annotations.CascadeType.ALL)
+    @ToString.Exclude
+    private List<Role> roles;
+
+    @OneToOne(mappedBy = "user")
+    @ToString.Exclude
+    private BadReputationUser badReputationUser;
 }

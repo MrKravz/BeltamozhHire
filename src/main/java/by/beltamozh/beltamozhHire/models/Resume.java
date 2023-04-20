@@ -1,16 +1,16 @@
 package by.beltamozh.beltamozhHire.models;
 
-import jakarta.persistence.*;
-import jakarta.validation.constraints.*;
 import lombok.*;
 import org.hibernate.annotations.Cascade;
-import org.springframework.context.annotation.Lazy;
 
+import javax.persistence.*;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.Size;
 import java.util.List;
 
 @Entity
 @Table(name = "resumes")
-@Lazy
 @Data
 public class Resume {
     @Id
@@ -25,7 +25,7 @@ public class Resume {
     )
     private User owner;
 
-    @ManyToMany()
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name = "resumes_companies",
             joinColumns = @JoinColumn(name = "resume_id"),
@@ -42,7 +42,7 @@ public class Resume {
     @Size(min = 2, max = 50, message = "Имя не правильного размера")
     private String desiredPosition;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name = "resumes_technologies",
             joinColumns = @JoinColumn(name = "resume_id"),

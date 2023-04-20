@@ -1,16 +1,14 @@
 package by.beltamozh.beltamozhHire.models;
 
-import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.Cascade;
-import org.springframework.context.annotation.Lazy;
 
+import javax.persistence.*;
 import java.util.List;
 
 @Entity
 @Table(name = "vacancies")
 @Data
-@Lazy
 public class Vacancy {
     @Id
     @Column(name = "id")
@@ -37,7 +35,7 @@ public class Vacancy {
     @Column(name = "required_working_experience")
     private int requiredWorkingExperience;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name = "vacancies_technologies",
             joinColumns = @JoinColumn(name = "vacancy_id"),
@@ -46,4 +44,14 @@ public class Vacancy {
     @Cascade(org.hibernate.annotations.CascadeType.ALL)
     @ToString.Exclude
     private List<Technology> technologies;
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+            name = "vacancies_resumes",
+            joinColumns = @JoinColumn(name = "vacancy_id"),
+            inverseJoinColumns = @JoinColumn(name = "resume_id")
+    )
+    @Cascade(org.hibernate.annotations.CascadeType.ALL)
+    @ToString.Exclude
+    private List<Resume> resumes;
 }

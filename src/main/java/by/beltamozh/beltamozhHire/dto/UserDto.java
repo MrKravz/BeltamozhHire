@@ -1,4 +1,10 @@
 package by.beltamozh.beltamozhHire.dto;
 
-public record UserDto(int id, String name, String login) {
+import lombok.Data;
+
+@Data
+public class UserDto{
+    int id;
+    String name;
+    String login;
 }

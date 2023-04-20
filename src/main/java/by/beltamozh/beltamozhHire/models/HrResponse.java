@@ -1,11 +1,11 @@
 package by.beltamozh.beltamozhHire.models;
 
-import jakarta.persistence.*;
-import jakarta.validation.constraints.Size;
 import lombok.*;
 import org.hibernate.annotations.Cascade;
 import org.springframework.context.annotation.Lazy;
 
+import javax.persistence.*;
+import javax.validation.constraints.Size;
 import java.util.List;
 
 @Entity
@@ -21,7 +21,7 @@ public class HrResponse {
     @Size(min = 2, max = 50, message = "Имя не правильного размера")
     private String name;
 
-    @OneToMany(mappedBy = "hrResponse")
+    @OneToMany(mappedBy = "hrResponse", fetch = FetchType.LAZY)
     @Lazy
     @Cascade(org.hibernate.annotations.CascadeType.ALL)
     @ToString.Exclude

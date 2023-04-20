@@ -1,4 +1,9 @@
 package by.beltamozh.beltamozhHire.dto;
 
-public record CategoryDto(int id, String name) {
+import lombok.*;
+
+@Data
+public class CategoryDto{
+    int id;
+    String name;
 }

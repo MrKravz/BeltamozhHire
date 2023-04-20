@@ -1,8 +1,10 @@
 package by.beltamozh.beltamozhHire.models;
 
-import jakarta.persistence.*;
-import lombok.*;
+import lombok.Data;
+import lombok.ToString;
 import org.hibernate.annotations.Cascade;
+
+import javax.persistence.*;
 
 @Entity
 @Table(name = "bad_reputation_users")

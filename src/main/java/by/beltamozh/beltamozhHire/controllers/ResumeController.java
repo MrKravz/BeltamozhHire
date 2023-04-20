@@ -68,8 +68,8 @@ public class ResumeController {
     @GetMapping("/resume_details/{resume_id}/edit")
     private String edit(@PathVariable int resume_id, Model model) {
         var resume = resumeService.findDtoById(resume_id);
-        var skillLevels = skillLevelService.findAllDto();
-        var technologies = technologyService.findAllDto();
+        var skillLevels = skillLevelService.findAll();
+        var technologies = technologyService.findAll();
         if (resume.isEmpty() || skillLevels.isEmpty() || technologies.isEmpty()) {
             return "resumePageViews/resumes";
         }
@@ -84,6 +84,7 @@ public class ResumeController {
                           @PathVariable("id") int user_id,
                           @PathVariable("resume_id") int resume_id) {
         resumeService.updateDto(resumeDto, resume_id);
+        resumeDto.getTechnologies().forEach(x->technologyService.update(x, x.getId()));
         return "redirect:/user/" + user_id + "/resumes";
     }
 

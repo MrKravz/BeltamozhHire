@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <link rel="icon" href="data:,">
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <h1 th:text="${vacancy.getName()}">Name</h1>
+    <p th:text="${vacancy.getAbout()}"></p>
+    <p th:text="${vacancy.getEstimatedSalary()}"></p>
+    <p th:text="${vacancy.getRequiredSkillLevel().getName()}"></p>
+    <p th:text="${vacancy.getRequiredWorkingExperience()}"></p>
+    <div th:each="technology : ${vacancy.getTechnologies()}">
+        <p th:text="${technology.getName()}">user</p>
+    </div>
+    <form th:method="PATCH" th:action="@{{vacancy_id} (vacancy_id=${vacancy.getId()})}" th:object="${vacancy}">
+        <label for="resumeSelect">Select Resume:</label>
+        <select id="resumeSelect" name="resumeId">
+            <option th:each="resume : ${resumes}" th:value="${resume.getId()}" th:text="${resume.getName()}"></option>
+        </select>
+        <input type="hidden" th:field="*{name}" th:value="${vacancy.getName()}">
+        <input type="hidden" th:field="*{about}" th:value="${vacancy.getAbout()}">
+        <input type="hidden" th:field="*{estimatedSalary}" th:value="${vacancy.getEstimatedSalary()}">
+        <input type="hidden" th:field="*{requiredSkillLevel}" th:value="${vacancy.getRequiredSkillLevel()}">
+        <input type="hidden" th:field="*{requiredWorkingExperience}" th:value="${vacancy.getRequiredWorkingExperience()}">
+        <input type="hidden" th:field="*{technologies}" th:value="${vacancy.getTechnologies()}">
+        <input type="submit" value="Respond">
+        <input type="button" value="Back" onclick="window.history.back()">
+    </form>
+</body>
+</html>
