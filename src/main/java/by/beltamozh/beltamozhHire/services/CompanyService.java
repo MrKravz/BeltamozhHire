@@ -20,12 +20,12 @@ public class CompanyService implements CrudService<Company> {
 
     @Override
     public Optional<List<Company>> findAll() {
-        return Optional.empty();
+        return Optional.of(repository.findAll());
     }
 
     @Override
     public Optional<Company> findById(int id) {
-        return Optional.empty();
+        return repository.findById(id);
     }
 
     @Override
@@ -37,10 +37,11 @@ public class CompanyService implements CrudService<Company> {
     @Override
     @Transactional
     public void update(Company entity, int id) {
-        if (repository.findById(id).isEmpty()) {
+        Optional<Company> company = repository.findById(id);
+        if (company.isEmpty()) {
             return;
         }
-        Company companyToUpdate = repository.findById(id).get();
+        Company companyToUpdate = company.get();
         companyToUpdate.setName(entity.getName());
         companyToUpdate.setResumes(entity.getResumes());
         repository.save(entity);

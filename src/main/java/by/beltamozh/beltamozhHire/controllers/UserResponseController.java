@@ -1,10 +1,7 @@
 package by.beltamozh.beltamozhHire.controllers;
 
-import by.beltamozh.beltamozhHire.dto.ResumeDto;
-import by.beltamozh.beltamozhHire.dto.VacancyDto;
-import by.beltamozh.beltamozhHire.services.ResumeService;
-import by.beltamozh.beltamozhHire.services.VacancyResponseService;
-import by.beltamozh.beltamozhHire.services.VacancyService;
+import by.beltamozh.beltamozhHire.dto.*;
+import by.beltamozh.beltamozhHire.services.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;

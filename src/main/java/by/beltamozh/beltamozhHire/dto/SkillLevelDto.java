@@ -6,8 +6,10 @@ import java.util.List;
 
 @Data
 public class SkillLevelDto{
-    int id;
-    String name;
+    private int id;
+
+    private String name;
+
     @ToString.Exclude
-    List<ResumeDto> skillLevelsResumes;
+    private List<ResumeDto> skillLevelsResumes;
 }

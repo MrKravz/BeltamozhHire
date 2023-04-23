@@ -1,22 +1,23 @@
 package by.beltamozh.beltamozhHire.controllers;
 
+import by.beltamozh.beltamozhHire.models.Role;
 import by.beltamozh.beltamozhHire.models.User;
-import by.beltamozh.beltamozhHire.services.CrudService;
 import by.beltamozh.beltamozhHire.services.SecurityService;
 import by.beltamozh.beltamozhHire.services.UserService;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/")
 public class MainPageController {
-    private final CrudService<User> userService;
+    private final UserService userService;
+    private final SecurityService securityService;
 
-    public MainPageController(UserService userService) {
+    public MainPageController(UserService userService, SecurityService securityService) {
         this.userService = userService;
+        this.securityService = securityService;
     }
 
     @GetMapping()
@@ -38,14 +39,20 @@ public class MainPageController {
     }
 
     @GetMapping("/login")
-    public String login()
-    {
-        return "redirect:/admin"; // TODO develop login logic
-    }
-
-    @PostMapping("/login")
     public String login(@ModelAttribute User user)
     {
-        return "redirect:/admin"; // TODO develop login logic
+        return "mainPageViews/login";
+    }
+
+    @PostMapping("/login/auth")
+    public String auth(@ModelAttribute User user)
+    {
+        securityService.autoLogin(user.getLogin(), user.getPassword());
+        int id = userService.findByLogin(user.getLogin()).get().getId();
+        Optional<Role> role = userService.findById(id).get().getRoles().stream().findFirst();
+        if (role.isEmpty()) { return "mainPageViews/index";}
+        if (role.get().getName().equals("ADMIN")) { return "redirect:/user/" + id; }
+        if (role.get().getName().equals("HR")) { return "redirect:/hr/" + id; }
+        return "redirect:/user/" + id;
     }
 }

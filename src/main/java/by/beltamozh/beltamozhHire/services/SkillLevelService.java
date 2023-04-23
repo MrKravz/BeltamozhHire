@@ -41,14 +41,15 @@ public class SkillLevelService implements CrudService<SkillLevel>, DtoProviderSe
     @Override
     @Transactional
     public void update(SkillLevel entity, int id) {
-        if (repository.findById(id).isEmpty()) {
+        Optional<SkillLevel> skillLevel = repository.findById(id);
+        if (skillLevel.isEmpty()) {
             return;
         }
-        SkillLevel skillLevelToUpdate = repository.findById(id).get();
+        SkillLevel skillLevelToUpdate = skillLevel.get();
         skillLevelToUpdate.setName(entity.getName());
         skillLevelToUpdate.setResumes(entity.getResumes());
         skillLevelToUpdate.setVacancies(entity.getVacancies());
-        repository.save(entity);
+        repository.save(skillLevelToUpdate);
     }
 
     @Override

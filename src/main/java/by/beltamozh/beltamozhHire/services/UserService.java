@@ -45,7 +45,11 @@ public class UserService implements CrudService<User>, DtoProviderService<UserDt
     @Override
     @Transactional
     public void update(User entity, int id) {
-        User userToUpdate = userRepository.getUserById(id);
+        Optional<User> user = userRepository.findById(id);
+        if (user.isEmpty()) {
+            return;
+        }
+        User userToUpdate = user.get();
         userToUpdate.setName(entity.getName());
         userToUpdate.setLogin(entity.getLogin());
         userToUpdate.setPassword(entity.getPassword());
@@ -85,5 +89,9 @@ public class UserService implements CrudService<User>, DtoProviderService<UserDt
     @Override
     public void updateDto(UserDto dto, int id) {
         update(mapper.toEntity(dto), id);
+    }
+
+    public Optional<User> findByLogin(String login) {
+        return userRepository.getUserByLogin(login);
     }
 }

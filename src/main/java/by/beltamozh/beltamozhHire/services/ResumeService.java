@@ -14,12 +14,10 @@ import java.util.Optional;
 @Transactional(readOnly = true)
 public class ResumeService implements CrudService<Resume>, DtoProviderService<ResumeDto> {
     private final ResumeRepository repository;
-    private final TechnologyService service;
     private final ResumeMapper mapper;
 
-    public ResumeService(ResumeRepository repository, TechnologyService service, ResumeMapper mapper) {
+    public ResumeService(ResumeRepository repository, ResumeMapper mapper) {
         this.repository = repository;
-        this.service = service;
         this.mapper = mapper;
     }
 
@@ -42,23 +40,23 @@ public class ResumeService implements CrudService<Resume>, DtoProviderService<Re
     @Override
     @Transactional
     public void update(Resume entity, int id) {
-        var resumeToUpdate = repository.findById(id);
-        if (resumeToUpdate.isEmpty()) {
+        var resume = repository.findById(id);
+        if (resume.isEmpty()) {
             return;
         }
-        var resume = resumeToUpdate.get();
-        resume.setName(entity.getName());
-        resume.setDesiredPosition(entity.getDesiredPosition());
-        resume.setSkillLevel(entity.getSkillLevel());
-        resume.setDesiredSalary(entity.getDesiredSalary());
-        resume.setAbout(entity.getAbout());
-        resume.setTechnologies(entity.getTechnologies());
-        for (var item : resume.getTechnologies()) {
+        var resumeToUpdate = resume.get();
+        resumeToUpdate.setName(entity.getName());
+        resumeToUpdate.setDesiredPosition(entity.getDesiredPosition());
+        resumeToUpdate.setSkillLevel(entity.getSkillLevel());
+        resumeToUpdate.setDesiredSalary(entity.getDesiredSalary());
+        resumeToUpdate.setAbout(entity.getAbout());
+        resumeToUpdate.setTechnologies(entity.getTechnologies());
+        for (var item : resumeToUpdate.getTechnologies()) {
             if (!item.getResumes().contains(entity)) {
-                item.getResumes().add(resume);
+                item.getResumes().add(resumeToUpdate);
             }
         }
-        repository.save(resume);
+        repository.save(resumeToUpdate);
     }
 
     @Override

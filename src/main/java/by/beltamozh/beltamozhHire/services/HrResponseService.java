@@ -15,6 +15,7 @@ import java.util.Optional;
 public class HrResponseService implements CrudService<HrResponse>, DtoProviderService<HrResponseDto> {
 
     private final HrResponseRepository repository;
+
     private final HrResponseMapper mapper;
 
     public HrResponseService(HrResponseRepository repository, HrResponseMapper mapper) {
@@ -41,10 +42,11 @@ public class HrResponseService implements CrudService<HrResponse>, DtoProviderSe
     @Transactional
     @Override
     public void update(HrResponse entity, int id) {
-        if (repository.findById(id).isEmpty()) {
+        Optional<HrResponse> hrResponse = repository.findById(id);
+        if (hrResponse.isEmpty()) {
             return;
         }
-        HrResponse hrResponseToUpdate = repository.findById(id).get();
+        HrResponse hrResponseToUpdate = hrResponse.get();
         hrResponseToUpdate.setName(entity.getName());
         hrResponseToUpdate.setResumes(entity.getResumes());
         repository.save(entity);

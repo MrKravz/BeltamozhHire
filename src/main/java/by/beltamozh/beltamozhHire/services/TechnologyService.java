@@ -15,6 +15,7 @@ import java.util.Optional;
 public class TechnologyService implements CrudService<Technology>, DtoProviderService<TechnologyDto> {
 
     private final TechnologyRepository repository;
+
     private final TechnologyMapper mapper;
 
     public TechnologyService(TechnologyRepository repository, TechnologyMapper mapper) {
@@ -41,14 +42,15 @@ public class TechnologyService implements CrudService<Technology>, DtoProviderSe
     @Override
     @Transactional
     public void update(Technology entity, int id) {
-        if (repository.findById(id).isEmpty()) {
+        Optional<Technology> technology = repository.findById(id);
+        if (technology.isEmpty()) {
             return;
         }
-        Technology technologyToUpdate = repository.findById(id).get();
+        Technology technologyToUpdate = technology.get();
         technologyToUpdate.setName(entity.getName());
         technologyToUpdate.setResumes(entity.getResumes());
         technologyToUpdate.setVacancies(entity.getVacancies());
-        repository.save(entity);
+        repository.save(technologyToUpdate);
     }
 
     @Override

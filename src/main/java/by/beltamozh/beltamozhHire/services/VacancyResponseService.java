@@ -6,22 +6,15 @@ import by.beltamozh.beltamozhHire.dto.VacancyDto;
 import by.beltamozh.beltamozhHire.mappers.HrResponseMapper;
 import by.beltamozh.beltamozhHire.mappers.ResumeMapper;
 import by.beltamozh.beltamozhHire.mappers.VacancyMapper;
-import by.beltamozh.beltamozhHire.models.HrResponse;
 import org.springframework.stereotype.Service;
 
 @Service
 public class VacancyResponseService {
-    private final VacancyService vacancyService;
-    private final ResumeService resumeService;
-    private final HrResponseService hrResponseService;
     private final VacancyMapper vacancyMapper;
     private final ResumeMapper resumeMapper;
     private final HrResponseMapper hrResponseMapper;
 
-    public VacancyResponseService(VacancyService vacancyService, ResumeService resumeService, HrResponseService hrResponseService, VacancyMapper vacancyMapper, ResumeMapper resumeMapper, HrResponseMapper hrResponseMapper) {
-        this.vacancyService = vacancyService;
-        this.resumeService = resumeService;
-        this.hrResponseService = hrResponseService;
+    public VacancyResponseService(VacancyMapper vacancyMapper, ResumeMapper resumeMapper, HrResponseMapper hrResponseMapper) {
         this.vacancyMapper = vacancyMapper;
         this.resumeMapper = resumeMapper;
         this.hrResponseMapper = hrResponseMapper;

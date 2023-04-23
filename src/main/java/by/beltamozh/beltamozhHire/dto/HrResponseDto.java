@@ -4,6 +4,9 @@ import lombok.*;
 
 @Data
 public class HrResponseDto{
-    int id;
-    String name;
+
+    private int id;
+
+    private String name;
+
 }

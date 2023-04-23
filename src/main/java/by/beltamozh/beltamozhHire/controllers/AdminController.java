@@ -1,8 +1,6 @@
 package by.beltamozh.beltamozhHire.controllers;
 
 import by.beltamozh.beltamozhHire.dto.*;
-import by.beltamozh.beltamozhHire.models.SkillLevel;
-import by.beltamozh.beltamozhHire.models.Technology;
 import by.beltamozh.beltamozhHire.services.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

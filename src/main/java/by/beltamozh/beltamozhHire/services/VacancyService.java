@@ -15,7 +15,9 @@ import java.util.Optional;
 @Service
 @Transactional(readOnly = true)
 public class VacancyService implements CrudService<Vacancy>, DtoProviderService<VacancyDto> {
+
     private final VacancyRepository repository;
+
     private final VacancyMapper mapper;
 
     public VacancyService(VacancyRepository repository, VacancyMapper mapper) {
@@ -42,10 +44,11 @@ public class VacancyService implements CrudService<Vacancy>, DtoProviderService<
     @Override
     @Transactional
     public void update(Vacancy entity, int id) {
-        if (repository.findById(id).isEmpty()) {
+        Optional<Vacancy> vacancy = repository.findById(id);
+        if (vacancy.isEmpty()) {
             return;
         }
-        Vacancy vacancyToUpdate = repository.findById(id).get();
+        Vacancy vacancyToUpdate = vacancy.get();
         vacancyToUpdate.setName(entity.getName());
         vacancyToUpdate.setAbout(entity.getAbout());
         vacancyToUpdate.setTechnologies(entity.getTechnologies());

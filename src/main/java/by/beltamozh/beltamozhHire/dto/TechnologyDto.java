@@ -1,14 +1,17 @@
 package by.beltamozh.beltamozhHire.dto;
 
-import lombok.Data;
-import lombok.ToString;
+import lombok.*;
 
 import java.util.List;
 
 @Data
 public class TechnologyDto{
-    int id;
-    String name;
+
+    private int id;
+
+    private String name;
+
     @ToString.Exclude
-    List<ResumeDto> technologiesResumes;
+    private List<ResumeDto> technologiesResumes;
+
 }

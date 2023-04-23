@@ -1,8 +1,6 @@
 package by.beltamozh.beltamozhHire.controllers;
 
 import by.beltamozh.beltamozhHire.dto.UserDto;
-import by.beltamozh.beltamozhHire.models.User;
-import by.beltamozh.beltamozhHire.services.CrudService;
 import by.beltamozh.beltamozhHire.services.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

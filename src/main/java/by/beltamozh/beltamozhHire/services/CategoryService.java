@@ -40,10 +40,11 @@ public class CategoryService implements CrudService<Category>, DtoProviderServic
     @Override
     @Transactional
     public void update(Category entity, int id) {
-        if (repository.findById(id).isEmpty()) {
+        Optional<Category> category = repository.findById(id);
+        if (category.isEmpty()) {
             return;
         }
-        Category categoryToUpdate = repository.findById(id).get();
+        Category categoryToUpdate = category.get();
         categoryToUpdate.setName(entity.getName());
         categoryToUpdate.setResumes(entity.getResumes());
         repository.save(entity);

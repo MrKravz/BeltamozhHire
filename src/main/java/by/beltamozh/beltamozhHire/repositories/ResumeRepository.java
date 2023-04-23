@@ -8,6 +8,6 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface ResumeRepository extends JpaRepository<Resume,Integer> {
+public interface ResumeRepository extends JpaRepository<Resume, Integer> {
     Optional<List<Resume>> findAllByOwnerId(int id);
 }
