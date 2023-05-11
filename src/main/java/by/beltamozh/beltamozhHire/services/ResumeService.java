@@ -97,6 +97,10 @@ public class ResumeService implements CrudService<Resume>, DtoProviderService<Re
         return repository.findAllByOwnerId(id);
     }
 
+    public Optional<Resume> findByName(String name) {
+        return repository.findByName(name);
+    }
+
     public Optional<List<ResumeDto>> findAllDtoByOwnerId(int id) {
         var resumes = findAllByOwnerId(id);
         if (resumes.isEmpty()) {

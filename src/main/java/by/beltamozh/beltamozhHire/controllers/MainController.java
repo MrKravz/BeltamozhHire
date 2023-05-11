@@ -11,24 +11,22 @@ import java.util.Optional;
 
 @Controller
 @RequestMapping("/")
-public class MainPageController {
+public class MainController {
     private final UserService userService;
     private final SecurityService securityService;
 
-    public MainPageController(UserService userService, SecurityService securityService) {
+    public MainController(UserService userService, SecurityService securityService) {
         this.userService = userService;
         this.securityService = securityService;
     }
 
     @GetMapping()
-    public String index()
-    {
+    public String index() {
         return "mainPageViews/index";
     }
 
     @GetMapping("/registration")
-    public String register(@ModelAttribute("user") User user)
-    {
+    public String register(@ModelAttribute("user") User user) {
         return "mainPageViews/registration";
     }
 
@@ -39,20 +37,24 @@ public class MainPageController {
     }
 
     @GetMapping("/login")
-    public String login(@ModelAttribute User user)
-    {
+    public String login(@ModelAttribute User user) {
         return "mainPageViews/login";
     }
 
     @PostMapping("/login/auth")
-    public String auth(@ModelAttribute User user)
-    {
+    public String auth(@ModelAttribute User user) {
         securityService.autoLogin(user.getLogin(), user.getPassword());
         int id = userService.findByLogin(user.getLogin()).get().getId();
         Optional<Role> role = userService.findById(id).get().getRoles().stream().findFirst();
-        if (role.isEmpty()) { return "mainPageViews/index";}
-        if (role.get().getName().equals("ADMIN")) { return "redirect:/user/" + id; }
-        if (role.get().getName().equals("HR")) { return "redirect:/hr/" + id; }
+        if (role.isEmpty()) {
+            return "mainPageViews/index";
+        }
+        if (role.get().getName().equals("ADMIN")) {
+            return "redirect:/admin";
+        }
+        if (role.get().getName().equals("HR")) {
+            return "redirect:/hr";
+        }
         return "redirect:/user/" + id;
     }
 }

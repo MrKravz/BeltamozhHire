@@ -1,10 +1,17 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://thymeleaf.org">
 <head>
+    <link rel="icon" href="data:,">
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
 <body>
-
+    <form th:method="POST" th:action="@{/admin/categories}" th:object="${category}">
+        <label for="name">Enter name: </label>
+        <input type="text" th:field="*{name}" id="name"/>
+        <br>
+        <input type="submit" value="Create">
+        <input type="button" value="Back" onclick="window.history.back()">
+    </form>
 </body>
 </html>

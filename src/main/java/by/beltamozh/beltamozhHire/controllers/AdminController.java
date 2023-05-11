@@ -1,6 +1,10 @@
 package by.beltamozh.beltamozhHire.controllers;
 
 import by.beltamozh.beltamozhHire.dto.*;
+import by.beltamozh.beltamozhHire.models.Category;
+import by.beltamozh.beltamozhHire.models.HrResponse;
+import by.beltamozh.beltamozhHire.models.SkillLevel;
+import by.beltamozh.beltamozhHire.models.Technology;
 import by.beltamozh.beltamozhHire.services.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -36,7 +40,7 @@ public class AdminController {
 
     @GetMapping("/users")
     public String users(Model model) {
-        Optional<List<UserDto>> users = userService.findAllDto();
+        var users = userService.findAllDto();
         if (users.isEmpty()) {
             return "adminPageViews/index";
         }
@@ -46,7 +50,7 @@ public class AdminController {
 
     @GetMapping("/categories")
     public String categories(Model model) {
-        Optional<List<CategoryDto>> categories = categoryService.findAllDto();
+        var categories = categoryService.findAllDto();
         if (categories.isEmpty()) {
             return "adminPageViews/index";
         }
@@ -56,7 +60,7 @@ public class AdminController {
 
     @GetMapping("/hr_responses")
     public String hrResponses(Model model) {
-        Optional<List<HrResponseDto>> hrResponses = hrResponseService.findAllDto();
+        var hrResponses = hrResponseService.findAllDto();
         if (hrResponses.isEmpty()) {
             return "adminPageViews/index";
         }
@@ -66,7 +70,7 @@ public class AdminController {
 
     @GetMapping("/skill_levels")
     public String skillLevels(Model model) {
-        Optional<List<SkillLevelDto>> skillLevels = skillLevelService.findAllDto();
+        var skillLevels = skillLevelService.findAllDto();
         if (skillLevels.isEmpty()) {
             return "adminPageViews/index";
         }
@@ -76,7 +80,7 @@ public class AdminController {
 
     @GetMapping("/technologies")
     public String technologies(Model model) {
-        Optional<List<TechnologyDto>> technologies = technologyService.findAllDto();
+        var technologies = technologyService.findAllDto();
         if (technologies.isEmpty()) {
             return "adminPageViews/index";
         }
@@ -85,56 +89,55 @@ public class AdminController {
     }
     //endregion
     // region post
-
     @GetMapping("/categories/new")
-    public String newCategory(@ModelAttribute CategoryDto category) {
+    public String newCategory(@ModelAttribute Category category) {
         return "adminPageViews/new_category";
     }
 
     @PostMapping("/categories")
-    public String createCategory(@ModelAttribute CategoryDto category) {
-        categoryService.saveDto(category);
-        return "adminPageViews/index";
+    public String createCategory(@ModelAttribute Category category) {
+        categoryService.save(category);
+        return "redirect:/admin/categories";
     }
 
     @GetMapping("/hr_responses/new")
-    public String newResponse(@ModelAttribute HrResponseDto hrResponse) {
+    public String newResponse(@ModelAttribute HrResponse hrResponse) {
         return "adminPageViews/new_hr_response";
     }
 
     @PostMapping("/hr_responses")
-    public String createResponse(@ModelAttribute HrResponseDto hrResponse) {
-        hrResponseService.saveDto(hrResponse);
-        return "adminPageViews/index";
+    public String createResponse(@ModelAttribute HrResponse hrResponse) {
+        hrResponseService.save(hrResponse);
+        return "redirect:/admin/hr_response";
     }
 
     @GetMapping("/skill_levels/new")
-    public String newSkillLevel(@ModelAttribute SkillLevelDto skillLevel) {
+    public String newSkillLevel(@ModelAttribute SkillLevel skillLevel) {
         return "adminPageViews/new_skill_level";
     }
 
     @PostMapping("/skill_levels")
-    public String createSkillLevel(@ModelAttribute SkillLevelDto skillLevel) {
-        skillLevelService.saveDto(skillLevel);
-        return "adminPageViews/index";
+    public String createSkillLevel(@ModelAttribute SkillLevel skillLevel) {
+        skillLevelService.save(skillLevel);
+        return "redirect:/admin/skill_levels";
     }
 
     @GetMapping("/technologies/new")
-    public String newTechnology(@ModelAttribute TechnologyDto technology) {
+    public String newTechnology(@ModelAttribute Technology technology) {
         return "adminPageViews/new_technology";
     }
 
     @PostMapping("/technologies")
-    public String createTechnology(@ModelAttribute TechnologyDto technology) {
-        technologyService.saveDto(technology);
-        return "adminPageViews/index";
+    public String createTechnology(@ModelAttribute Technology technology) {
+        technologyService.save(technology);
+        return "redirect:/admin/technologies";
     }
 
     // endregion
     // region edit
     @GetMapping("/categories/{id}/edit")
     public String editCategory(@PathVariable int id, Model model) {
-        Optional<CategoryDto> category = categoryService.findDtoById(id);
+        var category = categoryService.findById(id);
         if (category.isEmpty()) {
             return "adminPageViews/categories";
         }
@@ -143,57 +146,57 @@ public class AdminController {
     }
 
     @PatchMapping("/categories/{id}")
-    public String applyCategoryChanges(@PathVariable int id, @ModelAttribute CategoryDto category) {
-        categoryService.updateDto(category, id);
-        return "adminPageViews/index";
+    public String applyCategoryChanges(@PathVariable int id, @ModelAttribute Category category) {
+        categoryService.update(category, id);
+        return "redirect:/admin/categories";
     }
 
     @GetMapping("/hr_responses/{id}/edit")
     public String editHrResponse(@PathVariable int id, Model model) {
-        Optional<HrResponseDto> hrResponse = hrResponseService.findDtoById(id);
+        var hrResponse = hrResponseService.findById(id);
         if (hrResponse.isEmpty()) {
-            return "adminPageViews/hr_responses";
+            return "redirect:/admin/hr_responses";
         }
         model.addAttribute("hrResponse", hrResponse.get());
         return "adminPageViews/hr_response_details";
     }
 
     @PatchMapping("/hr_responses/{id}")
-    public String applyHrResponseChanges(@PathVariable int id, @ModelAttribute HrResponseDto hrResponse) {
-        hrResponseService.updateDto(hrResponse, id);
-        return "adminPageViews/index";
+    public String applyHrResponseChanges(@PathVariable int id, @ModelAttribute HrResponse hrResponse) {
+        hrResponseService.update(hrResponse, id);
+        return "redirect:/admin/hr_responses";
     }
 
     @GetMapping("/skill_levels/{id}/edit")
     public String editSkillLevel(@PathVariable int id, Model model) {
-        Optional<SkillLevelDto> skillLevel = skillLevelService.findDtoById(id);
+        var skillLevel = skillLevelService.findById(id);
         if (skillLevel.isEmpty()) {
-            return "adminPageViews/skill_levels";
+            return "redirect:/admin/skill_levels";
         }
         model.addAttribute("skillLevel", skillLevel.get());
         return "adminPageViews/skill_level_details";
     }
 
     @PatchMapping("/skill_levels/{id}")
-    public String applySkillLevelChanges(@PathVariable int id, @ModelAttribute SkillLevelDto skillLevel) {
-        skillLevelService.updateDto(skillLevel, id);
-        return "adminPageViews/index";
+    public String applySkillLevelChanges(@PathVariable int id, @ModelAttribute SkillLevel skillLevel) {
+        skillLevelService.update(skillLevel, id);
+        return "redirect:/admin/skill_levels";
     }
 
     @GetMapping("/technologies/{id}/edit")
     public String editTechnology(@PathVariable int id, Model model) {
-        Optional<TechnologyDto> technology = technologyService.findDtoById(id);
+        var technology = technologyService.findById(id);
         if (technology.isEmpty()) {
-            return "adminPageViews/technologies";
+            return "redirect:/admin/technologies";
         }
         model.addAttribute("technology", technology.get());
         return "adminPageViews/technology_details";
     }
 
     @PatchMapping("/technologies/{id}")
-    public String applyTechnologyChanges(@PathVariable int id, @ModelAttribute TechnologyDto technology) {
-        technologyService.updateDto(technology, id);
-        return "adminPageViews/index";
+    public String applyTechnologyChanges(@PathVariable int id, @ModelAttribute Technology technology) {
+        technologyService.update(technology, id);
+        return "redirect:/admin/technologies";
     }
 
     //endregion
@@ -201,31 +204,31 @@ public class AdminController {
     @DeleteMapping("/categories/{id}/delete")
     private String deleteCategory(@PathVariable int id) {
         categoryService.delete(id);
-        return "adminPageViews/categories";
+        return "redirect:/admin/categories";
     }
 
     @DeleteMapping("/users/{id}/delete")
     private String deleteUser(@PathVariable int id) {
         userService.delete(id);
-        return "adminPageViews/users";
+        return "redirect:/admin/users";
     }
 
     @DeleteMapping("/hr_responses/{id}/delete")
     private String deleteHrResponse(@PathVariable int id) {
         hrResponseService.delete(id);
-        return "adminPageViews/hr_responses";
+        return "redirect:/admin/hr_responses";
     }
 
     @DeleteMapping("/skill_levels/{id}/delete")
     private String deleteSkillLevel(@PathVariable int id) {
         skillLevelService.delete(id);
-        return "adminPageViews/skill_levels";
+        return "redirect:/admin/skill_levels";
     }
 
     @DeleteMapping("/technologies/{id}/delete")
     private String deleteTechnology(@PathVariable int id) {
         technologyService.delete(id);
-        return "adminPageViews/technologies";
+        return "redirect:/admin/technologies";
     }
     // endregion
 }

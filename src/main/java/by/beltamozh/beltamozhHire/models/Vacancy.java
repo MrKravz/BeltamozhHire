@@ -41,17 +41,10 @@ public class Vacancy {
             joinColumns = @JoinColumn(name = "vacancy_id"),
             inverseJoinColumns = @JoinColumn(name = "technology_id")
     )
-    @Cascade(org.hibernate.annotations.CascadeType.ALL)
     @ToString.Exclude
     private List<Technology> technologies;
 
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(
-            name = "vacancies_resumes",
-            joinColumns = @JoinColumn(name = "vacancy_id"),
-            inverseJoinColumns = @JoinColumn(name = "resume_id")
-    )
+    @OneToMany(mappedBy = "vacancy", fetch = FetchType.LAZY)
     @Cascade(org.hibernate.annotations.CascadeType.ALL)
-    @ToString.Exclude
-    private List<Resume> resumes;
+    private List<ResumeResponse> resumeResponse;
 }

@@ -1,33 +1,32 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://thymeleaf.org">
 <head>
-    <link rel="icon" href="data:,">
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
 <body>
-    <form th:method="POST" th:action="@{create}" th:object="${resume}">
+    <form th:method="POST" th:action="@{create}" th:object="${vacancy}">
         <label for="name">Enter name: </label>
         <input type="text" th:field="*{name}" id="name"/>
-        <br>
-        <label for="desiredPosition">Enter desired position: </label>
-        <input type="text" th:field="*{desiredPosition}" id="desiredPosition"/>
-        <br>
-        <label>Choose your skill level: </label>
-        <select th:field="*{skillLevel}">
-            <option th:each="skillLevel : ${skillLevels}" th:value="${skillLevel.getId()}" th:text="${skillLevel.getName()}"
-                    th:selected="${resume.getSkillLevel().getId() == skillLevel.getId()}"></option>
-        </select>
-        <br>
-        <label for="desiredSalary">Enter desired salary: </label>
-        <input type="number" th:field="*{desiredSalary}" id="desiredSalary"/>
         <br>
         <label for="about">Enter about: </label>
         <input type="text" th:field="*{about}" id="about"/>
         <br>
+        <label for="estimatedSalary">Enter estimated salary: </label>
+        <input type="number" th:field="*{estimatedSalary}" id="estimatedSalary"/>
+        <br>
+        <label>Choose your skill level: </label>
+        <select th:field="*{requiredSkillLevel}">
+            <option th:each="skillLevel : ${skillLevels}" th:value="${skillLevel.getId()}" th:text="${skillLevel.getName()}"
+                    th:selected="${vacancy.getRequiredSkillLevel().getId() == skillLevel.getId()}"></option>
+        </select>
+        <br>
+        <label for="requiredWorkingExperience">Enter required working experience: </label>
+        <input type="number" th:field="*{requiredWorkingExperience}" id="requiredWorkingExperience"/>
+        <br>
         <label>Choose technologies you know: </label>
         <div th:each="technology :${technologies}">
-            <input type="checkbox" th:field="*{technologies}" th:value="${technology.getId()}" th:checked="${resume.getTechnologies().contains(technology)}"/>
+            <input type="checkbox" th:field="*{technologies}" th:value="${technology.getId()}" th:checked="${vacancy.getTechnologies().contains(technology)}"/>
             <label th:for="${technology.getId()}" th:text="${technology.getName()}">Enter password: </label>
             <br>
         </div>

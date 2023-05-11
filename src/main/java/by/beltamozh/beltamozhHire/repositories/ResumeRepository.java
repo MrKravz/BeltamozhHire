@@ -10,4 +10,5 @@ import java.util.Optional;
 @Repository
 public interface ResumeRepository extends JpaRepository<Resume, Integer> {
     Optional<List<Resume>> findAllByOwnerId(int id);
+    Optional<Resume> findByName(String name);
 }

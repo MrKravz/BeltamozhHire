@@ -1,0 +1,49 @@
+html{
+    font-size: 16px;
+}
+body{
+    font-family: "Times New Roman", sans-serif;
+    font-weight: bold;
+    font-size: 24px;
+    font-weight: 400;
+    color: #000;
+    background-color: #fff;
+    min-width: 320px;
+}
+img{
+    max-width: 100%;
+    height: auto;
+}
+* {
+    margin: 0;
+    padding: 0;
+}
+.link-image {
+    display: inline-block;
+    width: 45px;
+    height: 45px;
+}
+.logo-image {
+    display: block;
+    margin-left: auto;
+    width: 75px;
+    height: 75px;
+}
+.footer {
+    padding-top: 10px;
+    position: sticky;
+    width: 100%;
+}
+.navbar .navbar-nav .nav-item .nav-link
+{
+    color: #0097B2;
+    font-size: 19px;
+}
+.background-image {
+    background-image: url(../img/background.png);
+    background-size: auto;
+    background-repeat: repeat;
+    padding-top: 100px;
+    padding-bottom: 100px;
+    height: 100vh;
+}

@@ -14,19 +14,9 @@
     <div th:each="technology : ${vacancy.getTechnologies()}">
         <p th:text="${technology.getName()}">user</p>
     </div>
-    <form th:method="PATCH" th:action="@{{vacancy_id} (vacancy_id=${vacancy.getId()})}" th:object="${vacancy}">
-        <label for="resumeSelect">Select Resume:</label>
-        <select id="resumeSelect" name="resumeId">
-            <option th:each="resume : ${resumes}" th:value="${resume.getId()}" th:text="${resume.getName()}"></option>
-        </select>
-        <input type="hidden" th:field="*{name}" th:value="${vacancy.getName()}">
-        <input type="hidden" th:field="*{about}" th:value="${vacancy.getAbout()}">
-        <input type="hidden" th:field="*{estimatedSalary}" th:value="${vacancy.getEstimatedSalary()}">
-        <input type="hidden" th:field="*{requiredSkillLevel}" th:value="${vacancy.getRequiredSkillLevel()}">
-        <input type="hidden" th:field="*{requiredWorkingExperience}" th:value="${vacancy.getRequiredWorkingExperience()}">
-        <input type="hidden" th:field="*{technologies}" th:value="${vacancy.getTechnologies()}">
-        <input type="submit" value="Respond">
-        <input type="button" value="Back" onclick="window.history.back()">
+    <a th:href="@{{vacancy_id}/edit (vacancy_id=${vacancy.getId()})}">Edit</a>
+    <form th:method="DELETE" th:action="@{{vacancy_id}/delete (vacancy_id=${vacancy.getId()})}">
+        <input type="submit" value="Delete"/>
     </form>
 </body>
 </html>

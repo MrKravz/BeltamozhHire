@@ -83,11 +83,13 @@ public class VacancyService implements CrudService<Vacancy>, DtoProviderService<
     }
 
     @Override
+    @Transactional
     public void saveDto(VacancyDto dto) {
         save(mapper.toEntity(dto));
     }
 
     @Override
+    @Transactional
     public void updateDto(VacancyDto dto, int id) {
         update(mapper.toEntity(dto), id);
     }

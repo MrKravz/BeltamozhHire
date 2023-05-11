@@ -7,16 +7,21 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collections;
+import java.util.List;
 
 @Controller
 @RequestMapping("user/{id}/resumes")
 public class ResumeController {
     private final ResumeService resumeService;
+    private final NewResumeService newResumeService;
+    private final UserService userService;
     private final SkillLevelService skillLevelService;
     private final TechnologyService technologyService;
 
-    public ResumeController(ResumeService resumeService, SkillLevelService skillLevelService, TechnologyService technologyService) {
+    public ResumeController(ResumeService resumeService, NewResumeService newResumeService, UserService userService, SkillLevelService skillLevelService, TechnologyService technologyService) {
         this.resumeService = resumeService;
+        this.newResumeService = newResumeService;
+        this.userService = userService;
         this.skillLevelService = skillLevelService;
         this.technologyService = technologyService;
     }
@@ -46,19 +51,24 @@ public class ResumeController {
     //endregion
     //region create
     @GetMapping("/new")
-    private String newResume(@ModelAttribute("resume") ResumeDto resume, Model model) {
+    private String newResume(Model model) {
         var skillLevels = skillLevelService.findAllDto();
         var technologies = technologyService.findAllDto();
+        var resume = newResumeService.newResume();
         if (skillLevels.isEmpty() || technologies.isEmpty()) {
             return "resumePageViews/resumes";
         }
+
         model.addAttribute("skillLevels", skillLevels.get());
+        model.addAttribute("resume", resume);
         model.addAttribute("technologies", technologies.get());
         return "resumePageViews/create_resume";
     }
 
     @PostMapping("/create")
     private String create(@PathVariable("id") int id, @ModelAttribute("resume") ResumeDto resume) {
+        var user = userService.findById(id);
+        resume.setOwner(user.get());
         resumeService.saveDto(resume);
         return "redirect:/user/" + id + "/resumes";
     }

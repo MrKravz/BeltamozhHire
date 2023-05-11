@@ -1,6 +1,8 @@
 package by.beltamozh.beltamozhHire.controllers;
 
 import by.beltamozh.beltamozhHire.dto.*;
+import by.beltamozh.beltamozhHire.models.Resume;
+import by.beltamozh.beltamozhHire.models.Vacancy;
 import by.beltamozh.beltamozhHire.services.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -35,22 +37,40 @@ public class UserResponseController {
 
     @GetMapping("/vacancy_details/{vacancy_id}")
     public String vacancyDetails(@PathVariable("vacancy_id") int vacancy_id, Model model, @PathVariable("id") int id) {
-        Optional<VacancyDto> vacancy = vacancyService.findDtoById(vacancy_id);
-        Optional<List<ResumeDto>> resumes = resumeService.findAllDtoByOwnerId(id);
+        Optional<Vacancy> vacancy = vacancyService.findById(vacancy_id);
+        Optional<List<Resume>> resumes = resumeService.findAllByOwnerId(id);
         if (vacancy.isEmpty()) {
             return "vacancyPageViews/index";
         }
         model.addAttribute("vacancy", vacancy.get());
-        model.addAttribute("resumes", resumes.get());
         return "vacancyPageViews/vacancy_details";
     }
 
-    @PatchMapping("/vacancy_details/{vacancy_id}")
-    public String respondToVacancy(@PathVariable("vacancy_id") int id, @ModelAttribute("vacancy") VacancyDto vacancy,
-                                   @ModelAttribute("resume") ResumeDto resume) {
-        // Todo resume added and update in list
-        vacancyResponseService.addResponse(vacancy, resume);
-        vacancyService.updateDto(vacancy, id);
-        return "vacancyPageViews/vacancy_details";
+    @GetMapping("/vacancy_details/{vacancy_id}/chose_response")
+    public String vacancyRespond(Model model, @PathVariable("id") int id) {
+        var resumes = resumeService.findAllByOwnerId(id);
+        if (resumes.isEmpty()) {
+            return "vacancyPageViews/index";
+        }
+        model.addAttribute("resumes", resumes.get());
+        model.addAttribute("resume", new Resume());
+        return "vacancyPageViews/vacancy_respond";
+    }
+
+    @PostMapping("/vacancy_details/{vacancy_id}/respond")
+    public String respondToVacancy(@PathVariable("vacancy_id") int vacancy_id, @ModelAttribute("resume") Resume resume) {
+        var vacancy = vacancyService.findById(vacancy_id);
+        var resumeToAdd = resumeService.findById(resume.getId());
+        if (vacancy.isEmpty())
+        {
+            return "vacancyPageViews/index";
+        }
+        if (resumeToAdd.isEmpty())
+        {
+            return "vacancyPageViews/index";
+        }
+        vacancyResponseService.addResponse(vacancy.get(), resumeToAdd.get());
+        vacancyService.update(vacancy.get(), vacancy_id);
+        return "redirect:/user/{id}";
     }
 }

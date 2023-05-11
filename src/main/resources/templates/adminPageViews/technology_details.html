@@ -6,14 +6,14 @@
     <title>Title</title>
 </head>
 <body>
-    <form th:method="PATCH" th:action="@{/technologies/{id} (id=${technology.id()})}" th:object="${technology}">
+    <form th:method="PATCH" th:action="@{/admin/technologies/{id} (id=${technology.getId()})}" th:object="${technology}">
         <label for="name">Enter name: </label>
         <input type="text" th:field="*{name}" id="name"/>
         <br>
         <input type="submit" value="Edit">
         <input type="button" value="Back" onclick="window.history.back()">
     </form>
-    <form th:method="DELETE" th:action="@{/technologies/{id}/delete (id=${technology.id()})}">
+    <form th:method="DELETE" th:action="@{delete}">
         <input type="submit" value="Delete"/>
     </form>
 </body>
