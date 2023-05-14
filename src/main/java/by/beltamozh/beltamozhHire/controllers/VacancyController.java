@@ -16,13 +16,16 @@ public class VacancyController {
     private final VacancyService vacancyService;
     private final SkillLevelService skillLevelService;
     private final TechnologyService technologyService;
+    private final HrResponseService hrResponseService;
     private final ResumeResponseService resumeResponseService;
 
     public VacancyController(VacancyService vacancyService, SkillLevelService skillLevelService,
-                             TechnologyService technologyService, ResumeResponseService resumeResponseService) {
+                             TechnologyService technologyService, HrResponseService hrResponseService,
+                             ResumeResponseService resumeResponseService) {
         this.vacancyService = vacancyService;
         this.skillLevelService = skillLevelService;
         this.technologyService = technologyService;
+        this.hrResponseService = hrResponseService;
         this.resumeResponseService = resumeResponseService;
     }
     // region get
@@ -50,9 +53,9 @@ public class VacancyController {
     //endregion
     //region feedback to responses
     @GetMapping("/vacancy_details/{vacancy_id}/responds")
-    public String responds(Model model)
+    public String responds(Model model, @PathVariable("vacancy_id") int vacancy_id)
     {
-        var resumeResponses = resumeResponseService.findAll();
+        var resumeResponses = resumeResponseService.findAllByVacancyId(vacancy_id);
         if (resumeResponses.isEmpty())
         {
             return "";
@@ -64,15 +67,17 @@ public class VacancyController {
     public String respondedResumeDetails(Model model, @PathVariable("vacancy_id") int vacancy_id, @PathVariable("resume_id") int resume_id)
     {
         var resumeResponse = resumeResponseService.findByResumeIdAndVacancyId(resume_id, vacancy_id);
+        var hrResponses = hrResponseService.findAll();
         if (resumeResponse.isEmpty())
         {
             return "";
         }
         model.addAttribute("resumeResponse", resumeResponse.get());
+        model.addAttribute("hrResponses", hrResponses.get());
         return "vacancyPageViews/resume_details";
     }
     @PatchMapping("/vacancy_details/{vacancy_id}/responds/{resume_id}")
-    public String sendFeedback(@ModelAttribute("resume") ResumeResponse resumeResponse)
+    public String sendFeedback(@ModelAttribute("resumeResponse") ResumeResponse resumeResponse)
     {
         resumeResponseService.update(resumeResponse, resumeResponse.getId());
         return "redirect:/hr/vacancies";
