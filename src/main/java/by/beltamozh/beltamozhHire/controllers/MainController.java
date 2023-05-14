@@ -57,4 +57,9 @@ public class MainController {
         }
         return "redirect:/user/" + id;
     }
+
+    @GetMapping("/about")
+    public String about() {
+        return "mainPageViews/login";
+    }
 }

@@ -19,11 +19,13 @@ public class ResumePaginationService implements PaginationService<Resume> {
 
     @Override
     public Page<Resume> getPageableList(int page, int size) {
-        return repository.findAll(PageRequest.of(page, size));
+        var pageable = PageRequest.of(page, size);
+        return repository.findAll(pageable);
     }
 
     @Override
     public Page<Resume> getSortedAndPageableList(int page, int size, String fieldName) {
-        return repository.findAll(PageRequest.of(page, size, Sort.by(fieldName)));
+        var pageable = PageRequest.of(page, size, Sort.by(fieldName));
+        return repository.findAll(pageable);
     }
 }

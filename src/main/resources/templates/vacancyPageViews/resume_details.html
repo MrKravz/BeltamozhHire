@@ -1,34 +1,10 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://thymeleaf.org">
+<html lang="en">
 <head>
-    <link rel="icon" href="data:,">
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
 <body>
-    <h1 th:text="${resumeResponse.getResume().getName()}">Name</h1>
-    <p th:text="${resumeResponse.getResume().getDesiredPosition()}"></p>
-    <p th:text="${resumeResponse.getResume().getSkillLevel().getName()}"></p>
-    <p th:text="${resumeResponse.getResume().getDesiredSalary()}"></p>
-    <p th:text="${resumeResponse.getResume().getAbout()}"></p>
-    <div th:each="technology : ${resumeResponse.getResume().getTechnologies()}">
-        <p th:text="${technology.getName()}">user</p>
-    </div>
-    <form th:method="PATCH" th:action="@{/hr/vacancies/vacancy_details/{vacancy_id}/responds/{resume_id}
-    (resume_id=${resumeResponse.getResume().getId()}, vacancy_id=${resumeResponse.getVacancy().getId()})}"
-          th:object="${resumeResponse}">
-        <input type="hidden" th:field="*{id}" value="${resumeResponse.getId()}">
-        <input type="hidden" th:field="*{vacancy}" value="${resumeResponse.getVacancy()}">
-        <input type="hidden" th:field="*{resume}" value="${resumeResponse.getResume()}">
-        <select th:field="*{hrResponse}">
-            <option value="null" th:if="${resumeResponse.getHrResponse() == null}">Please select an option</option>
-            <option th:each="hrResponse : ${hrResponses}" th:value="${hrResponse.getId()}" th:text="${hrResponse.getName()}"
-                    th:selected="${resumeResponse.getHrResponse() != null
-                    and resumeResponse.getHrResponse().getId() == hrResponse.getId()}"></option>
-        </select>
-        <input type="submit" value="Edit">
-        <input type="button" value="Back" onclick="window.history.back()">
-    </form>
-    <br>
+
 </body>
 </html>

@@ -46,6 +46,5 @@ public class Vacancy {
 
     @OneToMany(mappedBy = "vacancy", fetch = FetchType.LAZY)
     @Cascade(org.hibernate.annotations.CascadeType.ALL)
-    @ToString.Exclude
     private List<ResumeResponse> resumeResponse;
 }

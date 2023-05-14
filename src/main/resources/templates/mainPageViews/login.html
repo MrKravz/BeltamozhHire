@@ -2,32 +2,19 @@
 <html lang="en" xmlns:th="http://thymeleaf.org">
 <head>
     <link rel="icon" href="data:,">
-    <link rel="stylesheet" href="css/styles.css">
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
 <body>
-    <div class="banner">
-        <div class="navbar">
-            <a th:href="@{/}"><img class="logo" src="../img/logo.png"></a>
-            <ul>
-                <li><a th:href="@{login}">Login</a></li>
-                <li><a th:href="@{registration}">Register</a></li>
-                <li><a href="#">About</a></li>
-            </ul>
-        </div>
-        <div class="content">
-            <form th:method="POST" th:action="@{/login/auth}" th:object="${user}">
-                <input type="hidden" th:field="*{name}" id="name" th:value="${user.getName()}"/>
-                <label for="login">Enter login: </label>
-                <input type="text" th:field="*{login}" id="login"/>
-                <br>
-                <label for="password">Enter password: </label>
-                <input type="password" th:field="*{password}" id="password"/>
-                <br>
-                <input type="submit" value="register">
-            </form>
-        </div>
-    </div>
+    <form th:method="POST" th:action="@{/login/auth}" th:object="${user}">
+        <input type="hidden" th:field="*{name}" id="name" th:value="${user.getName()}"/>
+        <label for="login">Enter login: </label>
+        <input type="text" th:field="*{login}" id="login"/>
+        <br>
+        <label for="password">Enter password: </label>
+        <input type="password" th:field="*{password}" id="password"/>
+        <br>
+        <input type="submit" value="register">
+    </form>
 </body>
 </html>
