@@ -1,11 +1,25 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"  xmlns:th="http://thymeleaf.org">
 <head>
     <link rel="icon" href="data:,">
+    <link rel="stylesheet" href="css/styles.css">
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>BeltamozhHire</title>
 </head>
 <body>
-
+<div class="banner">
+    <div class="navbar">
+        <a th:href="@{/}"><img class="logo" src="../img/logo.png"></a>
+        <ul>
+            <li><a th:href="@{login}">Login</a></li>
+            <li><a th:href="@{registration}">Register</a></li>
+            <li><a href="#">About</a></li>
+        </ul>
+    </div>
+    <div class="content">
+        <h1>HI THERE</h1>
+        <p>Beltamozhservice is one of the greatest companies in the world</p>
+    </div>
+</div>
 </body>
 </html>

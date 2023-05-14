@@ -1,6 +1,5 @@
 package by.beltamozh.beltamozhHire.services;
 
-import by.beltamozh.beltamozhHire.models.HrResponse;
 import by.beltamozh.beltamozhHire.models.Resume;
 import by.beltamozh.beltamozhHire.models.ResumeResponse;
 import by.beltamozh.beltamozhHire.models.Vacancy;

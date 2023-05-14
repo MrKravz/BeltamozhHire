@@ -48,7 +48,6 @@ public class HrResponseService implements CrudService<HrResponse>, DtoProviderSe
         }
         HrResponse hrResponseToUpdate = hrResponse.get();
         hrResponseToUpdate.setName(entity.getName());
-        hrResponseToUpdate.setResumes(entity.getResumes());
         repository.save(entity);
     }
 

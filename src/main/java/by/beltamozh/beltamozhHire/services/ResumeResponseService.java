@@ -28,8 +28,9 @@ public class ResumeResponseService implements CrudService<ResumeResponse>{
     public Optional<ResumeResponse> findByResumeIdAndVacancyId(int resumeId, int vacancyId) {
         return resumeResponseRepository.findByResumeIdAndVacancyId(resumeId, vacancyId);
     }
-    public Optional<ResumeResponse> findByResumeId(int id) {
-        return resumeResponseRepository.findByResumeId(id);
+
+    public Optional<List<ResumeResponse>> findAllByVacancyId(int id) {
+        return resumeResponseRepository.findAllByVacancyId(id);
     }
 
     @Override
