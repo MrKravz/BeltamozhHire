@@ -2,25 +2,41 @@
 <html lang="en" xmlns:th="http://thymeleaf.org">
 <head>
     <link rel="icon" href="data:,">
+    <link rel="stylesheet" href="../css/styles.css">
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>BeltamozhHire</title>
 </head>
 <body>
-<table>
-    <thead>
-    <tr>
-        <th>ID</th>
-        <th>Name</th>
-        <th>Edit</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="technology : ${technologies}">
-        <td th:text="${technology.getId()}"></td>
-        <td th:text="${technology.getName()}"></td>
-        <td><a th:href="@{technologies/{id}/edit (id=${technology.getId()})}">Edit</a></td>
-    </tr>
-    </tbody>
-</table>
+    <div class="banner">
+        <div class="navbar">
+            <a th:href="@{/admin}"><img class="logo" src="../img/logo.png"></a>
+            <ul>
+                <li><a class="nav-text" th:href="@{/admin/users}">Users</a></li>
+                <li><a class="nav-text" th:href="@{/admin/categories}">Categories</a></li>
+                <li><a class="nav-text" th:href="@{/admin/hr_responses}">HR Responses</a></li>
+                <li><a class="nav-text" th:href="@{/admin/skill_levels}">Skill levels</a></li>
+                <li><a class="nav-text" th:href="@{/admin/technologies}">Technologies</a></li>
+                <li><a class="nav-text" th:href="@{/admin/logout}">Logout</a></li>
+            </ul>
+        </div>
+        <div class="content">
+            <table>
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Edit</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="technology : ${technologies}">
+                    <td th:text="${technology.getId()}"></td>
+                    <td th:text="${technology.getName()}"></td>
+                    <td><a th:href="@{technologies/{id}/edit (id=${technology.getId()})}">Edit</a></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
 </body>
 </html>

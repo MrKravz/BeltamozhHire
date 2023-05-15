@@ -11,24 +11,36 @@
         <div class="navbar">
             <a th:href="@{/}"><img class="logo" src="../img/logo.png"></a>
             <ul>
-                <li><a th:href="@{login}">Login</a></li>
-                <li><a th:href="@{registration}">Register</a></li>
-                <li><a href="#">About</a></li>
+                <li><a class="nav-text" th:href="@{login}">Login</a></li>
+                <li><a class="nav-text" th:href="@{registration}">Register</a></li>
+                <li><a class="nav-text" href="#">About</a></li>
             </ul>
         </div>
         <div class="content">
-            <form th:method="POST" th:action="@{/}" th:object="${user}">
-                <label for="name">Enter name: </label>
-                <input type="text" th:field="*{name}" id="name"/>
-                <br>
-                <label for="login">Enter login: </label>
-                <input type="text" th:field="*{login}" id="login"/>
-                <br>
-                <label for="password">Enter password: </label>
-                <input type="password" th:field="*{password}" id="password"/>
-                <br>
-                <input type="submit" value="register">
-            </form>
+            <div class="box">
+                <div class="container">
+                    <form th:method="POST" th:action="@{/}" th:object="${user}" autocomplete="off">
+                        <div class="header-form-text">
+                            <span class="text-color-turquoise">Don't have an account?</span>
+                            <header class="text-color-turquoise">Register</header>
+                        </div>
+                        <div class="input-field">
+                            <input class="input text-color-turquoise text-center" type="text" th:field="*{name}" id="name" placeholder="Enter name"/>
+                        </div>
+                        <br>
+                        <div class="input-field">
+                            <input class="input text-color-turquoise text-center" type="text" th:field="*{login}" id="login" placeholder="Enter login"/>
+                        </div>
+                        <br>
+                        <div class="input-field">
+                            <input class="input text-color-turquoise text-center" type="text" th:field="*{password}" id="password" placeholder="Enter password"/>
+                        </div>
+                        <div class="input-field">
+                            <input class="submit text-color-turquoise" type="submit" value="Register">
+                        </div>
+                    </form>
+                </div>
+            </div>
         </div>
     </div>
 </body>

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en"  xmlns:th="http://thymeleaf.org">
+<html lang="en" xmlns:th="http://thymeleaf.org">
 <head>
     <link rel="icon" href="data:,">
     <link rel="stylesheet" href="css/styles.css">
@@ -7,19 +7,22 @@
     <title>BeltamozhHire</title>
 </head>
 <body>
-<div class="banner">
-    <div class="navbar">
-        <a th:href="@{/}"><img class="logo" src="../img/logo.png"></a>
-        <ul>
-            <li><a th:href="@{login}">Login</a></li>
-            <li><a th:href="@{registration}">Register</a></li>
-            <li><a href="#">About</a></li>
-        </ul>
+    <div class="banner">
+        <div class="navbar">
+            <a th:href="@{/admin}"><img class="logo" src="../img/logo.png"></a>
+            <ul>
+                <li><a class="nav-text" th:href="@{admin/users}">Users</a></li>
+                <li><a class="nav-text" th:href="@{admin/categories}">Categories</a></li>
+                <li><a class="nav-text" th:href="@{admin/hr_responses}">HR Responses</a></li>
+                <li><a class="nav-text" th:href="@{admin/skill_levels}">Skill levels</a></li>
+                <li><a class="nav-text" th:href="@{admin/technologies}">Technologies</a></li>
+                <li><a class="nav-text" th:href="@{admin/logout}">Logout</a></li>
+            </ul>
+        </div>
+        <div class="content">
+            <h1>HI THERE</h1>
+            <p>Beltamozhservice is one of the greatest companies in the world</p>
+        </div>
     </div>
-    <div class="content">
-        <h1>HI THERE</h1>
-        <p>Beltamozhservice is one of the greatest companies in the world</p>
-    </div>
-</div>
 </body>
 </html>
