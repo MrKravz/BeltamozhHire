@@ -20,22 +20,26 @@
             </ul>
         </div>
         <div class="content">
-            <table>
-                <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Name</th>
-                    <th>Edit</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr th:each="technology : ${technologies}">
-                    <td th:text="${technology.getId()}"></td>
-                    <td th:text="${technology.getName()}"></td>
-                    <td><a th:href="@{technologies/{id}/edit (id=${technology.getId()})}">Edit</a></td>
-                </tr>
-                </tbody>
-            </table>
+            <div class="box">
+                <div class="container">
+                    <table class="content-table">
+                        <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Edit</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="technology : ${technologies}">
+                            <td th:text="${technology.getId()}"></td>
+                            <td th:text="${technology.getName()}"></td>
+                            <td><a th:href="@{technologies/{id}/edit (id=${technology.getId()})}">Edit</a></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
     </div>
 </body>
