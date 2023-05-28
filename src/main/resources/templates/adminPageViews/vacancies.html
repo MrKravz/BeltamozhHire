@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <link rel="icon" href="data:,">
+    <link rel="stylesheet" href="../css/styles.css">
+    <meta charset="UTF-8">
+    <title>BeltamozhHire</title>
+</head>
+<body>
+<div class="navbar">
+    <a th:href="@{/admin}"><img class="logo" src="../img/logo.png"></a>
+    <ul>
+        <li><a class="nav-text text-color-turquoise" th:href="@{/admin/users}">Users</a></li>
+        <li><a class="nav-text text-color-turquoise" th:href="@{/admin/vacancies}">Vacancies</a></li>
+        <li><a class="nav-text text-color-turquoise" th:href="@{/admin/categories}">Categories</a></li>
+        <li><a class="nav-text text-color-turquoise" th:href="@{/admin/hr_responses}">HR Responses</a></li>
+        <li><a class="nav-text text-color-turquoise" th:href="@{/admin/skill_levels}">Skill levels</a></li>
+        <li><a class="nav-text text-color-turquoise" th:href="@{/admin/technologies}">Technologies</a></li>
+        <li><a class="nav-text text-color-turquoise" th:href="@{/logout}">Logout</a></li>
+    </ul>
+</div>
+<div class="content">
+    <div class="center">
+        <div class="box">
+            <div class="container">
+                <table class="content-table">
+                    <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Estimated salary</th>
+                        <th>Required skill level</th>
+                        <th>Required working experience(years)</th>
+                        <th>Link</th>
+                    </tr>
+                    </thead>
+                    <tbody class="text-center">
+                    <tr th:each="vacancy : ${vacancies}">
+                        <td th:text="${vacancy.getId()}"></td>
+                        <td th:text="${vacancy.getName()}"></td>
+                        <td th:text="${vacancy.getEstimatedSalary()}"></td>
+                        <td th:text="${vacancy.getRequiredSkillLevel().getName()}"></td>
+                        <td th:text="${vacancy.getRequiredWorkingExperience()}"></td>
+                        <td><a th:href="@{vacancies/{id}/edit (id=${vacancy.getId()})}">Edit</a></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<footer>
+    <input class="back text-color-turquoise" type="button" value="Back" onclick="window.history.back()">
+</footer>
+</body>
+</html>

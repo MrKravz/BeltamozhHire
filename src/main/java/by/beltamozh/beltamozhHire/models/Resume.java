@@ -31,15 +31,12 @@ public class Resume {
             joinColumns = @JoinColumn(name = "resume_id"),
             inverseJoinColumns = @JoinColumn(name = "company_id")
     )
-    @Cascade(org.hibernate.annotations.CascadeType.ALL)
     private List<Company> companies;
 
     @Column(name = "name")
-   /* @Size(min = 2, max = 50, message = "Имя не правильного размера")*/
     private String name;
 
     @Column(name = "desired_position")
-  /*  @Size(min = 2, max = 50, message = "Имя не правильного размера")*/
     private String desiredPosition;
 
     @ManyToMany(fetch = FetchType.LAZY)
@@ -48,7 +45,7 @@ public class Resume {
             joinColumns = @JoinColumn(name = "resume_id"),
             inverseJoinColumns = @JoinColumn(name = "technology_id")
     )
-    @Cascade(org.hibernate.annotations.CascadeType.ALL)
+    @ToString.Exclude
     private List<Technology> technologies;
 
     @ManyToOne
@@ -59,12 +56,9 @@ public class Resume {
     private SkillLevel skillLevel;
 
     @Column(name = "desired_salary")
-   /* @Min(value = 1)
-    @Max(value = 1000000)*/
     private float desiredSalary;
 
     @Column(name = "about")
-   /* @Size(max = 100, message = "Имя не правильного размера")*/
     private String about;
 
     @ManyToOne()

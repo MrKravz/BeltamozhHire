@@ -20,7 +20,6 @@ public class BadReputationUser {
             name = "user_id",
             referencedColumnName = "id"
     )
-    @Cascade(org.hibernate.annotations.CascadeType.ALL)
     @ToString.Exclude
     private User user;
 }

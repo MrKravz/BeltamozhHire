@@ -52,8 +52,6 @@ public class UserService implements CrudService<User>, DtoProviderService<UserDt
         User userToUpdate = user.get();
         userToUpdate.setName(entity.getName());
         userToUpdate.setLogin(entity.getLogin());
-        userToUpdate.setPassword(entity.getPassword());
-        userToUpdate.setResumes(entity.getResumes());
         userRepository.save(userToUpdate);
     }
 

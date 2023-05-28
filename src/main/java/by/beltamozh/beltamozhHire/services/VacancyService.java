@@ -4,8 +4,11 @@ import by.beltamozh.beltamozhHire.dto.CategoryDto;
 import by.beltamozh.beltamozhHire.dto.ResumeDto;
 import by.beltamozh.beltamozhHire.dto.VacancyDto;
 import by.beltamozh.beltamozhHire.mappers.VacancyMapper;
+import by.beltamozh.beltamozhHire.models.Resume;
 import by.beltamozh.beltamozhHire.models.Vacancy;
 import by.beltamozh.beltamozhHire.repositories.VacancyRepository;
+import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -14,17 +17,14 @@ import java.util.Optional;
 
 @Service
 @Transactional(readOnly = true)
+@AllArgsConstructor
 public class VacancyService implements CrudService<Vacancy>, DtoProviderService<VacancyDto> {
 
     private final VacancyRepository repository;
 
     private final VacancyMapper mapper;
 
-    public VacancyService(VacancyRepository repository, VacancyMapper mapper) {
-        this.repository = repository;
-        this.mapper = mapper;
-    }
-
+    //region crud
     @Override
     public Optional<List<Vacancy>> findAll() {
         return Optional.of(repository.findAll());
@@ -63,7 +63,9 @@ public class VacancyService implements CrudService<Vacancy>, DtoProviderService<
     public void delete(int id) {
         repository.deleteById(id);
     }
+    //endregion
 
+    //region dto
     @Override
     public Optional<List<VacancyDto>> findAllDto() {
         var categories = findAll();
@@ -93,5 +95,34 @@ public class VacancyService implements CrudService<Vacancy>, DtoProviderService<
     public void updateDto(VacancyDto dto, int id) {
         update(mapper.toEntity(dto), id);
     }
+    //endregion
 
+    private List<Vacancy> findAllSorted(String sortBy)
+    {
+        if (sortBy.equals(""))
+        {
+            return findAll().get();
+        }
+        return repository.findAll(Sort.by(sortBy).ascending());
+    }
+    private Optional<List<Vacancy>> findAllByName(String name)
+    {
+        if (name.equals(""))
+        {
+            return findAll();
+        }
+        return repository.findAllByNameContaining(name);
+    }
+    public Optional<List<Vacancy>> findAllByNameSorted(String name, String sortBy) {
+        if (name.equals("") && sortBy.equals("")) {
+            return findAll();
+        }
+        if (name.equals("") && !sortBy.equals("")) {
+            return Optional.ofNullable(findAllSorted(sortBy));
+        }
+        if (!name.equals("") && sortBy.equals("")) {
+            return findAllByName(name);
+        }
+        return repository.findAllByNameContaining(name, Sort.by(sortBy).ascending());
+    }
 }

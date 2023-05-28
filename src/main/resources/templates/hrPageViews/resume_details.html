@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <link rel="icon" href="data:,">
+    <link rel="stylesheet" href="/../../css/styles.css">
+    <meta charset="UTF-8">
+    <title>BeltamozhHire</title>
+</head>
+<div class="navbar">
+    <a th:href="@{/hr}"><img class="logo" src="/../../img/logo.png"></a>
+    <ul>
+        <li><a class="nav-text text-color-turquoise" th:href="@{/hr/vacancies}">Vacancies</a></li>
+        <li><a class="nav-text text-color-turquoise" th:href="@{/logout}">Logout</a></li>
+    </ul>
+</div>
+<body>
+<div class="content">
+    <div class="center">
+        <div class="box">
+            <div class="resume-container">
+                <div class="sub-container text-center">
+                    <div class="header-form-text">
+                        <header class="text-color-turquoise"
+                                th:text="${resumeResponse.getResume().getName()}">Name</header>
+                    </div>
+                    <p class="label-text">Desired position: </p>
+                    <p th:text="${resumeResponse.getResume().getDesiredPosition()}"></p>
+                    <p class="label-text">Skill level: </p>
+                    <p th:text="${resumeResponse.getResume().getSkillLevel().getName()}"></p>
+                    <p class="label-text">Desired salary($): </p>
+                    <p th:text="${resumeResponse.getResume().getDesiredSalary()}"></p>
+                    <p class="label-text">About: </p>
+                    <p th:text="${resumeResponse.getResume().getAbout()}"></p>
+                    <p class="label-text">Technologies: </p>
+                    <div th:each="technology : ${resumeResponse.getResume().getTechnologies()}">
+                        <p th:text="${technology.getName()}">user</p>
+                    </div>
+                    <form th:method="PATCH"
+                          th:action="@{{resume_id}/send_feedback
+                    (resume_id=${resumeResponse.getResume().getId()})}"
+                          th:object="${resumeResponse}">
+                        <input type="hidden" th:field="*{id}" value="${resumeResponse.getId()}">
+                        <input type="hidden" th:field="*{vacancy}" value="${resumeResponse.getVacancy()}">
+                        <input type="hidden" th:field="*{resume}" value="${resumeResponse.getResume()}">
+                        <div class="input-field">
+                            <p class="label-text">Hr response: </p>
+                            <select class="text-color-turquoise text-center" th:field="*{hrResponse}">
+                                <option class="text-color-turquoise text-center" value="null"
+                                        th:if="${resumeResponse.getHrResponse() == null}">
+                                    Please select an option</option>
+                                <option class="text-color-turquoise text-center"
+                                        th:each="hrResponse : ${hrResponses}" th:value="${hrResponse.getId()}"
+                                        th:text="${hrResponse.getName()}"
+                                        th:selected="${resumeResponse.getHrResponse() != null
+                                        and resumeResponse.getHrResponse().getId() == hrResponse.getId()}"></option>
+                            </select>
+                        </div>
+                        <div class="input-field">
+                            <input class="submit text-color-turquoise" type="submit" value="Send">
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<footer>
+    <input class="back text-color-turquoise" type="button" value="Back" onclick="window.history.back()">
+</footer>
+</body>
+</html>

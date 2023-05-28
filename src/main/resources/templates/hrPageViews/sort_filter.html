@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <link rel="icon" href="data:,">
+    <link rel="stylesheet" href="/../../css/styles.css">
+    <meta charset="UTF-8">
+    <title>BeltamozhHire</title>
+</head>
+<body>
+<div class="navbar">
+    <a th:href="@{/hr}"><img class="logo" src="/../../img/logo.png"></a>
+    <ul>
+        <li><a class="nav-text text-color-turquoise" th:href="@{/hr/vacancies}">Vacancies</a></li>
+        <li><a class="nav-text text-color-turquoise" th:href="@{/logout}">Logout</a></li>
+    </ul>
+</div>
+<div class="content">
+    <div class="center">
+            <div class="box">
+                <div class="container">
+                    <div class="sub-container">
+                        <form class="text-center" th:method="POST" th:action="@{options/apply}" th:object="${sortOptions}"
+                              autocomplete="off">
+                            <div class="input-field">
+                                <label for="filterText">Filter text:</label>
+                                <input class="input text-color-turquoise text-center" type="text"
+                                       th:field="*{textToFilter}" id="filterText" placeholder="Enter filter text"/>
+                            </div>
+                            <div class="input-field">
+                                <label for="sortField">Sort field: </label>
+                                <select id="sortField" class="text-color-turquoise text-center" th:field="*{fieldToSort}">
+                                    <option class="text-color-turquoise text-center" value="">None</option>
+                                    <option class="text-color-turquoise text-center" value="name">Name</option>
+                                    <option class="text-color-turquoise text-center" value="about">About</option>
+                                    <option class="text-color-turquoise text-center" value="estimatedSalary">Estimated salary</option>
+                                    <option class="text-color-turquoise text-center" value="requiredWorkingExperience">Required working experience</option>
+                                </select>
+                            </div>
+                            <div class="input-field">
+                                <input class="submit text-color-turquoise text-center" type="submit" value="Submit">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+        </div>
+    </div>
+</div>
+<footer>
+    <input class="back text-color-turquoise" type="button" value="Back" onclick="window.history.back()">
+</footer>
+</body>
+</html>

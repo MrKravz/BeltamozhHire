@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <link rel="icon" href="data:,">
+    <link rel="stylesheet" href="/../../css/styles.css">
+    <meta charset="UTF-8">
+    <title>BeltamozhHire</title>
+</head>
+<body>
+<div class="navbar">
+    <a th:href="@{/hr}"><img class="logo" src="/../../img/logo.png"></a>
+    <ul>
+        <li><a class="nav-text text-color-turquoise" th:href="@{/hr/vacancies}">Vacancies</a></li>
+        <li><a class="nav-text text-color-turquoise" th:href="@{/logout}">Logout</a></li>
+    </ul>
+</div>
+<div class="content">
+    <div class="center">
+        <div th:each="resume : ${resumeResponse}">
+            <div class="box">
+                <div class="resume-container">
+                    <div class="sub-container">
+                        <form th:method="GET" class="text-center"
+                              th:action="@{responds/{resume_id}
+                              (resume_id=${resume.getResume().getId()})}">
+                            <div class="header-form-text">
+                                <header class="text-color-turquoise"
+                                        th:text="${resume.getResume().getName()}">Name</header>
+                            </div>
+                            <p class="label-text">Desired position: </p>
+                            <p th:text="${resume.getResume().getDesiredPosition()}"></p>
+                            <p class="label-text">Skill level: </p>
+                            <p th:text="${resume.getResume().getSkillLevel().getName()}"></p>
+                            <p class="label-text">Desired salary($): </p>
+                            <p th:text="${resume.getResume().getDesiredSalary()}"></p>
+                            <p class="label-text">About: </p>
+                            <p th:text="${resume.getResume().getAbout()}"></p>
+                            <p class="label-text">Technologies: </p>
+                            <div th:each="technology : ${resume.getResume().getTechnologies()}">
+                                <p th:text="${technology.getName()}">user</p>
+                            </div>
+                            <div class="input-field">
+                                <input class="submit text-color-turquoise text-center" type="submit" value="Details">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<footer>
+    <input class="back text-center text-color-turquoise" type="button" value="Back" onclick="window.history.back()">
+</footer>
+</body>
+</html>

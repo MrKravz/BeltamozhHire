@@ -7,19 +7,17 @@
     <title>BeltamozhHire</title>
 </head>
 <body>
-<div class="banner">
-    <div class="navbar">
-        <a th:href="@{/}"><img class="logo" src="../img/logo.png"></a>
-        <ul>
-            <li><a class="nav-text" th:href="@{login}">Login</a></li>
-            <li><a class="nav-text" th:href="@{registration}">Register</a></li>
-            <li><a class="nav-text" href="#">About</a></li>
-        </ul>
-    </div>
-    <div class="content">
-        <h1>HI THERE</h1>
-        <p>Beltamozhservice is one of the greatest companies in the world</p>
-    </div>
+<div class="navbar">
+    <a th:href="@{/}"><img class="logo" src="../img/logo.png"></a>
+    <ul>
+        <li><a class="nav-text text-color-turquoise" th:href="@{login}">Login</a></li>
+        <li><a class="nav-text text-color-turquoise" th:href="@{registration}">Register</a></li>
+        <li><a class="nav-text text-color-turquoise" href="/" download="about.pdf">About</a></li>
+    </ul>
+</div>
+<div class="content text-center">
+    <h1>HI THERE</h1>
+    <p class="label-text">Welcome to BeltamozhHire, web-app for hire recruiting in the program department</p>
 </div>
 </body>
 </html>

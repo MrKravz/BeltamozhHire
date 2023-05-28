@@ -2,19 +2,21 @@ package by.beltamozh.beltamozhHire.services;
 
 import by.beltamozh.beltamozhHire.models.ResumeResponse;
 import by.beltamozh.beltamozhHire.repositories.ResumeResponseRepository;
+import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
 
 @Service
+@Transactional(readOnly = true)
+@AllArgsConstructor
 public class ResumeResponseService implements CrudService<ResumeResponse>{
     private final ResumeResponseRepository resumeResponseRepository;
 
-    public ResumeResponseService(ResumeResponseRepository resumeResponseRepository) {
-        this.resumeResponseRepository = resumeResponseRepository;
-    }
-
+    //region crud
     @Override
     public Optional<List<ResumeResponse>> findAll() {
         return Optional.of(resumeResponseRepository.findAll());
@@ -34,11 +36,13 @@ public class ResumeResponseService implements CrudService<ResumeResponse>{
     }
 
     @Override
+    @Transactional
     public void save(ResumeResponse entity) {
         resumeResponseRepository.save(entity);
     }
 
     @Override
+    @Transactional
     public void update(ResumeResponse entity, int id) {
         Optional<ResumeResponse> resumeResponse = resumeResponseRepository.findById(id);
         if (resumeResponse.isEmpty()) {
@@ -52,7 +56,18 @@ public class ResumeResponseService implements CrudService<ResumeResponse>{
     }
 
     @Override
+    @Transactional
     public void delete(int id) {
         resumeResponseRepository.deleteById(id);
+    }
+    //endregion
+
+    public Optional<List<ResumeResponse>> findAllByResumeOwnerId(int id)
+    {
+        return resumeResponseRepository.findAllByResumeOwnerId(id);
+    }
+    public Optional<ResumeResponse> findByResumeOwnerIdAndVacancyId(int resumeOwnerId, int vacancyId)
+    {
+        return resumeResponseRepository.findByResumeOwnerIdAndVacancyId(resumeOwnerId, vacancyId);
     }
 }

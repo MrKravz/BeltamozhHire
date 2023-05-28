@@ -19,16 +19,12 @@ public class User{
     private int id;
 
     @Column(name = "name")
-    //@Size(min = 2, max = 50, message = "Имя не правильного размера")
     private String name;
 
     @Column(name = "login")
-    //@Size(min = 4, max = 50, message = "Логин не правильного размера")
     private String login;
 
     @Column(name = "password")
-   /* @Size(min = 5, max = 50, message = "Размер пароля не должен быть " +
-            "больше 50 символов и меньше 5")*/
     private String password;
 
     @OneToMany(mappedBy = "owner", fetch = FetchType.LAZY)

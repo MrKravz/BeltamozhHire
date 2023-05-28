@@ -1,6 +1,7 @@
 package by.beltamozh.beltamozhHire.models;
 
 import lombok.Data;
+import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
 

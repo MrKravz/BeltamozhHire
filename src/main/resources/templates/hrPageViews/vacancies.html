@@ -1,11 +1,56 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://thymeleaf.org">
 <head>
     <link rel="icon" href="data:,">
+    <link rel="stylesheet" href="/../../css/styles.css">
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>BeltamozhHire</title>
 </head>
 <body>
+<div class="navbar">
+    <a th:href="@{/hr}"><img class="logo" src="/../../img/logo.png"></a>
+    <ul>
+        <li><a class="nav-text text-color-turquoise" th:href="@{/hr/vacancies}">Vacancies</a></li>
+        <li><a class="nav-text text-color-turquoise" th:href="@{/logout}">Logout</a></li>
+    </ul>
+</div>
+<div class="content">
+    <div class="center">
+        <div th:each="vacancy : ${vacancies}">
+            <div class="box">
+                <div class="container">
+                    <div class="sub-container">
+                        <form class="text-center" th:method="GET"
+                              th:action="@{vacancies/vacancy_details/{vacancy_id} (vacancy_id=${vacancy.getId()})}">
+                            <div class="header-form-text">
+                                <header class="text-color-turquoise"
+                                        th:text="${vacancy.getName()}">Name</header>
+                            </div>
+                            <p class="label-text">About: </p>
+                            <p th:text="${vacancy.getAbout()}"></p>
+                            <p class="label-text">Estimated salary($): </p>
+                            <p th:text="${vacancy.getEstimatedSalary()}"></p>
+                            <p class="label-text">Required skill level: </p>
+                            <p th:text="${vacancy.getRequiredSkillLevel().getName()}"></p>
+                            <div class="input-field">
+                                <input class="submit text-color-turquoise text-center" type="submit" value="Details">
+                            </div>
+                        </form>
 
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<footer>
+    <form th:method="GET" th:action="@{vacancies/new}">
+        <input class="back text-color-turquoise" type="button" value="Back" onclick="window.history.back()">
+        <input class="back text-center text-color-turquoise" type="submit" value="Create new">
+    </form>
+    <form th:method="GET" th:action="@{vacancies/options}">
+        <input class="back text-center text-color-turquoise" type="submit" value="Options">
+    </form>
+</footer>
 </body>
 </html>

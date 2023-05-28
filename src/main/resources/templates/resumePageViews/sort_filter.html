@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="/../../css/styles.css">
+  <meta charset="UTF-8">
+  <title>BeltamozhHire</title>
+</head>
+<body>
+<div class="navbar">
+  <a th:href="@{/user/{user_id} (user_id=${user.getId()})}"><img class="logo" src="/../../img/logo.png"></a>
+  <ul>
+    <li><a class="nav-text text-color-turquoise" th:href="@{/user/{id}/show_resumes(id=${user.getId()})}">Resumes</a></li>
+    <li><a class="nav-text text-color-turquoise" th:href="@{/user/{id}/vacancies(id=${user.getId()})}">Vacancies</a></li>
+    <li><a class="nav-text text-color-turquoise" th:href="@{/user/{id}/responds(id=${user.getId()})}">Responds</a></li>
+    <li><a class="nav-text text-color-turquoise" th:href="@{/user/{id}/info(id=${user.getId()})}">Profile</a></li>
+    <li><a class="nav-text text-color-turquoise" th:href="@{/logout}">Logout</a></li>
+  </ul>
+</div>
+</body>
+</html>

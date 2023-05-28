@@ -20,7 +20,6 @@ public class Role {
     private String name;
 
     @ManyToMany(mappedBy = "roles", fetch = FetchType.LAZY)
-    @Cascade(org.hibernate.annotations.CascadeType.ALL)
     @ToString.Exclude
     private List<User> users;
 }

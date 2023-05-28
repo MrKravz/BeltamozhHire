@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <link rel="icon" href="data:,">
+    <link rel="stylesheet" href="/../../css/styles.css">
+    <meta charset="UTF-8">
+    <title>BeltamozhHire</title>
+</head>
+<body>
+<div class="navbar">
+    <a th:href="@{/admin}"><img class="logo" src="/../../img/logo.png"></a>
+    <ul>
+        <li><a class="nav-text text-color-turquoise" th:href="@{/admin/users}">Users</a></li>
+        <li><a class="nav-text text-color-turquoise" th:href="@{/admin/vacancies}">Vacancies</a></li>
+        <li><a class="nav-text text-color-turquoise" th:href="@{/admin/categories}">Categories</a></li>
+        <li><a class="nav-text text-color-turquoise" th:href="@{/admin/hr_responses}">HR Responses</a></li>
+        <li><a class="nav-text text-color-turquoise" th:href="@{/admin/skill_levels}">Skill levels</a></li>
+        <li><a class="nav-text text-color-turquoise" th:href="@{/admin/technologies}">Technologies</a></li>
+        <li><a class="nav-text text-color-turquoise" th:href="@{/logout}">Logout</a></li>
+    </ul>
+</div>
+<div class="content">
+    <div class="center">
+        <div class="box">
+            <div class="resume-container">
+                <div class="sub-container">
+                    <form th:method="PATCH" th:action="@{/admin/vacancies/{id} (id=${vacancy.getId()})}"
+                          th:object="${vacancy}" autocomplete="off">
+                        <div class="header-form-text">
+                            <header class="text-color-turquoise">Edit</header>
+                        </div>
+                        <div class="input-field">
+                            <label for="name">Name:</label>
+                            <input class="input text-color-turquoise text-center" type="text"
+                                   th:field="*{name}" id="name" placeholder="Enter name"/>
+                        </div>
+                        <br>
+                        <div class="input-field">
+                            <label for="about">Enter about:</label>
+                            <textarea id="about" class="input text-color-turquoise text-center about-input"
+                                      th:field="*{about}" placeholder="Enter about"/>
+                        </div>
+                        <br>
+                        <div class="input-field">
+                            <label for="estimatedSalary">Enter estimated salary($):</label>
+                            <input id="estimatedSalary" class="input text-color-turquoise text-center" type="number"
+                                   th:field="*{estimatedSalary}" placeholder="Enter estimated salary"/>
+                        </div>
+                        <br>
+                        <div class="input-field">
+                            <label for="skillLevel">Choose your skill level:</label>
+                            <select class="text-color-turquoise text-center" id="skillLevel" th:field="*{requiredSkillLevel}">
+                                <option class="text-color-turquoise text-center" th:each="skillLevel : ${skillLevels}"
+                                        th:value="${skillLevel.getId()}"
+                                        th:text="${skillLevel.getName()}"
+                                        th:selected="${vacancy.getRequiredSkillLevel().getId() == skillLevel.getId()}">
+                                </option>
+                            </select>
+                        </div>
+                        <br>
+                        <div class="input-field">
+                            <label for="requiredWorkingExperience">Enter required working experience(years):</label>
+                            <input id="requiredWorkingExperience"
+                                   class="input text-color-turquoise text-center" type="number"
+                                   th:field="*{requiredWorkingExperience}"
+                                   placeholder="Enter required working experience"/>
+                        </div>
+                        <br>
+                        <div class="input-field">
+                            <label>Choose technologies you know: </label>
+                            <div th:each="technology :${technologies}">
+                                <input type="checkbox"
+                                       th:field="*{technologies}" th:value="${technology.getId()}"
+                                       th:checked="${vacancy.getTechnologies().contains(technology)}"/>
+                                <label th:for="${technology.getId()}" th:text="${technology.getName()}"></label>
+                            </div>
+                        </div>
+                        <div class="input-field">
+                            <input class="submit text-color-turquoise" type="submit" value="Edit">
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<footer>
+    <input class="back text-color-turquoise" type="button" value="Back" onclick="window.history.back()">
+</footer>
+</body>
+</html>
+
+
+
+
+
+
+

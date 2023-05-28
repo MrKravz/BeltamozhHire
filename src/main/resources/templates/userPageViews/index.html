@@ -2,12 +2,25 @@
 <html lang="en" xmlns:th="http://thymeleaf.org">
 <head>
     <link rel="icon" href="data:,">
+    <link rel="stylesheet" href="/../../css/styles.css">
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>BeltamozhHire</title>
 </head>
 <body>
-    <h1> Приветствую, <b th:utext="${user.getName()}">user</b></h1>
-    <a th:href="@{/user/{id}/info(id=${user.getId()})}">Info</a>
-    <a th:href="@{/user/{id}/show(id=${user.getId()})}">Resumes</a>
+    <div class="banner">
+        <div class="navbar">
+            <a th:href="@{/user/{user_id} (user_id=${user.getId()})}"><img class="logo" src="/../../img/logo.png"></a>
+            <ul>
+                <li><a class="nav-text text-color-turquoise" th:href="@{{id}/show_resumes(id=${user.getId()})}">Resumes</a></li>
+                <li><a class="nav-text text-color-turquoise" th:href="@{{id}/vacancies(id=${user.getId()})}">Vacancies</a></li>
+                <li><a class="nav-text text-color-turquoise" th:href="@{{id}/responds(id=${user.getId()})}">Responds</a></li>
+                <li><a class="nav-text text-color-turquoise" th:href="@{{id}/info(id=${user.getId()})}">Profile</a></li>
+                <li><a class="nav-text text-color-turquoise" th:href="@{/logout}">Logout</a></li>
+            </ul>
+        </div>
+        <div class="content">
+            <h1 class="text-center"> Приветствую<p th:text="${user.getName()}">user</p></h1>
+        </div>
+    </div>
 </body>
 </html>

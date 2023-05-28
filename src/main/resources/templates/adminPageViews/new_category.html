@@ -6,38 +6,42 @@
     <title>BeltamozhHire</title>
 </head>
 <body>
-<div class="banner">
-    <div class="navbar">
-        <a th:href="@{/admin}"><img class="logo" src="/../../img/logo.png"></a>
-        <ul>
-            <li><a class="nav-text" th:href="@{/admin/users}">Users</a></li>
-            <li><a class="nav-text" th:href="@{/admin/categories}">Categories</a></li>
-            <li><a class="nav-text" th:href="@{/admin/hr_responses}">HR Responses</a></li>
-            <li><a class="nav-text" th:href="@{/admin/skill_levels}">Skill levels</a></li>
-            <li><a class="nav-text" th:href="@{/admin/technologies}">Technologies</a></li>
-            <li><a class="nav-text" th:href="@{/admin/logout}">Logout</a></li>
-        </ul>
-    </div>
-    <div class="content">
+<div class="navbar">
+    <a th:href="@{/admin}"><img class="logo" src="/../../img/logo.png"></a>
+    <ul>
+        <li><a class="nav-text text-color-turquoise" th:href="@{/admin/users}">Users</a></li>
+        <li><a class="nav-text text-color-turquoise" th:href="@{/admin/vacancies}">Vacancies</a></li>
+        <li><a class="nav-text text-color-turquoise" th:href="@{/admin/categories}">Categories</a></li>
+        <li><a class="nav-text text-color-turquoise" th:href="@{/admin/hr_responses}">HR Responses</a></li>
+        <li><a class="nav-text text-color-turquoise" th:href="@{/admin/skill_levels}">Skill levels</a></li>
+        <li><a class="nav-text text-color-turquoise" th:href="@{/admin/technologies}">Technologies</a></li>
+        <li><a class="nav-text text-color-turquoise" th:href="@{/logout}">Logout</a></li>
+    </ul>
+</div>
+<div class="content">
+    <div class="center">
         <div class="box">
-            <div class="container">
-                <div class="sub-container">
-                    <form th:method="POST" th:action="@{/admin/categories}" th:object="${category}" autocomplete="off">
-                        <div class="input-field">
-                            <input class="input text-color-turquoise text-center" type="text"
-                                   th:field="*{name}" id="name" placeholder="Enter name"/>
-                        </div>
-                        <div class="input-field">
-                            <input class="submit text-color-turquoise" type="submit" value="Edit">
-                        </div>
-                    </form>
-                </div>
+        <div class="container">
+            <div class="sub-container">
+                <form th:method="POST" th:action="@{/admin/categories}" th:object="${category}" autocomplete="off">
+                    <div class="header-form-text">
+                        <header class="text-color-turquoise">Create</header>
+                    </div>
+                    <div class="input-field">
+                        <input class="input text-color-turquoise text-center" type="text"
+                               th:field="*{name}" id="name" placeholder="Enter name"/>
+                    </div>
+                    <div class="input-field">
+                        <input class="submit text-color-turquoise" type="submit" value="Edit">
+                    </div>
+                </form>
             </div>
         </div>
     </div>
-    <footer>
-        <input type="button" value="Back" onclick="window.history.back()">
-    </footer>
+    </div>
 </div>
+<footer>
+    <input class="back text-color-turquoise" type="button" value="Back" onclick="window.history.back()">
+</footer>
 </body>
 </html>

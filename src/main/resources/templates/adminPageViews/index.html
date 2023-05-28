@@ -7,22 +7,21 @@
     <title>BeltamozhHire</title>
 </head>
 <body>
-    <div class="banner">
-        <div class="navbar">
-            <a th:href="@{/admin}"><img class="logo" src="../img/logo.png"></a>
-            <ul>
-                <li><a class="nav-text" th:href="@{admin/users}">Users</a></li>
-                <li><a class="nav-text" th:href="@{admin/categories}">Categories</a></li>
-                <li><a class="nav-text" th:href="@{admin/hr_responses}">HR Responses</a></li>
-                <li><a class="nav-text" th:href="@{admin/skill_levels}">Skill levels</a></li>
-                <li><a class="nav-text" th:href="@{admin/technologies}">Technologies</a></li>
-                <li><a class="nav-text" th:href="@{admin/logout}">Logout</a></li>
-            </ul>
-        </div>
-        <div class="content">
-            <h1>HI THERE</h1>
-            <p>Beltamozhservice is one of the greatest companies in the world</p>
-        </div>
-    </div>
+<div class="navbar">
+    <a th:href="@{/admin}"><img class="logo" src="../img/logo.png"></a>
+    <ul>
+        <li><a class="nav-text text-color-turquoise" th:href="@{admin/users}">Users</a></li>
+        <li><a class="nav-text text-color-turquoise" th:href="@{admin/vacancies}">Vacancies</a></li>
+        <li><a class="nav-text text-color-turquoise" th:href="@{admin/categories}">Categories</a></li>
+        <li><a class="nav-text text-color-turquoise" th:href="@{admin/hr_responses}">HR Responses</a></li>
+        <li><a class="nav-text text-color-turquoise" th:href="@{admin/skill_levels}">Skill levels</a></li>
+        <li><a class="nav-text text-color-turquoise" th:href="@{admin/technologies}">Technologies</a></li>
+        <li><a class="nav-text text-color-turquoise" th:href="@{/logout}">Logout</a></li>
+    </ul>
+</div>
+<div class="content text-center">
+    <h1>Welcome to admin side of BeltamozhHire</h1>
+    <p class="label-text">Here you can manage your databases</p>
+</div>
 </body>
 </html>

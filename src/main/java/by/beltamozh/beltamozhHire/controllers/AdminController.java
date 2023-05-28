@@ -1,11 +1,9 @@
 package by.beltamozh.beltamozhHire.controllers;
 
 import by.beltamozh.beltamozhHire.dto.*;
-import by.beltamozh.beltamozhHire.models.Category;
-import by.beltamozh.beltamozhHire.models.HrResponse;
-import by.beltamozh.beltamozhHire.models.SkillLevel;
-import by.beltamozh.beltamozhHire.models.Technology;
+import by.beltamozh.beltamozhHire.models.*;
 import by.beltamozh.beltamozhHire.services.*;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -15,6 +13,7 @@ import java.util.Optional;
 
 @Controller
 @RequestMapping("/admin")
+@AllArgsConstructor
 public class AdminController {
 
     private final UserService userService;
@@ -22,15 +21,7 @@ public class AdminController {
     private final HrResponseService hrResponseService;
     private final SkillLevelService skillLevelService;
     private final TechnologyService technologyService;
-
-    public AdminController(UserService userService, CategoryService categoryService,
-                           HrResponseService hrResponseService, SkillLevelService skillLevelService, TechnologyService technologyService) {
-        this.userService = userService;
-        this.categoryService = categoryService;
-        this.hrResponseService = hrResponseService;
-        this.skillLevelService = skillLevelService;
-        this.technologyService = technologyService;
-    }
+    private final VacancyService vacancyService;
 
     //region info tables
     @GetMapping()
@@ -86,6 +77,15 @@ public class AdminController {
         }
         model.addAttribute("technologies", technologies.get());
         return "adminPageViews/technologies";
+    }
+    @GetMapping("/vacancies")
+    public String vacancies(Model model) {
+        var vacancies = vacancyService.findAll();
+        if (vacancies.isEmpty()) {
+            return "adminPageViews/index";
+        }
+        model.addAttribute("vacancies", vacancies.get());
+        return "adminPageViews/vacancies";
     }
     //endregion
     // region post
@@ -199,6 +199,25 @@ public class AdminController {
         return "redirect:/admin/technologies";
     }
 
+    @GetMapping("/vacancies/{id}/edit")
+    public String editVacancy(@PathVariable int id, Model model) {
+        var vacancy = vacancyService.findById(id);
+        var skillLevels = skillLevelService.findAll();
+        var technologies = technologyService.findAll();
+        if (vacancy.isEmpty() || skillLevels.isEmpty() || technologies.isEmpty()) {
+            return "redirect:/admin/vacancies";
+        }
+        model.addAttribute("vacancy", vacancy.get());
+        model.addAttribute("skillLevels", skillLevels.get());
+        model.addAttribute("technologies", technologies.get());
+        return "adminPageViews/edit_vacancy";
+    }
+
+    @PatchMapping("/vacancies/{id}")
+    public String applyVacancyChanges(@PathVariable int id, @ModelAttribute Vacancy vacancy) {
+        vacancyService.update(vacancy, id);
+        return "redirect:/admin/vacancies";
+    }
     //endregion
     // region delete
     @DeleteMapping("/categories/{id}/delete")

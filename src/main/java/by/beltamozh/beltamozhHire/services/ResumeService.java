@@ -4,6 +4,8 @@ import by.beltamozh.beltamozhHire.dto.ResumeDto;
 import by.beltamozh.beltamozhHire.mappers.ResumeMapper;
 import by.beltamozh.beltamozhHire.models.Resume;
 import by.beltamozh.beltamozhHire.repositories.ResumeRepository;
+import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -12,14 +14,10 @@ import java.util.Optional;
 
 @Service
 @Transactional(readOnly = true)
+@AllArgsConstructor
 public class ResumeService implements CrudService<Resume>, DtoProviderService<ResumeDto> {
     private final ResumeRepository repository;
     private final ResumeMapper mapper;
-
-    public ResumeService(ResumeRepository repository, ResumeMapper mapper) {
-        this.repository = repository;
-        this.mapper = mapper;
-    }
 
     @Override
     public Optional<List<Resume>> findAll() {
@@ -65,6 +63,7 @@ public class ResumeService implements CrudService<Resume>, DtoProviderService<Re
         repository.deleteById(id);
     }
 
+    //region dto
     @Override
     public Optional<List<ResumeDto>> findAllDto() {
         var resumes = findAll();
@@ -93,19 +92,45 @@ public class ResumeService implements CrudService<Resume>, DtoProviderService<Re
         update(mapper.toEntity(dto), id);
     }
 
-    public Optional<List<Resume>> findAllByOwnerId(int id) {
-        return repository.findAllByOwnerId(id);
-    }
-
-    public Optional<Resume> findByName(String name) {
-        return repository.findByName(name);
-    }
-
     public Optional<List<ResumeDto>> findAllDtoByOwnerId(int id) {
         var resumes = findAllByOwnerId(id);
         if (resumes.isEmpty()) {
             return Optional.empty();
         }
         return Optional.of((List<ResumeDto>) mapper.toIterableDto(resumes.get()));
+    }
+    //endregion
+
+    public Optional<List<Resume>> findAllByOwnerId(int id) {
+        return repository.findAllByOwnerId(id);
+    }
+
+    private List<Resume> findAllSorted(int id, String sortBy)
+    {
+        if (sortBy.equals(""))
+        {
+            return findAllByOwnerId(id).get();
+        }
+        return repository.findAllByOwnerId(id, Sort.by(sortBy).ascending());
+    }
+    private Optional<List<Resume>> findAllByOwnerIdAndName(int id, String name)
+    {
+        if (name.equals(""))
+        {
+            return findAllByOwnerId(id);
+        }
+        return repository.findAllByOwnerIdAndNameContaining(id, name);
+    }
+    public Optional<List<Resume>> findAllByNameAndOwnerIdSorted(int id, String name, String sortBy) {
+        if (name.equals("") && sortBy.equals("")) {
+            return findAllByOwnerId(id);
+        }
+        if (name.equals("") && !sortBy.equals("")) {
+            return Optional.ofNullable(findAllSorted(id, sortBy));
+        }
+        if (!name.equals("") && sortBy.equals("")) {
+            return findAllByOwnerIdAndName(id, name);
+        }
+        return repository.findAllByOwnerIdAndNameContaining(id, name, Sort.by(sortBy).ascending());
     }
 }

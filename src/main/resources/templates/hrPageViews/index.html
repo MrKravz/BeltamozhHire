@@ -1,11 +1,22 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://thymeleaf.org">
 <head>
     <link rel="icon" href="data:,">
+    <link rel="stylesheet" href="/../../css/styles.css">
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>BeltamozhHire</title>
 </head>
 <body>
-
+<div class="navbar">
+    <a th:href="@{/hr}"><img class="logo" src="/../../img/logo.png"></a>
+    <ul>
+        <li><a class="nav-text text-color-turquoise" th:href="@{hr/vacancies}">Vacancies</a></li>
+        <li><a class="nav-text text-color-turquoise" th:href="@{/logout}">Logout</a></li>
+    </ul>
+</div>
+<div class="content text-center">
+    <h1>Welcome to HR side</h1>
+    <p class="label-text">Here you can manage your vacancies and respond to developers</p>
+</div>
 </body>
 </html>

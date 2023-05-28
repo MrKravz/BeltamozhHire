@@ -4,6 +4,7 @@ import by.beltamozh.beltamozhHire.models.Role;
 import by.beltamozh.beltamozhHire.models.User;
 import by.beltamozh.beltamozhHire.services.SecurityService;
 import by.beltamozh.beltamozhHire.services.UserService;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,14 +12,10 @@ import java.util.Optional;
 
 @Controller
 @RequestMapping("/")
+@AllArgsConstructor
 public class MainController {
     private final UserService userService;
     private final SecurityService securityService;
-
-    public MainController(UserService userService, SecurityService securityService) {
-        this.userService = userService;
-        this.securityService = securityService;
-    }
 
     @GetMapping()
     public String index() {
@@ -60,6 +57,6 @@ public class MainController {
 
     @GetMapping("/about")
     public String about() {
-        return "mainPageViews/login";
+        return "aboutFolder/about";
     }
 }

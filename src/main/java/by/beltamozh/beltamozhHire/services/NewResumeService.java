@@ -1,6 +1,7 @@
 package by.beltamozh.beltamozhHire.services;
 
 import by.beltamozh.beltamozhHire.models.Resume;
+import by.beltamozh.beltamozhHire.models.User;
 import org.springframework.stereotype.Service;
 
 import java.util.Collections;
@@ -19,10 +20,15 @@ public class NewResumeService {
         this.skillLevelService = skillLevelService;
     }
 
-    public Resume newResume() {
+    public Resume newResume(User user) {
         var resume = new Resume();
         resume.setTechnologies(Collections.emptyList());
-        resume.setSkillLevel(skillLevelService.findAll().get().stream().filter(x -> x.getName().equals("Trainee")).findFirst().get());
+        resume.setSkillLevel(skillLevelService.findAll().get()
+                .stream()
+                .filter(x -> x.getName().equals("Trainee"))
+                .findFirst()
+                .get());
+        resume.setOwner(user);
         return resume;
     }
 

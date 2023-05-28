@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <link rel="icon" href="data:,">
+    <link rel="stylesheet" href="/../../css/styles.css">
+    <meta charset="UTF-8">
+    <title>BeltamozhHire</title>
+</head>
+<body>
+<div class="navbar">
+    <a th:href="@{/user/{user_id} (user_id=${user.getId()})}"><img class="logo" src="/../../img/logo.png"></a>
+    <ul>
+        <li><a class="nav-text text-color-turquoise" th:href="@{resumes}">Resumes</a></li>
+        <li><a class="nav-text text-color-turquoise" th:href="@{vacancies}">Vacancies</a></li>
+        <li><a class="nav-text text-color-turquoise" th:href="@{responds}">Responds</a></li>
+        <li><a class="nav-text text-color-turquoise" th:href="@{info}">Profile</a></li>
+        <li><a class="nav-text text-color-turquoise" th:href="@{/logout}">Logout</a></li>
+    </ul>
+</div>
+<div class="content">
+    <div class="center">
+        <div th:each="resumeRespond : ${resumeResponds}">
+            <div class="box">
+                <div class="container">
+                    <div class="sub-container">
+                        <form class="text-center" th:method="GET" th:action="@{responds/vacancy/{vacancy_id}/resume/{resume_id}
+                         (vacancy_id=${resumeRespond.getVacancy().getId()}, resume_id=${resumeRespond.getResume().getId()})}">
+                            <div class="header-form-text">
+                                <header class="text-color-turquoise"
+                                        th:text="${resumeRespond.getVacancy().getName()}">Name</header>
+                            </div>
+                            <p class="label-text">About: </p>
+                            <p th:text="${resumeRespond.getVacancy().getAbout()}"></p>
+                            <p class="label-text">Estimated salary($): </p>
+                            <p th:text="${resumeRespond.getVacancy().getEstimatedSalary()}"></p>
+                            <p class="label-text">Required skill level: </p>
+                            <p th:text="${resumeRespond.getVacancy().getRequiredSkillLevel().getName()}"></p>
+                            <div class="input-field">
+                                <input class="submit text-color-turquoise text-center" type="submit" value="Details">
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<footer>
+    <input class="back text-center text-color-turquoise" type="button" value="Back" onclick="window.history.back()">
+</footer>
+</body>
+</html>
