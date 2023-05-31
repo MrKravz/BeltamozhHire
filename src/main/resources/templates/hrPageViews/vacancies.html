@@ -21,7 +21,8 @@
                 <div class="container">
                     <div class="sub-container">
                         <form class="text-center" th:method="GET"
-                              th:action="@{vacancies/vacancy_details/{vacancy_id} (vacancy_id=${vacancy.getId()})}">
+                              th:action="@{vacancies/vacancy_details/{vacancy_id} (vacancy_id=${vacancy.getId()})}"
+                        autocomplete="off">
                             <div class="header-form-text">
                                 <header class="text-color-turquoise"
                                         th:text="${vacancy.getName()}">Name</header>
@@ -36,7 +37,6 @@
                                 <input class="submit text-color-turquoise text-center" type="submit" value="Details">
                             </div>
                         </form>
-
                     </div>
                 </div>
             </div>

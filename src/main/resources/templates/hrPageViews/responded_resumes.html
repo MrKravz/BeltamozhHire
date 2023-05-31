@@ -22,7 +22,7 @@
                     <div class="sub-container">
                         <form th:method="GET" class="text-center"
                               th:action="@{responds/{resume_id}
-                              (resume_id=${resume.getResume().getId()})}">
+                              (resume_id=${resume.getResume().getId()})}" autocomplete="off">
                             <div class="header-form-text">
                                 <header class="text-color-turquoise"
                                         th:text="${resume.getResume().getName()}">Name</header>
