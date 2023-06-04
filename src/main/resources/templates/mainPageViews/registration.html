@@ -11,9 +11,9 @@
         <div class="navbar">
             <a th:href="@{/}"><img class="logo" src="../img/logo.png"></a>
             <ul>
-                <li><a class="nav-text text-color-turquoise" th:href="@{login}">Login</a></li>
-                <li><a class="nav-text text-color-turquoise" th:href="@{registration}">Register</a></li>
-                <li><a class="nav-text text-color-turquoise" href="about/about.pdf" download="about.pdf">About</a></li>
+                <li><a class="nav-text text-color-turquoise" th:href="@{login}">Логин</a></li>
+                <li><a class="nav-text text-color-turquoise" th:href="@{registration}">Регистрация</a></li>
+                <li><a class="nav-text text-color-turquoise" href="about/about.pdf" download="about.pdf">Справка</a></li>
             </ul>
         </div>
         <div class="content">
@@ -22,22 +22,28 @@
                     <div class="sub-container">
                         <form th:method="POST" th:action="@{/}" th:object="${user}" autocomplete="off">
                             <div class="header-form-text">
-                                <span class="text-color-turquoise">Don't have an account?</span>
-                                <header class="text-color-turquoise">Register</header>
+                                <span class="text-color-turquoise">Еще нет аккаунта?</span>
+                                <header class="text-color-turquoise">Зарегестрируйтесь</header>
                             </div>
                             <div class="input-field">
-                                <input class="input text-color-turquoise text-center" type="text" th:field="*{name}" id="name" placeholder="Enter name"/>
+                                <input class="input text-color-turquoise text-center" type="text"
+                                       th:field="*{name}" id="name" placeholder="Введите имя"/>
                             </div>
+                            <div style="color:red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name Error</div>
                             <br>
                             <div class="input-field">
-                                <input class="input text-color-turquoise text-center" type="text" th:field="*{login}" id="login" placeholder="Enter login"/>
+                                <input class="input text-color-turquoise text-center" type="text"
+                                       th:field="*{login}" id="login" placeholder="Введите логин"/>
                             </div>
+                            <div style="color:red" th:if="${#fields.hasErrors('login')}" th:errors="*{login}">Login Error</div>
                             <br>
                             <div class="input-field">
-                                <input class="input text-color-turquoise text-center" type="text" th:field="*{password}" id="password" placeholder="Enter password"/>
+                                <input class="input text-color-turquoise text-center" type="text"
+                                       th:field="*{password}" id="password" placeholder="Введите пароль"/>
                             </div>
+                            <div style="color:red" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Password Error</div>
                             <div class="input-field">
-                                <input class="submit text-color-turquoise" type="submit" value="Register">
+                                <input class="submit text-color-turquoise" type="submit" value="Зарегестрироваться">
                             </div>
                         </form>
                     </div>

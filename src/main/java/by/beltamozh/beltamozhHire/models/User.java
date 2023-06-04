@@ -5,6 +5,8 @@ import lombok.*;
 import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.List;
 
@@ -19,12 +21,19 @@ public class User{
     private int id;
 
     @Column(name = "name")
+    @Size(min = 2, max = 50, message = "Имя не правильного размера")
+    @NotNull
+    @NotEmpty
     private String name;
 
     @Column(name = "login")
+    @Size(min = 2, max = 50, message = "Логин не правильного размера")
+    @NotNull
+    @NotEmpty
     private String login;
 
     @Column(name = "password")
+    @Size(min = 5, max = 30, message = "Пароль не правильного размера")
     private String password;
 
     @OneToMany(mappedBy = "owner", fetch = FetchType.LAZY)

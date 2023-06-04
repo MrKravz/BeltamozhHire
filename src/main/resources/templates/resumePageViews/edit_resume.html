@@ -10,11 +10,11 @@
 <div class="navbar">
   <a th:href="@{/user/{user_id} (user_id=${resume.getOwner().getId()})}"><img class="logo" src="/../../img/logo.png"></a>
   <ul>
-    <li><a class="nav-text text-color-turquoise" th:href="@{/user/{id}/show_resumes(id=${user.getId()})}">Resumes</a></li>
-    <li><a class="nav-text text-color-turquoise" th:href="@{/user/{id}/vacancies(id=${user.getId()})}">Vacancies</a></li>
-    <li><a class="nav-text text-color-turquoise" th:href="@{/user/{id}/responds(id=${user.getId()})}">Responds</a></li>
-    <li><a class="nav-text text-color-turquoise" th:href="@{/user/{id}/info(id=${user.getId()})}">Profile</a></li>
-    <li><a class="nav-text text-color-turquoise" th:href="@{/logout}">Logout</a></li>
+    <li><a class="nav-text text-color-turquoise" th:href="@{/user/{id}/show_resumes(id=${user.getId()})}">Резюме</a></li>
+    <li><a class="nav-text text-color-turquoise" th:href="@{/user/{id}/vacancies(id=${user.getId()})}">Вакансии</a></li>
+    <li><a class="nav-text text-color-turquoise" th:href="@{/user/{id}/responds(id=${user.getId()})}">Ответы HR</a></li>
+    <li><a class="nav-text text-color-turquoise" th:href="@{/user/{id}/info(id=${user.getId()})}">Профиль</a></li>
+    <li><a class="nav-text text-color-turquoise" th:href="@{/logout}">Выйти</a></li>
   </ul>
 </div>
 <div class="content">
@@ -25,23 +25,26 @@
           <form th:method="PATCH" th:action="@{/user/{user_id}/resumes/resume_details/{resume_id}
           (resume_id=${resume.getId()},user_id=${resume.getOwner().getId()})}" th:object="${resume}" autocomplete="off">
             <div class="header-form-text">
-              <header class="text-color-turquoise">Edit</header>
+              <header class="text-color-turquoise">Изменить</header>
             </div>
             <div class="input-field">
-              <label for="name">Name: </label>
+              <label for="name">Название: </label>
               <input class="input text-color-turquoise text-center" type="text"
-                     th:field="*{name}" id="name" placeholder="Enter name"/>
+                     th:field="*{name}" id="name" placeholder="Введите название"/>
             </div>
+            <div style="color:red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name Error</div>
             <br>
             <input type="hidden" th:field="*{owner}" th:value="${resume.getOwner().getId()}">
             <div class="input-field">
-              <label for="name">Desired position: </label>
+              <label for="name">Желаемая позиция: </label>
               <input class="input text-color-turquoise text-center" type="text" th:field="*{desiredPosition}"
-                     id="desiredPosition" placeholder="Enter desired position"/>
+                     id="desiredPosition" placeholder="Введите желаемаую позицию"/>
             </div>
+            <div style="color:red" th:if="${#fields.hasErrors('desiredPosition')}"
+                 th:errors="*{desiredPosition}">Desired position Error</div>
             <br>
             <div class="input-field">
-              <label for="skillLevel">Choose your skill level: </label>
+              <label for="skillLevel">Выберите уровень знаний: </label>
               <select id="skillLevel" class="text-color-turquoise text-center" th:field="*{skillLevel}">
                 <div th:each="skillLevel : ${skillLevels}">
                   <option class="text-color-turquoise text-center"
@@ -54,18 +57,21 @@
             </div>
             <br>
             <div class="input-field">
-              <label for="desiredSalary">Desired salary($): </label>
+              <label for="desiredSalary">Желаемая зарплата($): </label>
               <input class="input text-color-turquoise text-center" type="number"
-                     th:field="*{desiredSalary}" id="desiredSalary" placeholder="Enter desired salary"/>
+                     th:field="*{desiredSalary}" id="desiredSalary" placeholder="Введите желаемую зарплату"/>
             </div>
+            <div style="color:red" th:if="${#fields.hasErrors('desiredSalary')}"
+                 th:errors="*{desiredSalary}">Desired salary Error</div>
             <br>
             <div class="input-field">
-              <label for="about">About: </label>
+              <label for="about">О себе: </label>
               <textarea id="about" class="input text-color-turquoise text-center about-input"
-                        th:field="*{about}" placeholder="Enter about"/>
+                        th:field="*{about}" placeholder="Введите информацию о себе"/>
             </div>
+            <div style="color:red" th:if="${#fields.hasErrors('about')}" th:errors="*{about}">About Error</div>
             <br>
-            <label>Choose technologies you know: </label>
+            <label>Выберите технологии которые знаете: </label>
             <div th:each="technology :${technologies}">
               <input type="checkbox" th:field="*{technologies}" th:value="${technology.getId()}"
                      th:checked="${resume.getTechnologies().contains(technology)}"/>
@@ -73,7 +79,7 @@
               <br>
             </div>
             <div class="input-field">
-              <input class="submit text-color-turquoise" type="submit" value="Edit">
+              <input class="submit text-color-turquoise" type="submit" value="Изменить">
             </div>
           </form>
         </div>
@@ -82,7 +88,7 @@
   </div>
 </div>
 <footer>
-  <input class="back text-color-turquoise" type="button" value="Back" onclick="window.history.back()">
+  <input class="back text-color-turquoise" type="button" value="Назад" onclick="window.history.back()">
 </footer>
 </body>
 </html>

@@ -10,8 +10,8 @@
 <div class="navbar">
     <a th:href="@{/hr}"><img class="logo" src="/../../img/logo.png"></a>
     <ul>
-        <li><a class="nav-text text-color-turquoise" th:href="@{/hr/vacancies}">Vacancies</a></li>
-        <li><a class="nav-text text-color-turquoise" th:href="@{/logout}">Logout</a></li>
+        <li><a class="nav-text text-color-turquoise" th:href="@{/hr/vacancies}">Вакансии</a></li>
+        <li><a class="nav-text text-color-turquoise" th:href="@{/logout}">Выйти</a></li>
     </ul>
 </div>
 <div class="content">
@@ -27,14 +27,14 @@
                                 <header class="text-color-turquoise"
                                         th:text="${vacancy.getName()}">Name</header>
                             </div>
-                            <p class="label-text">About: </p>
+                            <p class="label-text">О вакансии: </p>
                             <p th:text="${vacancy.getAbout()}"></p>
-                            <p class="label-text">Estimated salary($): </p>
+                            <p class="label-text">Предпологаемая зарплата($): </p>
                             <p th:text="${vacancy.getEstimatedSalary()}"></p>
-                            <p class="label-text">Required skill level: </p>
+                            <p class="label-text">Требуемый уровень знаний: </p>
                             <p th:text="${vacancy.getRequiredSkillLevel().getName()}"></p>
                             <div class="input-field">
-                                <input class="submit text-color-turquoise text-center" type="submit" value="Details">
+                                <input class="submit text-color-turquoise text-center" type="submit" value="Подробнее">
                             </div>
                         </form>
                     </div>
@@ -45,11 +45,11 @@
 </div>
 <footer>
     <form th:method="GET" th:action="@{vacancies/new}">
-        <input class="back text-color-turquoise" type="button" value="Back" onclick="window.history.back()">
-        <input class="back text-center text-color-turquoise" type="submit" value="Create new">
+        <input class="back text-color-turquoise" type="button" value="Назад" onclick="window.history.back()">
+        <input class="back text-center text-color-turquoise" type="submit" value="Создать">
     </form>
     <form th:method="GET" th:action="@{vacancies/options}">
-        <input class="back text-center text-color-turquoise" type="submit" value="Options">
+        <input class="back text-center text-color-turquoise" type="submit" value="Опции">
     </form>
 </footer>
 </body>

@@ -7,8 +7,10 @@ import by.beltamozh.beltamozhHire.services.*;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
@@ -54,7 +56,9 @@ public class ResumeController {
     //endregion
     //region create
     @GetMapping("/new")
-    private String newResume(@ModelAttribute("resume") Resume resume, @PathVariable("id") int id, Model model) {
+    private String newResume(@ModelAttribute("resume") Resume resume,
+                             @PathVariable("id") int id,
+                             Model model) {
         var skillLevels = skillLevelService.findAllDto();
         var technologies = technologyService.findAllDto();
         var user = userService.findById(id);
@@ -68,7 +72,13 @@ public class ResumeController {
     }
 
     @PostMapping("/create")
-    private String create(@PathVariable("id") int id, @ModelAttribute("resume") Resume resume) {
+    private String create(@PathVariable("id") int id,
+                          @ModelAttribute("resume") @Valid Resume resume,
+                          BindingResult bindingResult) {
+        if (bindingResult.hasErrors())
+        {
+            return "redirect:/user/"+ id +"/resumes/new";
+        }
         var user = userService.findById(id);
         resume.setOwner(user.get());
         resume.setId(0);
@@ -81,7 +91,7 @@ public class ResumeController {
     @GetMapping("/resume_details/{resume_id}/edit")
     private String edit(@PathVariable("id") int id, @PathVariable int resume_id, Model model) {
         var user = userService.findDtoById(id);
-        var resume = resumeService.findDtoById(resume_id);
+        var resume = resumeService.findById(resume_id);
         var skillLevels = skillLevelService.findAll();
         var technologies = technologyService.findAll();
         if (resume.isEmpty() || skillLevels.isEmpty() || technologies.isEmpty()) {
@@ -95,11 +105,15 @@ public class ResumeController {
     }
 
     @PatchMapping("/resume_details/{resume_id}")
-    private String change(@ModelAttribute("resume") ResumeDto resumeDto,
+    private String change(@ModelAttribute("resume") @Valid Resume resume,
+                          BindingResult bindingResult,
                           @PathVariable("id") int user_id,
                           @PathVariable("resume_id") int resume_id) {
-        resumeService.updateDto(resumeDto, resume_id);
-        resumeDto.getTechnologies().forEach(x->technologyService.update(x, x.getId()));
+        if (bindingResult.hasErrors())
+        {
+            return "redirect:/user/"+ user_id +"/resumes/resume_details/{resume_id}/edit";
+        }
+        resumeService.update(resume, resume_id);
         return "redirect:/user/" + user_id + "/resumes";
     }
 

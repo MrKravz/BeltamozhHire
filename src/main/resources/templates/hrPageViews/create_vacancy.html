@@ -9,8 +9,8 @@
 <div class="navbar">
     <a th:href="@{/hr}"><img class="logo" src="/../../img/logo.png"></a>
     <ul>
-        <li><a class="nav-text text-color-turquoise" th:href="@{/hr/vacancies}">Vacancies</a></li>
-        <li><a class="nav-text text-color-turquoise" th:href="@{/logout}">Logout</a></li>
+        <li><a class="nav-text text-color-turquoise" th:href="@{/hr/vacancies}">Вакансии</a></li>
+        <li><a class="nav-text text-color-turquoise" th:href="@{/logout}">Выйти</a></li>
     </ul>
 </div>
 <div class="content">
@@ -20,28 +20,34 @@
                 <div class="sub-container">
                     <form th:method="POST" th:action="@{create}" th:object="${vacancy}" autocomplete="off">
                         <div class="header-form-text">
-                            <header class="text-color-turquoise">Create</header>
+                            <header class="text-color-turquoise">Создать</header>
                         </div>
                         <div class="input-field">
-                            <label for="name">Name:</label>
+                            <label for="name">Введите название вакансии:</label>
                             <input class="input text-color-turquoise text-center" type="text"
-                                   th:field="*{name}" id="name" placeholder="Enter name"/>
+                                   th:field="*{name}" id="name" placeholder="Введите название вакансии"/>
                         </div>
+                        <div style="color:red" th:if="${#fields.hasErrors('name')}"
+                             th:errors="*{name}">Name Error</div>
                         <br>
                         <div class="input-field">
-                            <label for="about">Enter about:</label>
+                            <label for="about">Введите описание вакансии:</label>
                             <textarea id="about" class="input text-color-turquoise text-center about-input"
-                                   th:field="*{about}" placeholder="Enter about"/>
+                                   th:field="*{about}" placeholder="Введите описание вакансии"/>
                         </div>
+                        <div style="color:red" th:if="${#fields.hasErrors('about')}"
+                             th:errors="*{about}">About Error</div>
                         <br>
                         <div class="input-field">
-                            <label for="estimatedSalary">Enter estimated salary($):</label>
+                            <label for="estimatedSalary">Введите предпологаемую зарплату($):</label>
                             <input id="estimatedSalary" class="input text-color-turquoise text-center" type="number"
-                                   th:field="*{estimatedSalary}" placeholder="Enter estimated salary"/>
+                                   th:field="*{estimatedSalary}" placeholder="Введите предпологаемую зарплату"/>
                         </div>
+                        <div style="color:red" th:if="${#fields.hasErrors('estimatedSalary')}"
+                             th:errors="*{estimatedSalary}">Estimated salary Error</div>
                         <br>
                         <div class="input-field">
-                            <label for="skillLevel">Choose your skill level:</label>
+                            <label for="skillLevel">Выберите требуемый уровень знаний:</label>
                             <select class="text-color-turquoise text-center" id="skillLevel" th:field="*{requiredSkillLevel}">
                                 <option class="text-color-turquoise text-center" th:each="skillLevel : ${skillLevels}"
                                         th:value="${skillLevel.getId()}"
@@ -51,15 +57,17 @@
                         </div>
                         <br>
                         <div class="input-field">
-                            <label for="requiredWorkingExperience">Enter required working experience(years):</label>
+                            <label for="requiredWorkingExperience">Введите требуемый опыт работы(в годах):</label>
                             <input id="requiredWorkingExperience"
                                    class="input text-color-turquoise text-center" type="number"
                                    th:field="*{requiredWorkingExperience}"
-                                   placeholder="Enter required working experience"/>
+                                   placeholder="Введите требуемый опыт"/>
                         </div>
+                        <div style="color:red" th:if="${#fields.hasErrors('requiredWorkingExperience')}"
+                             th:errors="*{requiredWorkingExperience}">Required working experience Error</div>
                         <br>
                         <div class="input-field">
-                            <label>Choose technologies you know: </label>
+                            <label>Выберите технологии для вакансии: </label>
                             <div th:each="technology :${technologies}">
                                 <input type="checkbox"
                                        th:field="*{technologies}" th:value="${technology.getId()}"/>
@@ -67,7 +75,7 @@
                             </div>
                         </div>
                         <div class="input-field">
-                            <input class="submit text-color-turquoise" type="submit" value="Create">
+                            <input class="submit text-color-turquoise" type="submit" value="Создать">
                         </div>
                     </form>
                 </div>
@@ -76,7 +84,7 @@
     </div>
 </div>
 <footer>
-    <input class="back text-color-turquoise" type="button" value="Back" onclick="window.history.back()">
+    <input class="back text-color-turquoise" type="button" value="Назад" onclick="window.history.back()">
 </footer>
 </body>
 </html>

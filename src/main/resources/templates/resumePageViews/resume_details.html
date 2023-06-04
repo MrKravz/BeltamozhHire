@@ -10,11 +10,11 @@
 <div class="navbar">
     <a th:href="@{/user/{user_id} (user_id=${resume.getOwner().getId()})}"><img class="logo" src="/../../img/logo.png"></a>
     <ul>
-        <li><a class="nav-text text-color-turquoise" th:href="@{/user/{id}/show_resumes(id=${user.getId()})}">Resumes</a></li>
-        <li><a class="nav-text text-color-turquoise" th:href="@{/user/{id}/vacancies(id=${user.getId()})}">Vacancies</a></li>
-        <li><a class="nav-text text-color-turquoise" th:href="@{/user/{id}/responds(id=${user.getId()})}">Responds</a></li>
-        <li><a class="nav-text text-color-turquoise" th:href="@{/user/{id}/info(id=${user.getId()})}">Profile</a></li>
-        <li><a class="nav-text text-color-turquoise" th:href="@{/logout}">Logout</a></li>
+        <li><a class="nav-text text-color-turquoise" th:href="@{/user/{id}/show_resumes(id=${user.getId()})}">Резюме</a></li>
+        <li><a class="nav-text text-color-turquoise" th:href="@{/user/{id}/vacancies(id=${user.getId()})}">Вакансии</a></li>
+        <li><a class="nav-text text-color-turquoise" th:href="@{/user/{id}/responds(id=${user.getId()})}">Ответы HR</a></li>
+        <li><a class="nav-text text-color-turquoise" th:href="@{/user/{id}/info(id=${user.getId()})}">Профиль</a></li>
+        <li><a class="nav-text text-color-turquoise" th:href="@{/logout}">Выйти</a></li>
     </ul>
 </div>
 <div class="content">
@@ -25,28 +25,28 @@
                     <div class="header-form-text">
                         <header class="text-color-turquoise" th:text="${resume.getName()}">Name</header>
                     </div>
-                    <p class="label-text">Desired position: </p>
+                    <p class="label-text">Желаемая позиция: </p>
                     <p th:text="${resume.getDesiredPosition()}"></p>
-                    <p class="label-text">Skill level: </p>
+                    <p class="label-text">Уровень знаний: </p>
                     <p th:text="${resume.getSkillLevel().getName()}"></p>
-                    <p class="label-text">Desired salary($): </p>
+                    <p class="label-text">Желаемая зарплата($): </p>
                     <p th:text="${resume.getDesiredSalary()}"></p>
-                    <p class="label-text">About: </p>
+                    <p class="label-text">О себе: </p>
                     <p th:text="${resume.getAbout()}"></p>
-                    <p class="label-text">Technologies: </p>
+                    <p class="label-text">Технологии: </p>
                     <div th:each="technology : ${resume.getTechnologies()}">
                         <p th:text="${technology.getName()}">user</p>
                     </div>
                     <form th:method="GET" th:action="@{/user/{user_id}/resumes/resume_details/{resume_id}/edit
                     (resume_id=${resume.getId()}, user_id=${resume.getOwner().getId()})}">
                         <div class="input-field">
-                            <input class="submit text-color-turquoise" type="submit" value="Edit"/>
+                            <input class="submit text-color-turquoise" type="submit" value="Изменить"/>
                         </div>
                     </form>
                     <form th:method="DELETE" th:action="@{/user/{user_id}/resumes/resume_details/{resume_id}/delete
                                 (resume_id=${resume.getId()}, user_id=${resume.getOwner().getId()})}">
                         <div class="input-field">
-                            <input class="submit text-color-red" type="submit" value="Delete"/>
+                            <input class="submit text-color-red" type="submit" value="Удалить"/>
                         </div>
                     </form>
                 </div>
@@ -55,7 +55,7 @@
     </div>
 </div>
 <footer>
-    <input class="back text-color-turquoise" type="button" value="Back" onclick="window.history.back()">
+    <input class="back text-color-turquoise" type="button" value="Назад" onclick="window.history.back()">
 </footer>
 </body>
 </html>

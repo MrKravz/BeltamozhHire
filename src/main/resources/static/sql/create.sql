@@ -124,16 +124,16 @@ CREATE TABLE vacancies_resumes
 );
 
 INSERT INTO users(name, login, password)
-VALUES ('Nikita', 'NiPar', '123456'),
-       ('John Doe', 'johndoe', 'password123'),
-       ('Jane Smith', 'janesmith', '123456'),
-       ('Bob Johnson', 'bjohnson', 'p@ssw0rd'),
-       ('Emily Davis', 'edavis', 'davis123'),
-       ('Alex Johnson', 'ajohnson', 'alex123'),
-       ('Sarah Lee', 'sarahlee', 'password456'),
-       ('David Kim', 'dkim', 'david123'),
-       ('Maggie Chen', 'maggiec', 'chen123'),
-       ('Ryan Patel', 'rpatel', 'patel123');
+VALUES ('Никита Пархомчик', 'NiPar', '123456'),
+       ('Игорь Простак', 'iprost', 'password'),
+       ('Яна Свердлова', 'ysver', '123456'),
+       ('Петр Новиков', 'pnovik', 'p@ssw0rd'),
+       ('Анастасия Победина', 'apobed', 'pobed123'),
+       ('Алексей Зык', 'azyk', '654321'),
+       ('Владислав Стреканов', 'vstrekach', '45361'),
+       ('Даниил Разумов', 'draz', 'daniil123'),
+       ('Мария Алехнович', 'malex', 'MaLeX'),
+       ('Роман Победин', 'rpobed', 'qwerty');
 INSERT INTO roles(name)
 VALUES ('USER'),
        ('HR'),
@@ -143,15 +143,15 @@ VALUES (1, 1),
        (2, 2),
        (3, 3);
 INSERT INTO categories(name_of_category)
-VALUES ('Firstly'),
-       ('Secondary'),
-       ('Latest'),
-       ('RefuseS');
+VALUES ('Перовоочередные'),
+       ('Второочередные'),
+       ('Последние'),
+       ('Отклонено');
 INSERT INTO skill_levels(name_of_skill_level)
-VALUES ('Trainee'),
-       ('Junior'),
-       ('Middle'),
-       ('Senior');
+VALUES ('Стажер'),
+       ('Джуниор'),
+       ('Мидл'),
+       ('Сеньор');
 INSERT INTO technologies(name_of_technology)
 VALUES ('Java'),
        ('Spring Core'),
@@ -171,32 +171,32 @@ VALUES ('Java'),
        ('TypeScript'),
        ('PHP');
 INSERT INTO hr_responses(name_of_response)
-VALUES ('Accepted'),
-       ('Test task sent'),
-       ('Additional review'),
-       ('Declined'),
-       ('Under Consideration');
+VALUES ('Приглашение'),
+       ('Отправить тестовое задание'),
+       ('Дополнительно собеседование'),
+       ('Отказ'),
+       ('На рассмотрении');
 INSERT INTO resumes(user_id, name, desired_position, skill_level_id, desired_salary, about, category_id)
-VALUES (1, 'Nikita Resume', 'Software Engineer', 3, 100000,
-        'Experienced software engineer with a strong background in Java and Spring Framework', 1),
-       (2, 'John Resume', 'Full Stack Developer', 2, 80000,
-        'Experienced Full Stack developer with expertise in React and Node.js', 1),
-       (3, 'Jane Resume', 'UI/UX Designer', 2, 75000,
-        'Experienced UI/UX designer with proficiency in HTML, CSS, and JavaScript', 3),
-       (4, 'Bob Resume', 'Database Administrator', 3, 90000,
-        'Experienced database administrator withexpertise in Oracle and MySQL databases', 2),
-       (5, 'Emily Resume', 'Software Engineer', 1, 60000,
-        'Trainee software engineer with knowledge of Java and Spring Framework', 4),
-       (6, 'Alex Resume', 'Front End Developer', 2, 75000,
-        'Experienced front end developer with expertise in React and TypeScript', 2),
-       (7, 'Sarah Resume', 'Software Developer', 3, 95000,
-        'Experienced software developer with expertise in Java and Spring Framework', 1),
-       (8, 'David Resume', 'Back End Developer', 2, 85000,
-        'Experienced back end developer with expertise in Node.js and TypeScript', 3),
-       (9, 'Maggie Resume', 'Web Developer', 2, 70000,
-        'Experienced web developer with proficiency in HTML, CSS, and JavaScript', 4),
-       (10, 'Ryan Resume', 'Junior Software Developer', 1, 50000,
-        'Trainee software developer with knowledge of Java and Spring Framework', 4);
+VALUES (1, 'Разработчик на Java', 'Инженер-программист', 3, 100000,
+        'Опытный инженер-программист со знанием Java и Spring Framework', 1),
+       (2, 'Джуниор Full-Stack разработчик', 'Full-Stack разработчик', 2, 80000,
+        'Разработчик Full Stack с опытом работы с React и Node.js', 1),
+       (3, 'UI/UX дизайнер', 'Джуниор UI/UX дизайнер', 2, 75000,
+        'UI/UX дизайнер со знанием HTML, CSS и JavaScript', 3),
+       (4, 'Администратор баз данных', 'Администратор баз данных', 3, 90000,
+        'Опытный администратор базы данных со знанием баз данных Oracle и MySQL.', 2),
+       (5, 'Стажер разработчик на Java', 'Инженер-программист', 1, 60000,
+        'Стажер-программист со знанием Java и Spring Framework', 4),
+       (6, 'Front-End разработчик', 'Джуниор Front-End разработчик', 2, 75000,
+        'Опытный фронтенд-разработчик со знанием React и TypeScript', 2),
+       (7, 'Разработчик на Java', 'Инженер-программист', 3, 95000,
+        'Опытный разработчик программного обеспечения со знанием Java и Spring Framework', 1),
+       (8, 'Back End разработчик', 'Джуниор Back End разработчик', 2, 85000,
+        'Опытный бэкенд-разработчик с опытом работы с Node.js и TypeScript', 3),
+       (9, 'Веб разработчик', 'Джуниор веб разработчик', 2, 70000,
+        'Опытный веб-разработчик со знанием HTML, CSS и JavaScript', 4),
+       (10, 'Java разработчик', 'Джуниор Java разработчик', 2, 50000,
+        'Программист со знанием Java и Spring Framework', 4);
 
 INSERT INTO resumes_technologies(resume_id, technology_id)
 VALUES (1, 1),
@@ -245,23 +245,16 @@ VALUES (1, 1),
        (10, 6);
 
 INSERT INTO vacancies(name, about, estimated_salary, skill_level_id, required_working_experience)
-VALUES ('Software Engineer', 'Job opening for a software engineer with experience in Java and Spring Framework', 80000,
-        3, 3),
-       ('Front End Developer', 'Job opening for a front end developer with expertise in React and Angular', 70000, 2,
-        2),
-       ('UI/UX Designer', 'Job opening for a UI/UX designer with proficiency in Adobe XD and Sketch', 60000, 2, 3),
-       ('Full Stack Developer', 'Job opening for a full stack developer with experience in React, Node.js, and MongoDB',
-        90000, 3, 4),
-       ('Data Scientist', 'Job opening for a data scientist with expertise in Python and machine learning', 100000, 3,
-        5),
-       ('Mobile App Developer', 'Job opening for a mobile app developer with experience in Android and iOS development',
-        80000, 2, 4),
-       ('DevOps Engineer', 'Job opening for a DevOps engineer with experience in Jenkins, Docker, and Kubernetes',
-        95000, 3, 5),
-       ('Cloud Architect', 'Job opening for a cloud architect with expertise in AWS and Azure', 110000, 3, 6),
-       ('Business Analyst',
-        'Job opening for a business analyst with proficiency in data analysis and project management', 70000, 2, 3),
-       ('Network Engineer', 'Job opening for a network engineer with experience in Cisco and Juniper', 85000, 2, 4);
+VALUES ('Инженер-программист', 'Открыта вакансия инженера-программиста с опытом работы с Java и Spring Framework', 80000,3, 3),
+       ('Front End разработчик', 'Открыта вакансия фронтенд-разработчика с опытом работы с React и Angular.', 70000, 2, 2),
+       ('UI/UX дизайнер', 'Открыта вакансия UI/UX дизайнера со знанием Adobe XD и Sketch.', 60000, 2, 3),
+       ('Full Stack разработчик', 'Открыта вакансия full stack разработчика с опытом работы с React, Node.js и MongoDB',90000, 3, 4),
+       ('Data Scientist', 'Открыта вакансия специалиста по данным с опытом работы с Python и машинным обучением', 100000, 3,5),
+       ('Разработчик мобильных приложений', 'Открыта вакансия разработчика мобильных приложений с опытом разработки под Android и iOS.', 80000, 2, 4),
+       ('DevOps инженер', 'Открыта вакансия DevOps-инженера с опытом работы в Jenkins, Docker и Kubernetes',95000, 3, 5),
+       ('Облачный архитектор', 'Открыта вакансия облачного архитектора с опытом работы в AWS и Azure', 110000, 3, 6),
+       ('Бизнес аналитик', 'Открыта вакансия бизнес-аналитика со знаниями в области анализа данных и управления проектами', 70000, 2, 3),
+       ('Сетевой инженер', 'Открыта вакансия сетевого инженера с опытом работы в Cisco и Juniper', 85000, 2, 4);
 
 INSERT INTO vacancies_technologies (vacancy_id, technology_id)
 VALUES (1, 1),

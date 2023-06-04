@@ -9,8 +9,8 @@
 <div class="navbar">
     <a th:href="@{/hr}"><img class="logo" src="/../../img/logo.png"></a>
     <ul>
-        <li><a class="nav-text text-color-turquoise" th:href="@{/hr/vacancies}">Vacancies</a></li>
-        <li><a class="nav-text text-color-turquoise" th:href="@{/logout}">Logout</a></li>
+        <li><a class="nav-text text-color-turquoise" th:href="@{/hr/vacancies}">Вакансии</a></li>
+        <li><a class="nav-text text-color-turquoise" th:href="@{/logout}">Выйти</a></li>
     </ul>
 </div>
 <body>
@@ -23,15 +23,15 @@
                         <header class="text-color-turquoise"
                                 th:text="${resumeResponse.getResume().getName()}">Name</header>
                     </div>
-                    <p class="label-text">Desired position: </p>
+                    <p class="label-text">Желаемая позиция: </p>
                     <p th:text="${resumeResponse.getResume().getDesiredPosition()}"></p>
-                    <p class="label-text">Skill level: </p>
+                    <p class="label-text">Уровень знаний: </p>
                     <p th:text="${resumeResponse.getResume().getSkillLevel().getName()}"></p>
-                    <p class="label-text">Desired salary($): </p>
+                    <p class="label-text">Желаемая зарплата($): </p>
                     <p th:text="${resumeResponse.getResume().getDesiredSalary()}"></p>
-                    <p class="label-text">About: </p>
+                    <p class="label-text">О себе: </p>
                     <p th:text="${resumeResponse.getResume().getAbout()}"></p>
-                    <p class="label-text">Technologies: </p>
+                    <p class="label-text">Технологии: </p>
                     <div th:each="technology : ${resumeResponse.getResume().getTechnologies()}">
                         <p th:text="${technology.getName()}">user</p>
                     </div>
@@ -43,11 +43,11 @@
                         <input type="hidden" th:field="*{vacancy}" value="${resumeResponse.getVacancy()}">
                         <input type="hidden" th:field="*{resume}" value="${resumeResponse.getResume()}">
                         <div class="input-field">
-                            <p class="label-text">Hr response: </p>
+                            <p class="label-text">Ответ: </p>
                             <select class="text-color-turquoise text-center" th:field="*{hrResponse}">
                                 <option class="text-color-turquoise text-center" value="null"
                                         th:if="${resumeResponse.getHrResponse() == null}">
-                                    Please select an option</option>
+                                    Пожалуйста выберите ответ</option>
                                 <option class="text-color-turquoise text-center"
                                         th:each="hrResponse : ${hrResponses}" th:value="${hrResponse.getId()}"
                                         th:text="${hrResponse.getName()}"
@@ -56,7 +56,7 @@
                             </select>
                         </div>
                         <div class="input-field">
-                            <input class="submit text-color-turquoise" type="submit" value="Send">
+                            <input class="submit text-color-turquoise" type="submit" value="Отправить">
                         </div>
                     </form>
                 </div>
@@ -65,7 +65,7 @@
     </div>
 </div>
 <footer>
-    <input class="back text-color-turquoise" type="button" value="Back" onclick="window.history.back()">
+    <input class="back text-color-turquoise" type="button" value="Назад" onclick="window.history.back()">
 </footer>
 </body>
 </html>

@@ -10,8 +10,8 @@
 <div class="navbar">
     <a th:href="@{/hr}"><img class="logo" src="/../../img/logo.png"></a>
     <ul>
-        <li><a class="nav-text text-color-turquoise" th:href="@{/hr/vacancies}">Vacancies</a></li>
-        <li><a class="nav-text text-color-turquoise" th:href="@{/logout}">Logout</a></li>
+        <li><a class="nav-text text-color-turquoise" th:href="@{/hr/vacancies}">Вакансии</a></li>
+        <li><a class="nav-text text-color-turquoise" th:href="@{/logout}">Выйти</a></li>
     </ul>
 </div>
 <div class="content">
@@ -22,22 +22,22 @@
                         <form class="text-center" th:method="POST" th:action="@{options/apply}" th:object="${sortOptions}"
                               autocomplete="off">
                             <div class="input-field">
-                                <label for="filterText">Filter text:</label>
+                                <label for="filterText">Поиск:</label>
                                 <input class="input text-color-turquoise text-center" type="text"
-                                       th:field="*{textToFilter}" id="filterText" placeholder="Enter filter text"/>
+                                       th:field="*{textToFilter}" id="filterText" placeholder="Текст"/>
                             </div>
                             <div class="input-field">
-                                <label for="sortField">Sort field: </label>
+                                <label for="sortField">Поле сортировки: </label>
                                 <select id="sortField" class="text-color-turquoise text-center" th:field="*{fieldToSort}">
-                                    <option class="text-color-turquoise text-center" value="">None</option>
-                                    <option class="text-color-turquoise text-center" value="name">Name</option>
-                                    <option class="text-color-turquoise text-center" value="about">About</option>
-                                    <option class="text-color-turquoise text-center" value="estimatedSalary">Estimated salary</option>
-                                    <option class="text-color-turquoise text-center" value="requiredWorkingExperience">Required working experience</option>
+                                    <option class="text-color-turquoise text-center" value="">Нет</option>
+                                    <option class="text-color-turquoise text-center" value="name">Название</option>
+                                    <option class="text-color-turquoise text-center" value="about">О вакансии</option>
+                                    <option class="text-color-turquoise text-center" value="estimatedSalary">Предпологаемая зарплата</option>
+                                    <option class="text-color-turquoise text-center" value="requiredWorkingExperience">Требуемый опыт работы</option>
                                 </select>
                             </div>
                             <div class="input-field">
-                                <input class="submit text-color-turquoise text-center" type="submit" value="Submit">
+                                <input class="submit text-color-turquoise text-center" type="submit" value="Принять">
                             </div>
                         </form>
                     </div>
@@ -46,7 +46,7 @@
     </div>
 </div>
 <footer>
-    <input class="back text-color-turquoise" type="button" value="Back" onclick="window.history.back()">
+    <input class="back text-color-turquoise" type="button" value="Назад" onclick="window.history.back()">
 </footer>
 </body>
 </html>

@@ -6,8 +6,10 @@ import by.beltamozh.beltamozhHire.services.SecurityService;
 import by.beltamozh.beltamozhHire.services.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.Optional;
 
 @Controller
@@ -28,7 +30,12 @@ public class MainController {
     }
 
     @PostMapping()
-    public String create(@ModelAttribute("user") User user) {
+    public String create(@ModelAttribute("user") @Valid User user,
+                         BindingResult bindingResult) {
+        if (bindingResult.hasErrors())
+        {
+            return "redirect:/registration";
+        }
         userService.save(user);
         return "redirect:/";
     }

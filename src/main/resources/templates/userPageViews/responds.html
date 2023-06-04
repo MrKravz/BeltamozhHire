@@ -10,11 +10,11 @@
 <div class="navbar">
     <a th:href="@{/user/{user_id} (user_id=${user.getId()})}"><img class="logo" src="/../../img/logo.png"></a>
     <ul>
-        <li><a class="nav-text text-color-turquoise" th:href="@{resumes}">Resumes</a></li>
-        <li><a class="nav-text text-color-turquoise" th:href="@{vacancies}">Vacancies</a></li>
-        <li><a class="nav-text text-color-turquoise" th:href="@{responds}">Responds</a></li>
-        <li><a class="nav-text text-color-turquoise" th:href="@{info}">Profile</a></li>
-        <li><a class="nav-text text-color-turquoise" th:href="@{/logout}">Logout</a></li>
+        <li><a class="nav-text text-color-turquoise" th:href="@{resumes}">Резюме</a></li>
+        <li><a class="nav-text text-color-turquoise" th:href="@{vacancies}">Вакансии</a></li>
+        <li><a class="nav-text text-color-turquoise" th:href="@{responds}">Ответы HR</a></li>
+        <li><a class="nav-text text-color-turquoise" th:href="@{info}">Профиль</a></li>
+        <li><a class="nav-text text-color-turquoise" th:href="@{/logout}">Выйти</a></li>
     </ul>
 </div>
 <div class="content">
@@ -29,14 +29,14 @@
                                 <header class="text-color-turquoise"
                                         th:text="${resumeRespond.getVacancy().getName()}">Name</header>
                             </div>
-                            <p class="label-text">About: </p>
+                            <p class="label-text">О вакансии: </p>
                             <p th:text="${resumeRespond.getVacancy().getAbout()}"></p>
-                            <p class="label-text">Estimated salary($): </p>
+                            <p class="label-text">Предпологаемая зарплата($): </p>
                             <p th:text="${resumeRespond.getVacancy().getEstimatedSalary()}"></p>
-                            <p class="label-text">Required skill level: </p>
+                            <p class="label-text">Требуемый уровень знаний: </p>
                             <p th:text="${resumeRespond.getVacancy().getRequiredSkillLevel().getName()}"></p>
                             <div class="input-field">
-                                <input class="submit text-color-turquoise text-center" type="submit" value="Details">
+                                <input class="submit text-color-turquoise text-center" type="submit" value="Подробнее">
                             </div>
                         </form>
 
@@ -47,7 +47,7 @@
     </div>
 </div>
 <footer>
-    <input class="back text-center text-color-turquoise" type="button" value="Back" onclick="window.history.back()">
+    <input class="back text-center text-color-turquoise" type="button" value="Назад" onclick="window.history.back()">
 </footer>
 </body>
 </html>

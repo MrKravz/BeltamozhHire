@@ -10,13 +10,13 @@
 <div class="navbar">
     <a th:href="@{/admin}"><img class="logo" src="../img/logo.png"></a>
     <ul>
-        <li><a class="nav-text text-color-turquoise" th:href="@{/admin/users}">Users</a></li>
-        <li><a class="nav-text text-color-turquoise" th:href="@{/admin/vacancies}">Vacancies</a></li>
-        <li><a class="nav-text text-color-turquoise" th:href="@{/admin/categories}">Categories</a></li>
-        <li><a class="nav-text text-color-turquoise" th:href="@{/admin/hr_responses}">HR Responses</a></li>
-        <li><a class="nav-text text-color-turquoise" th:href="@{/admin/skill_levels}">Skill levels</a></li>
-        <li><a class="nav-text text-color-turquoise" th:href="@{/admin/technologies}">Technologies</a></li>
-        <li><a class="nav-text text-color-turquoise" th:href="@{/logout}">Logout</a></li>
+        <li><a class="nav-text text-color-turquoise" th:href="@{/admin/users}">Пользователи</a></li>
+        <li><a class="nav-text text-color-turquoise" th:href="@{/admin/vacancies}">Вакансии</a></li>
+        <li><a class="nav-text text-color-turquoise" th:href="@{/admin/categories}">Категории</a></li>
+        <li><a class="nav-text text-color-turquoise" th:href="@{/admin/hr_responses}">Ответы HR</a></li>
+        <li><a class="nav-text text-color-turquoise" th:href="@{/admin/skill_levels}">Уровени знаний</a></li>
+        <li><a class="nav-text text-color-turquoise" th:href="@{/admin/technologies}">Технологии</a></li>
+        <li><a class="nav-text text-color-turquoise" th:href="@{/logout}">Выйти</a></li>
     </ul>
 </div>
 <div class="content">
@@ -27,11 +27,11 @@
                     <thead>
                     <tr>
                         <th>ID</th>
-                        <th>Name</th>
-                        <th>Estimated salary</th>
-                        <th>Required skill level</th>
-                        <th>Required working experience(years)</th>
-                        <th>Link</th>
+                        <th>Наименование</th>
+                        <th>Ожидаемая зп</th>
+                        <th>Уровень знаний</th>
+                        <th>Требуемый опыт(в годах)</th>
+                        <th>Ссылка</th>
                     </tr>
                     </thead>
                     <tbody class="text-center">
@@ -41,7 +41,7 @@
                         <td th:text="${vacancy.getEstimatedSalary()}"></td>
                         <td th:text="${vacancy.getRequiredSkillLevel().getName()}"></td>
                         <td th:text="${vacancy.getRequiredWorkingExperience()}"></td>
-                        <td><a th:href="@{vacancies/{id}/edit (id=${vacancy.getId()})}">Edit</a></td>
+                        <td><a th:href="@{vacancies/{id}/edit (id=${vacancy.getId()})}">Изменить</a></td>
                     </tr>
                     </tbody>
                 </table>
@@ -50,7 +50,7 @@
     </div>
 </div>
 <footer>
-    <input class="back text-color-turquoise" type="button" value="Back" onclick="window.history.back()">
+    <input class="back text-color-turquoise" type="button" value="Назад" onclick="window.history.back()">
 </footer>
 </body>
 </html>

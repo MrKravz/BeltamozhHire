@@ -4,6 +4,9 @@ import lombok.*;
 import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.Size;
 import java.util.List;
 
 @Entity
@@ -16,12 +19,16 @@ public class Vacancy {
     private int id;
 
     @Column(name = "name")
+    @Size(min = 2, max = 50, message = "Имя не правильного размера")
     private String name;
 
     @Column(name = "about")
+    @Size(max = 100, message = "О вакансии не правильного размера")
     private String about;
 
     @Column(name = "estimated_salary")
+    @Min(value = 100, message = "Зп меньше минимума")
+    @Max(value = 1000000, message = "Зп больше максимума")
     private float estimatedSalary;
 
     @ManyToOne
@@ -33,6 +40,8 @@ public class Vacancy {
     private SkillLevel requiredSkillLevel;
 
     @Column(name = "required_working_experience")
+    @Min(value = 0, message = "Опыт меньше минимума")
+    @Max(value = 50, message = "Опыт больше максимума")
     private int requiredWorkingExperience;
 
     @ManyToMany(fetch = FetchType.LAZY)

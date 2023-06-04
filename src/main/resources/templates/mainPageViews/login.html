@@ -11,9 +11,9 @@
         <div class="navbar">
             <a th:href="@{/}"><img class="logo" src="../img/logo.png"></a>
             <ul>
-                <li><a class="nav-text text-color-turquoise" th:href="@{login}">Login</a></li>
-                <li><a class="nav-text text-color-turquoise" th:href="@{registration}">Register</a></li>
-                <li><a class="nav-text text-color-turquoise" href="about/about.pdf" download="about.pdf">About</a></li>
+                <li><a class="nav-text text-color-turquoise" th:href="@{login}">Логин</a></li>
+                <li><a class="nav-text text-color-turquoise" th:href="@{registration}">Регистрация</a></li>
+                <li><a class="nav-text text-color-turquoise" href="about/about.pdf" download="about.pdf">Справка</a></li>
             </ul>
         </div>
         <div class="content">
@@ -22,18 +22,20 @@
                     <div class="sub-container">
                         <form th:method="POST" th:action="@{/login/auth}" th:object="${user}" autocomplete="off">
                             <div class="header-form-text">
-                                <span class="text-color-turquoise">Have an account?</span>
-                                <header class="text-color-turquoise">Login</header>
+                                <span class="text-color-turquoise">Есть аккаунт?</span>
+                                <header class="text-color-turquoise">Войти в аккаунт</header>
                             </div>
                             <div class="input-field">
-                                <input class="input text-color-turquoise text-center" type="text" th:field="*{login}" id="login" placeholder="Enter login"/>
+                                <input class="input text-color-turquoise text-center"
+                                       type="text" th:field="*{login}" id="login" placeholder="Введите логин"/>
                             </div>
                             <br>
                             <div class="input-field">
-                                <input class="input text-color-turquoise text-center" type="password" th:field="*{password}" id="password" placeholder="Enter password"/>
+                                <input class="input text-color-turquoise text-center" type="password" th:field="*{password}"
+                                       id="password" placeholder="Введите пароль"/>
                             </div>
                             <div class="input-field">
-                                <input class="submit text-color-turquoise" type="submit" value="Login">
+                                <input class="submit text-color-turquoise" type="submit" value="Войти">
                             </div>
                         </form>
                     </div>

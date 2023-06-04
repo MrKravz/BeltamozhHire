@@ -8,8 +8,10 @@ import by.beltamozh.beltamozhHire.util.SortOptions;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.Collections;
 import java.util.Optional;
 
@@ -51,8 +53,13 @@ public class UserController {
     }
 
     @PatchMapping("/edit")
-    public String edit(@ModelAttribute("user") User user,
+    public String edit(@ModelAttribute("user") @Valid User user,
+                       BindingResult bindingResult,
                        @PathVariable int id) {
+        if (bindingResult.hasErrors())
+        {
+            return "redirect:/user/{id}/info";
+        }
         userService.update(user, id);
         return "redirect:/user/{id}";
     }

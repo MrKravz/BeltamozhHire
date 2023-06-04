@@ -6,8 +6,10 @@ import by.beltamozh.beltamozhHire.services.*;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 
@@ -146,7 +148,13 @@ public class AdminController {
     }
 
     @PatchMapping("/categories/{id}")
-    public String applyCategoryChanges(@PathVariable int id, @ModelAttribute Category category) {
+    public String applyCategoryChanges(@PathVariable int id,
+                                       @ModelAttribute @Valid Category category,
+                                       BindingResult bindingResult) {
+        if (bindingResult.hasErrors())
+        {
+            return "redirect:/admin/categories/{id}/edit";
+        }
         categoryService.update(category, id);
         return "redirect:/admin/categories";
     }
@@ -162,7 +170,13 @@ public class AdminController {
     }
 
     @PatchMapping("/hr_responses/{id}")
-    public String applyHrResponseChanges(@PathVariable int id, @ModelAttribute HrResponse hrResponse) {
+    public String applyHrResponseChanges(@PathVariable int id,
+                                         @ModelAttribute @Valid HrResponse hrResponse,
+                                         BindingResult bindingResult) {
+        if (bindingResult.hasErrors())
+        {
+            return "redirect:/admin/hr_responses/{id}/edit";
+        }
         hrResponseService.update(hrResponse, id);
         return "redirect:/admin/hr_responses";
     }
@@ -178,7 +192,13 @@ public class AdminController {
     }
 
     @PatchMapping("/skill_levels/{id}")
-    public String applySkillLevelChanges(@PathVariable int id, @ModelAttribute SkillLevel skillLevel) {
+    public String applySkillLevelChanges(@PathVariable int id,
+                                         @ModelAttribute @Valid SkillLevel skillLevel,
+                                         BindingResult bindingResult) {
+        if (bindingResult.hasErrors())
+        {
+            return "redirect:/admin/skill_levels/{id}/edit";
+        }
         skillLevelService.update(skillLevel, id);
         return "redirect:/admin/skill_levels";
     }
@@ -194,7 +214,13 @@ public class AdminController {
     }
 
     @PatchMapping("/technologies/{id}")
-    public String applyTechnologyChanges(@PathVariable int id, @ModelAttribute Technology technology) {
+    public String applyTechnologyChanges(@PathVariable int id,
+                                         @ModelAttribute @Valid Technology technology,
+                                         BindingResult bindingResult) {
+        if (bindingResult.hasErrors())
+        {
+            return "redirect:/admin/technologies/{id}/edit";
+        }
         technologyService.update(technology, id);
         return "redirect:/admin/technologies";
     }
@@ -214,7 +240,13 @@ public class AdminController {
     }
 
     @PatchMapping("/vacancies/{id}")
-    public String applyVacancyChanges(@PathVariable int id, @ModelAttribute Vacancy vacancy) {
+    public String applyVacancyChanges(@PathVariable int id,
+                                      @ModelAttribute @Valid Vacancy vacancy,
+                                      BindingResult bindingResult) {
+        if (bindingResult.hasErrors())
+        {
+            return "redirect:/admin/vacancies/{id}/edit";
+        }
         vacancyService.update(vacancy, id);
         return "redirect:/admin/vacancies";
     }

@@ -10,11 +10,11 @@
 <div class="navbar">
     <a th:href="@{/user/{user_id} (user_id=${user.getId()})}"><img class="logo" src="/../../img/logo.png"></a>
     <ul>
-        <li><a class="nav-text text-color-turquoise" th:href="@{/user/{id}/show_resumes(id=${user.getId()})}">Resumes</a></li>
-        <li><a class="nav-text text-color-turquoise" th:href="@{/user/{id}/vacancies(id=${user.getId()})}">Vacancies</a></li>
-        <li><a class="nav-text text-color-turquoise" th:href="@{/user/{id}/responds(id=${user.getId()})}">Responds</a></li>
-        <li><a class="nav-text text-color-turquoise" th:href="@{/user/{id}/info(id=${user.getId()})}">Profile</a></li>
-        <li><a class="nav-text text-color-turquoise" th:href="@{/logout}">Logout</a></li>
+        <li><a class="nav-text text-color-turquoise" th:href="@{/user/{id}/show_resumes(id=${user.getId()})}">Резюме</a></li>
+        <li><a class="nav-text text-color-turquoise" th:href="@{/user/{id}/vacancies(id=${user.getId()})}">Вакансии</a></li>
+        <li><a class="nav-text text-color-turquoise" th:href="@{/user/{id}/responds(id=${user.getId()})}">Ответы HR</a></li>
+        <li><a class="nav-text text-color-turquoise" th:href="@{/user/{id}/info(id=${user.getId()})}">Профиль</a></li>
+        <li><a class="nav-text text-color-turquoise" th:href="@{/logout}">Выйти</a></li>
     </ul>
 </div>
 <div class="content">
@@ -25,22 +25,22 @@
                     <div class="header-form-text">
                         <header class="text-color-turquoise" th:text="${vacancy.getName()}">Name</header>
                     </div>
-                    <p class="label-text">About: </p>
+                    <p class="label-text">О вакансии: </p>
                     <p th:text="${vacancy.getAbout()}"></p>
-                    <p class="label-text">Estimated salary($): </p>
+                    <p class="label-text">Предпологаемая зарплата($): </p>
                     <p th:text="${vacancy.getEstimatedSalary()}"></p>
-                    <p class="label-text">Required skill level: </p>
+                    <p class="label-text">Требуемый уровень знаний: </p>
                     <p th:text="${vacancy.getRequiredSkillLevel().getName()}"></p>
-                    <p class="label-text">Required working experience(years): </p>
+                    <p class="label-text">Требуемый опыт работы(в годах): </p>
                     <p th:text="${vacancy.getRequiredWorkingExperience()}"></p>
-                    <p class="label-text">Technologies: </p>
+                    <p class="label-text">Технологии: </p>
                     <div th:each="technology : ${vacancy.getTechnologies()}">
                         <p th:text="${technology.getName()}">user</p>
                     </div>
                     <form th:method="POST" th:action="@{{vacancy_id}/response (vacancy_id=${vacancy.getId()})}"
                           th:object="${resumeRespond}">
                         <div class="input-field">
-                            <p class="label-text">Available resumes: </p>
+                            <p class="label-text">Доступные резюме: </p>
                             <select th:field="*{resume}" class="text-color-turquoise text-center"
                                     id="resumeSelect" name="resumeId">
                                 <option class="text-color-turquoise text-center"
@@ -51,7 +51,7 @@
                             </select>
                         </div>
                         <div class="input-field">
-                            <input class="submit text-color-turquoise" type="submit" value="Respond">
+                            <input class="submit text-color-turquoise" type="submit" value="Откликнуться">
                         </div>
                     </form>
                 </div>
@@ -60,7 +60,7 @@
     </div>
 </div>
 <footer>
-    <input class="back text-color-turquoise" type="button" value="Back" onclick="window.history.back()">
+    <input class="back text-color-turquoise" type="button" value="Назад" onclick="window.history.back()">
 </footer>
 </body>
 </html>

@@ -7,10 +7,13 @@ import by.beltamozh.beltamozhHire.models.Vacancy;
 import by.beltamozh.beltamozhHire.services.*;
 import by.beltamozh.beltamozhHire.util.SortOptions;
 import lombok.AllArgsConstructor;
+import net.bytebuddy.implementation.bind.annotation.BindingPriority;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.Optional;
 
 @Controller
@@ -100,7 +103,12 @@ public class HrController {
     }
 
     @PostMapping("/vacancies/create")
-    private String create(@ModelAttribute("vacancy") Vacancy vacancy) {
+    private String create(@ModelAttribute("vacancy") @Valid Vacancy vacancy,
+                          BindingResult bindingResult) {
+        if (bindingResult.hasErrors())
+        {
+            return "redirect:/hr/vacancies/new";
+        }
         vacancyService.save(vacancy);
         return "redirect:/hr/vacancies";
     }
@@ -123,10 +131,16 @@ public class HrController {
     }
 
     @PatchMapping("vacancies/vacancy_details/{vacancy_id}/change")
-    public String change(@ModelAttribute("vacancy") VacancyDto vacancyDto, @PathVariable("vacancy_id") int vacancy_id)
+    public String change(@ModelAttribute("vacancy") @Valid Vacancy vacancy,
+                         BindingResult bindingResult,
+                         @PathVariable("vacancy_id") int vacancy_id)
     {
-        vacancyService.updateDto(vacancyDto, vacancy_id);
-        vacancyDto.getTechnologies().forEach(x->technologyService.update(x, x.getId()));
+        if (bindingResult.hasErrors())
+        {
+            return "redirect:/hr/vacancies/vacancy_details/{vacancy_id}/edit";
+        }
+        vacancyService.update(vacancy, vacancy_id);
+        vacancy.getTechnologies().forEach(x->technologyService.update(x, x.getId()));
         return "redirect:/hr/vacancies";
     }
     //endregion

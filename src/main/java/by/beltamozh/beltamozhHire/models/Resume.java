@@ -34,9 +34,11 @@ public class Resume {
     private List<Company> companies;
 
     @Column(name = "name")
+    @Size(min = 2, max = 50, message = "Имя не правильного размера")
     private String name;
 
     @Column(name = "desired_position")
+    @Size(min = 2, max = 50, message = "Наименование не правильного размера")
     private String desiredPosition;
 
     @ManyToMany(fetch = FetchType.LAZY)
@@ -56,9 +58,12 @@ public class Resume {
     private SkillLevel skillLevel;
 
     @Column(name = "desired_salary")
+    @Min(value = 100, message = "Зп меньше минимума")
+    @Max(value = 1000000, message = "Зп больше максимума")
     private float desiredSalary;
 
     @Column(name = "about")
+    @Size(max = 100, message = "О себе не правильного размера")
     private String about;
 
     @ManyToOne()

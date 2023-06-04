@@ -10,13 +10,13 @@
 <div class="navbar">
     <a th:href="@{/admin}"><img class="logo" src="/../../img/logo.png"></a>
     <ul>
-        <li><a class="nav-text text-color-turquoise" th:href="@{/admin/users}">Users</a></li>
-        <li><a class="nav-text text-color-turquoise" th:href="@{/admin/vacancies}">Vacancies</a></li>
-        <li><a class="nav-text text-color-turquoise" th:href="@{/admin/categories}">Categories</a></li>
-        <li><a class="nav-text text-color-turquoise" th:href="@{/admin/hr_responses}">HR Responses</a></li>
-        <li><a class="nav-text text-color-turquoise" th:href="@{/admin/skill_levels}">Skill levels</a></li>
-        <li><a class="nav-text text-color-turquoise" th:href="@{/admin/technologies}">Technologies</a></li>
-        <li><a class="nav-text text-color-turquoise" th:href="@{/logout}">Logout</a></li>
+        <li><a class="nav-text text-color-turquoise" th:href="@{/admin/users}">Пользователи</a></li>
+        <li><a class="nav-text text-color-turquoise" th:href="@{/admin/vacancies}">Вакансии</a></li>
+        <li><a class="nav-text text-color-turquoise" th:href="@{/admin/categories}">Категории</a></li>
+        <li><a class="nav-text text-color-turquoise" th:href="@{/admin/hr_responses}">Ответы HR</a></li>
+        <li><a class="nav-text text-color-turquoise" th:href="@{/admin/skill_levels}">Уровени знаний</a></li>
+        <li><a class="nav-text text-color-turquoise" th:href="@{/admin/technologies}">Технологии</a></li>
+        <li><a class="nav-text text-color-turquoise" th:href="@{/logout}">Выйти</a></li>
     </ul>
 </div>
 <div class="content">
@@ -31,15 +31,17 @@
                     </div>
                     <div class="input-field">
                         <input class="input text-color-turquoise text-center" type="text"
-                               th:field="*{name}" id="name" placeholder="Enter name"/>
+                               th:field="*{name}" id="name" placeholder="Введите наименование"/>
                     </div>
+                    <div style="color:red" th:if="${#fields.hasErrors('name')}"
+                         th:errors="*{name}">Name Error</div>
                     <div class="input-field">
-                        <input class="submit text-color-turquoise" type="submit" value="Edit">
+                        <input class="submit text-color-turquoise" type="submit" value="Изменить">
                     </div>
                 </form>
                 <form th:method="DELETE" th:action="@{delete}">
                     <div class="input-field">
-                        <input class="submit text-color-red" type="submit" value="Delete">
+                        <input class="submit text-color-red" type="submit" value="Удалить">
                     </div>
                 </form>
             </div>
@@ -48,7 +50,7 @@
     </div>
 </div>
 <footer>
-    <input class="back text-color-turquoise" type="button" value="Back" onclick="window.history.back()">
+    <input class="back text-color-turquoise" type="button" value="Назад" onclick="window.history.back()">
 </footer>
 </body>
 </html>
